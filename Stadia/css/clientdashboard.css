@@ -71,20 +71,34 @@
   font-weight: 400;
   white-space: nowrap;
 }
-
-.sidebar .nav-links a{
+.sidebar .nav-links .dropdown-container {
+  display: none;
+  /* padding-left: 50px; */
+  line-height: 2; 
+  overflow-y: auto;
+  max-height: 20%;
+  font-size: 12px;
+  text-decoration: none;
+  color: #fff;
+  width: 100%;
+}
+.sidebar .nav-links .dropdown-container a{
   height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
   text-decoration: none;
   transition: all 0.4s ease;
+  color: #fff;
+  font-size: 15px;
+  padding-left: 55px;
 }
-.sidebar .nav-links a.active{
+.sidebar .nav-links .dropdown-container a.active{
   background: #264838;
 }
-.sidebar .nav-links a:hover{
+.sidebar .nav-links  .dropdown-container a:hover{
   background: #264838;
+
 }
 .sidebar .nav-links i{
   min-width: 60px;
@@ -92,7 +106,7 @@
   font-size: 18px;
   color: #fff;
 }
-.sidebar .nav-links a .links_name{
+.sidebar .nav-links .links_name{
   color: #fff;
   font-size: 15px;
   font-weight: 400;
@@ -124,15 +138,6 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-}
-.sidebar .nav-links .dropdown-container {
-  display: none;
-  /* padding-left: 50px;*/
-  line-height: 2; 
-  overflow-y: auto;
-  max-height: 20%;
-  font-size: 12px;
-  text-decoration: none;
 }
 
 
@@ -219,8 +224,8 @@ nav .noti-cart .fa-shopping-cart{
 .home-section nav .profile-details{
   display: flex;
   align-items: center;
-  background: #c4d4cc;
-  border: 2px solid #6D9976;
+  /* background: #c4d4cc;
+  border: 2px solid #6D9976; */
   border-radius: 6px;
   height: 50px;
   min-width:max-content;

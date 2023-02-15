@@ -76,13 +76,21 @@
             <span class="links_name">Coaches</span>
           </a>
         </li>
-        <li>
-          <a href="#">
+        <!-- <li> -->
+          <!-- <a href="#"> -->
             <!-- <i class='bx bx-message' ></i> -->
+            <button class="dropdown-btn">
             <i class="fa fa-coffee"></i>
-            <span class="links_name">Facilities</span>
-          </a>
-        </li>
+            <span class="links_name">Facilities <i class="fa fa-caret-down"></i></span>
+            </button>
+            <div class="dropdown-container">
+          
+              <a href="clientrefreshments.php">Refreshments</a>
+              <a href="clientequipment.php">Equipment</a>
+          
+            </div>
+          <!-- </a> -->
+        <!-- </li> -->
         <li>
           <a href="clientcomplaints.php">
             <!-- <i class='bx bx-heart' ></i> -->
@@ -348,6 +356,24 @@ sidebarBtn.onclick = function() {
   sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
 }
  </script>
+
+<script>
+        /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
+        
+        for (i = 0; i < dropdown.length; i++) {
+          dropdown[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var dropdownContent = this.nextElementSibling;
+            if (dropdownContent.style.display === "block") {
+              dropdownContent.style.display = "none";
+            } else {
+              dropdownContent.style.display = "block";
+            }
+          });
+        }
+        </script>
 
 </body>
 </html>
