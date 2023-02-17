@@ -15,14 +15,20 @@
 
 .home-content .main-content{
     display: flex;
-    /* justify-content: space-between; */
+    align-items: center;
+    justify-content: center;
     width: 97%;
-    
+    height:100%;
     background: #fff;
     padding: 20px;
     margin: 0 20px 0 20px;
     border-radius: 12px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+.homecontent .main-content .form{
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between;
 }
 
 footer{
@@ -45,4 +51,115 @@ footer{
   }
   footer .foot span a:hover{
     text-decoration: underline;
+}
+ .button{
+  width: 100%;
+  display: inline-flex;
+  justify-content: flex-end;
+
+}
+ .button a{
+  color: #fff;
+  background: #0A2558;
+  padding: 4px 12px;
+  font-size: 15px;
+  font-weight: 400;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.main-content .form .button a:hover{
+  background:  #0d3073;
+}
+
+.table{
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  margin-left: 12%;
+  margin-right: 12%;
+}
+
+.table th{
+  color: rgb(0, 0, 0);
+  font-size: 1.3rem;
+  padding: 8px;
+  font-weight: bold;
+}
+
+.table td{
+  color: rgb(0, 0, 0);
+  font-size: 1.2rem;
+  padding: 8px;
+  text-align: center;
+}
+
+.table tr:nth-child(odd) {
+  background-color: #d9d9d9;
+  border: 2px solid #d9d9d9;
+}
+
+.table tr:nth-child(even) {
+  background-color: #8e8e8e;
+  border: 2px solid #8e8e8e;
+}
+
+.table a{
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.table a:hover{
+  color: rgb(0, 0, 0);
+  font-size: 1.1rem;
+  padding: 0px;
+}
+.btn{
+  color: #fff;
+  background: #0A2558;
+  padding: 4px 12px;
+  font-size: 15px;
+  font-weight: 400;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  
+  
+}
+.button .btn{
+  margin-top:15px;
+  margin-right:10px;
+  
+
+}
+
+.form{
+  margin: 0% auto;
+  width: 100%;
+  max-width: 700px;
+  padding: 15px;
+  padding-top: 10px;
+  
+}
+
+
+.form input{
+  width: 40%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+
+.form label{
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+h1{
+  margin-bottom:30px;
 }

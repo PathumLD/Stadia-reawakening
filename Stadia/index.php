@@ -26,7 +26,7 @@
           <li><a href="#gallery">Gallery</a></li>
           <li><a href="#contact">Contact</a></li>
           <li><a href="login.php">Login</a></li>
-          <li><a href="adminlogin.php">Admin</a></li>
+          <li><a href="admin/adminlogin.php">Admin</a></li>
           <div class="cancel-btn">
             <i class="fas fa-times"></i>
           </div>
