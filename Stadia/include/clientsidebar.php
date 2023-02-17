@@ -7,7 +7,7 @@
         <a href="clientprofile.php"><i class="fa fa-user" ></i><span class="links_name">Profile</span></a>
         <a href="clientbookings.php"><i class="fa fa-list-ul" ></i><span class="links_name">Bookings</span></a>
         <a href="clientmyclasses.php"><i class="fa fa-calendar" ></i><span class="links_name">Classes</span></a>
-        <a href="clientviewcomplaints.php"><i class="fa fa-comments" ></i><span class="links_name">Complaints</span></a>
+        <a href="clientcomplaints.php"><i class="fa fa-comments" ></i><span class="links_name">Complaints</span></a>
         <a href="clientmyfacilities.php"><i class="fa fa-stack-exchange" ></i><span class="links_name">Ordered Facilities</span></a>
 
         <button class="dropdown-btn"><i class="fa fa-clock-o" ></i><span class="links_name">Time Slots</span>
@@ -51,3 +51,5 @@
         </div>
         
     </div>
+
+

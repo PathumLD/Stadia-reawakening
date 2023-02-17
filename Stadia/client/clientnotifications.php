@@ -38,33 +38,36 @@
 
         <div class="main-content">
 
-            <h1>My Notifications</h1>
+            <div class="content">
 
-            <!-- <div class="content"> -->
+                <?php $var = $_SESSION['email']; ?>
 
-                <table class="noti">
-                    <tr>
-                        <td class="notification">A message from the system</td>
-                        <td><i class="fa fa-trash"></i></td>
-                    </tr>
-                    <tr>
-                        <td class="notification">A message from the system</td>
-                        <td><i class="fa fa-trash"></i></td>
-                    </tr>
-                    <tr>
-                        <td class="notification">A message from the system</td>
-                        <td><i class="fa fa-trash"></i></td>
-                    </tr>
-                    <tr>
-                        <td class="notification">A message from the system</td>
-                        <td><i class="fa fa-trash"></i></td>
-                    </tr>
-                </table>
-                
-                
-                <button type="button" class="btn">Clear all notification</button>
+                <h1>My Notifications</h1>
 
-             <!--</div> -->
+                    <table class="noti">
+                        <tr>
+                            <td class="notification">A message from the system</td>
+                            <td><i class="fa fa-trash"></i></td>
+                        </tr>
+                        <tr>
+                            <td class="notification">A message from the system</td>
+                            <td><i class="fa fa-trash"></i></td>
+                        </tr>
+                        <tr>
+                            <td class="notification">A message from the system</td>
+                            <td><i class="fa fa-trash"></i></td>
+                        </tr>
+                        <tr>
+                            <td class="notification">A message from the system</td>
+                            <td><i class="fa fa-trash"></i></td>
+                        </tr>
+                    </table>
+                    
+                    <div class="button">
+                        <a href="#"> Clear All Notifications </a>
+                    </div>
+
+            </div>
 
         </div>
 

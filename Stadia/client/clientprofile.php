@@ -40,11 +40,11 @@
 
           <div class="content">
 
+            <?php $var = $_SESSION['email']; ?>
+
             <h1>My Profile</h1>
 
               <table id="tableprofile">   
-
-              <?php $var = $_SESSION['email']; ?>
 
               <?php
 

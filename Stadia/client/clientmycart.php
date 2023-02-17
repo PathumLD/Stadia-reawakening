@@ -42,9 +42,51 @@
 
             <?php $var = $_SESSION['email']; ?>
 
-            <h1>Dashboard</h1>
+            <h1>My Cart</h1>
 
-            
+            <table class="table">
+
+                <tr>
+
+                    <th></th>
+                    <th>Court / Item</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Amount</th>
+
+                </tr>
+
+                <?php
+                        $query = "SELECT * FROM cart WHERE email = '".$var."'";
+                        $res = mysqli_query($linkDB, $query); 
+                                if($res == TRUE) 
+                                {
+                                    $count = mysqli_num_rows($res); //calculate number of rows
+                                    if($count>0)
+                                    {
+                                        while($rows=mysqli_fetch_assoc($res))
+                                        {
+                                            $id=$rows['id'];
+                                            echo "<tr>
+                                                    <td><input type='checkbox' id='checkout' name='checkout' ></td>
+                                                    <td>" . $rows["item"]. "</td>
+                                                    <td>" . $rows["date"]. "</td>
+                                                    <td>" . $rows["time"]. "</td>
+                                                    <td>" . $rows["amount"].  "</td>
+                                                    
+                                                </tr>";
+                                        }
+                                    } else {
+                                        echo "0 results";
+                                    }
+                                }    
+                ?>
+
+            </table>
+
+            <div class="button">
+                <a href="#"> Pay Now </a>
+            </div>
 
           </div>
 
