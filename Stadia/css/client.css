@@ -1,0 +1,53 @@
+.home-content .main-content .content #tableprofile{
+    width: 75%;
+}
+
+.home-content .main-content .content #tableprofile .mylabel{
+    width: 50%;
+    padding: 5px;
+    padding-left: 35px;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.home-content .main-content .mydata{
+    background-color: #c4d4cc;
+    padding: 5px;
+    font-size: 15px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 50px;
+}
+
+.home-content .main-content .content .button{
+    width: 75%;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 50px;
+}
+
+.home-content .main-content .content .button a{
+    color: #fff;
+    background: #3B6E51;
+    padding: 4px 12px;
+    font-size: 15px;
+    font-weight: 400;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.home-content .main-content .content .button a:hover{
+    background:  #264838;
+}
+
+.home-content .main-content .noti{
+    margin-left: 25%;
+    width: 50%;
+    margin-bottom: 2%;
+    opacity: 60%;
+    border-collapse: separate;
+    border-spacing: 10px;
+} 
+
