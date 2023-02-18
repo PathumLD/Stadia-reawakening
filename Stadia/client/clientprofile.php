@@ -95,6 +95,7 @@
                   <div class="button">
                     <a href="clientchangepassword.php"> Change Password </a>
                     <a href="clientupdateprofile.php">Update Profile</a>
+                    <a href="clientprofilephoto.php">Update Profile</a>
                   </div>
 
           </div>

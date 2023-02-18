@@ -47,7 +47,7 @@
         </div>
 
         <div class="log-out">
-            <a href="logout.php"><i class="fa fa-sign-out" ></i><span class="links_name">Log out</span></a>
+            <a href="../logout.php"><i class="fa fa-sign-out" ></i><span class="links_name">Log out</span></a>
         </div>
         
     </div>
