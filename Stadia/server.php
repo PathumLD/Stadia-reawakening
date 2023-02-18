@@ -62,7 +62,7 @@ if (array_key_exists("signUp", $_POST)) {
                 }
 
                 else{
-                    header("Location: coachprofile.php");
+                    header("Location: coach/coachprofile.php");
                 }
                 
                 }
@@ -104,7 +104,7 @@ if (array_key_exists("logIn", $_POST)) {
                         header("Location: client/clientdashboard.php");
                     }
                     else{
-                        header("Location: coachdashboard.php");
+                        header("Location: coach/coachdashboard.php");
                     }
 
                 } else {

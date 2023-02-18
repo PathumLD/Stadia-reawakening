@@ -38,36 +38,33 @@
 
         <div class="main-content">
 
-            <div class="content">
+          <div class="content">
 
-                <?php $var = $_SESSION['email']; ?>
+            <?php $var = $_SESSION['email']; ?>
 
-                <h1>My Notifications</h1>
+            <h1>Update Refreshment</h1>
 
-                    <table class="table" id="noti">
-                        <tr>
-                            <td class="notification">A message from the system</td>
-                            <td><i class="fa fa-trash"></i></td>
-                        </tr>
-                        <tr>
-                            <td class="notification">A message from the system</td>
-                            <td><i class="fa fa-trash"></i></td>
-                        </tr>
-                        <tr>
-                            <td class="notification">A message from the system</td>
-                            <td><i class="fa fa-trash"></i></td>
-                        </tr>
-                        <tr>
-                            <td class="notification">A message from the system</td>
-                            <td><i class="fa fa-trash"></i></td>
-                        </tr>
-                    </table>
-                    
-                    <div class="button">
-                        <a href="#"> Clear All Notifications </a>
-                    </div>
+            <?php $id = $_GET['id']; ?>
+                <?php 
+                    $query = "SELECT * FROM client_refreshments WHERE id = '".$id."'";
+                    $res = mysqli_query($linkDB, $query); 
+                            if($res == TRUE) 
+                            {
+                                $count = mysqli_num_rows($res); //calculate number of rows
+                                if($count>0)
+                                {
+                                    while($rows=mysqli_fetch_assoc($res))
+                                    {
+                                        echo " Change ordered quantity : <br> 
+                                        <input type='number' name='orderedquantity' > <br>" ;
+                                    }
+                                }
+                            }
+                ?>
 
-            </div>
+            <button onclick="location.href='clientmyfacilities.php'" type="button" class="btn">Confirm</button>            
+
+          </div>
 
         </div>
 
@@ -75,7 +72,7 @@
 
     <footer>
         <div class="foot">
-            <?php include("../include/footer.php"); ?>
+          <?php include("../include/footer.php"); ?>
         </div>
     </footer> 
 

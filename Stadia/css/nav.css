@@ -18,7 +18,7 @@
     display:flex;
     align-items: center;
     font-size: 24px;
-    font-weight: 500;
+    font-weight: bold;
 }
 
 nav .sidebar-button i{

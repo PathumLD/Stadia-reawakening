@@ -38,36 +38,43 @@
 
         <div class="main-content">
 
-            <div class="content">
+          <div class="content">
 
-                <?php $var = $_SESSION['email']; ?>
+            <?php $var = $_SESSION['email']; ?>
 
-                <h1>My Notifications</h1>
+            <h1>My Bookings</h1>
 
-                    <table class="table" id="noti">
-                        <tr>
-                            <td class="notification">A message from the system</td>
-                            <td><i class="fa fa-trash"></i></td>
-                        </tr>
-                        <tr>
-                            <td class="notification">A message from the system</td>
-                            <td><i class="fa fa-trash"></i></td>
-                        </tr>
-                        <tr>
-                            <td class="notification">A message from the system</td>
-                            <td><i class="fa fa-trash"></i></td>
-                        </tr>
-                        <tr>
-                            <td class="notification">A message from the system</td>
-                            <td><i class="fa fa-trash"></i></td>
-                        </tr>
-                    </table>
-                    
-                    <div class="button">
-                        <a href="#"> Clear All Notifications </a>
-                    </div>
+            <table class="table">
 
-            </div>
+                <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Court</th>    
+                        <th>Action</th>
+                </tr>
+
+                <?php
+                    $query = "SELECT * FROM bookings WHERE email = '".$var."'";
+                    $res = mysqli_query($linkDB, $query); 
+                            if($res == TRUE) 
+                            {
+                                $count = mysqli_num_rows($res); //calculate number of rows
+                                if($count>0)
+                                {
+                                    while($rows=mysqli_fetch_assoc($res))
+                                    {
+                                        $id=$rows['id'];
+                                        echo "<tr><td>" . $rows["date"]. "</td><td>" . $rows["time"]. "</td><td>" . $rows["court"]. "</td><td><a href='clientcancelbooking.php?id=$id; ?>'><i class='fa fa-trash'></i></a></td></tr>";
+                                    }
+                                } else {
+                                    echo "0 results";
+                                }
+                            }    
+                    ?>
+
+            </table>
+            
+          </div>
 
         </div>
 
@@ -75,7 +82,7 @@
 
     <footer>
         <div class="foot">
-            <?php include("../include/footer.php"); ?>
+          <?php include("../include/footer.php"); ?>
         </div>
     </footer> 
 
