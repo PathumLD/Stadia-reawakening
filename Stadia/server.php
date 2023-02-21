@@ -82,6 +82,12 @@ if (array_key_exists("logIn", $_POST)) {
     //Taking form Data From User
     $email = mysqli_real_escape_string($linkDB, $_POST['email']);
     $password = mysqli_real_escape_string($linkDB,  $_POST['password']); 
+
+    $query = "SELECT email FROM users WHERE email = '$email'";
+        $result = mysqli_query($linkDB, $query);
+        if (mysqli_num_rows($result) == 0) {
+            $error2 = "<h3> You haven't signed up using this email! </h3>";
+        } else {
     
     //matching email and password
     
@@ -116,3 +122,4 @@ if (array_key_exists("logIn", $_POST)) {
                  }
                  
         }
+    }

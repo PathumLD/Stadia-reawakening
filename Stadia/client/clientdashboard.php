@@ -1,4 +1,4 @@
-<!-- <?php include("../linkDB.php"); //database connection function ?> -->
+<?php include("../linkDB.php"); //database connection function ?> 
 
 
 <!DOCTYPE html>
@@ -44,7 +44,7 @@
 
             <h1>Dashboard</h1>
 
-            
+            <a href="test.php" >test</a>
 
           </div>
 

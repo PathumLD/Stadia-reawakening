@@ -13,7 +13,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    </head>
 <body>
+  
+
   <div class="container">
+  <?php echo "$error2"; ?>
+  <?php echo "$error1"; ?>
     <input type="checkbox" id="flip">
     <div class="cover">
       <div class="front">
@@ -35,7 +39,7 @@
         <div class="form-content">
           <div class="login-form">
             <div class="title">Login</div>
-            <?php echo "$error2"; ?>
+            
           <form method="POST">
             <div class="input-boxes">
               <div class="input-box">
@@ -58,7 +62,7 @@
 
         <div class="signup-form">
           <div class="title">Signup</div>
-          <?php echo "$error1"; ?>
+          
         <form method="POST">
             <div class="input-boxes">
               <div class="input-box">

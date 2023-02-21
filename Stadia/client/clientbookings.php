@@ -1,4 +1,4 @@
-<!-- <?php include("../linkDB.php"); //database connection function ?> -->
+<?php include("../linkDB.php"); //database connection function ?> 
 
 
 <!DOCTYPE html>
@@ -44,6 +44,22 @@
 
             <h1>My Bookings</h1>
 
+            <section>
+              <button class='popup'><i style='color:black;' class='fa fa-trash'></i></button>
+              <span class="overlay"></span>
+
+              <div class="modal-box">
+                <i class="fa fa-minus-circle"></i>
+                <h2>Confirm Cancellation?</h2>
+                <h4>NOTE: We will be charging Rs.100 per every cancellation</h4>
+
+                <div class="buttons">
+                    <button onclick="window.location.href='clientcancelbooking.php';">Yes, Confirm</button>
+                    <button class="close-btn">Don't Cancel</button>
+                </div>
+              </div>
+            </section>
+
             <table class="table">
 
                 <tr>
@@ -64,7 +80,13 @@
                                     while($rows=mysqli_fetch_assoc($res))
                                     {
                                         $id=$rows['id'];
-                                        echo "<tr><td>" . $rows["date"]. "</td><td>" . $rows["time"]. "</td><td>" . $rows["court"]. "</td><td><a href='clientcancelbooking.php?id=$id; ?>'><i class='fa fa-trash'></i></a></td></tr>";
+                                        echo "<tr>
+                                              <td>" . $rows["date"]. "</td>
+                                              <td>" . $rows["time"]. "</td>
+                                              <td>" . $rows["court"]. "</td>
+                                              <td><a href='clientcancelbooking.php?id=$id; ?>'><i class='fa fa-trash'></i></a></td> 
+                                              <td> <button class='ppp'><i style='color:black;' class='fa fa-trash'></i></button> </td> 
+                                              </tr>";
                                     }
                                 } else {
                                     echo "0 results";
@@ -108,3 +130,20 @@
           });
         }
 </script>
+
+<script>
+      const section = document.querySelector("section"),
+        overlay = document.querySelector(".overlay"),
+        showBtn = document.querySelector(".popup"),
+        closeBtn = document.querySelector(".close-btn");
+
+      showBtn.addEventListener("click", () => section.classList.add("active"));
+
+      overlay.addEventListener("click", () =>
+        section.classList.remove("active")
+      );
+
+      closeBtn.addEventListener("click", () =>
+        section.classList.remove("active")
+      );
+    </script>

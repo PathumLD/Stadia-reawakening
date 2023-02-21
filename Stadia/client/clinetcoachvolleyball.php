@@ -1,4 +1,4 @@
-<!-- <?php include("../linkDB.php"); //database connection function ?> -->
+<?php include("../linkDB.php"); //database connection function ?>
 
 
 <!DOCTYPE html>

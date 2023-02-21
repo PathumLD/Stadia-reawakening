@@ -1,4 +1,4 @@
-<?php include("../linkDB.php"); //database connection function ?>
+<?php include("../linkDB.php"); //database connection function ?> 
 
 
 <!DOCTYPE html>
@@ -42,27 +42,19 @@
 
             <?php $var = $_SESSION['email']; ?>
 
-            <h1>Update Refreshment</h1>
+            <h1>Update Emergency Contact Phone Number</h1>
 
-            <?php $id = $_GET['id']; ?>
-                <?php 
-                    $query = "SELECT * FROM client_refreshments WHERE id = '".$id."'";
-                    $res = mysqli_query($linkDB, $query); 
-                            if($res == TRUE) 
-                            {
-                                $count = mysqli_num_rows($res); //calculate number of rows
-                                if($count>0)
-                                {
-                                    while($rows=mysqli_fetch_assoc($res))
-                                    {
-                                        echo " Change ordered quantity : <br> 
-                                        <input type='number' name='orderedquantity' > <br>" ;
-                                    }
-                                }
-                            }
-                ?>
-
-            <button onclick="location.href='clientmyfacilities.php'" type="button" class="btn">Confirm</button>            
+            <form action="" method="POST">
+                
+                <label for="Mobile Number"><b>Emergency Contact Number</b></label><br>
+                <input type="text" placeholder="Enter Emergency Contact Number" name="emphone" required><br>
+                
+            
+                <hr>
+            
+                <input type="submit" name="submit" ></input>
+            
+            </form>
 
           </div>
 
@@ -98,3 +90,26 @@
           });
         }
 </script>
+
+<?php
+if(isset($_POST['submit'])) {
+$emphone=$_POST['emphone'];
+$var = $_SESSION['email'];
+
+$query = "UPDATE users SET emphone=$emphone WHERE email = '".$var."' ";
+
+$res = mysqli_query($linkDB, $query) or die(mysqli_error($linkDB)); 
+    if($res==TRUE)
+    {
+      header('location: http://localhost/stadia/client/clientprofile.php');
+      // $_SESSION[ 'add'] = "<p>Successfully Updated </p>";
+      // header('location: clientprofile.php');
+
+    }
+    else 
+    {
+      $_SESSION['add'] = "<p>Failed to Update </p> ";
+      header('location: http://localhost/learn3/profiles.php'); 
+    }
+}
+?>

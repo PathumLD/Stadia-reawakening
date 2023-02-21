@@ -1,4 +1,4 @@
-<!-- <?php include("../linkDB.php"); //database connection function ?> -->
+<?php include("../linkDB.php"); //database connection function ?>
 
 
 <!DOCTYPE html>
@@ -64,22 +64,17 @@
                                 {
                                     while($rows=mysqli_fetch_assoc($res))
                                     {
-                                        $itemname=$rows['itemname'];
-                                        $price=$rows['price'];
-                                
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $itemname; ?> </td>
-                                        <td><?php echo $price; ?></td>
-                                        <td><?php echo "<input type='number' name='quantity' " ?></td>
-                                                
-                                    </tr>
-                                <?php
+                                        echo "<tr>
+                                                <td>" . $rows["itemname"]. "</td>
+                                                <td>" . $rows["price"]. "</td>
+                                                <td><input type='number' name='quantity'></td>
+                                            </tr>";
+                                        }
+                                    } else {
+                                        echo "0 results";
                                     }
                                 }    
-
-                            }  
-                    ?>
+                        ?>
 
             </table>
 

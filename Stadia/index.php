@@ -75,54 +75,29 @@
   </div>
 </section>
 
-<!-- My Skill Section Start -->
-<!-- Section Tag and Other Div will same where we need to put same CSS -->
+
 <section class="gallery" id="gallery">
+
  <div class="content">
+
    <div class="title"><span>Gallery</span></div>
 
   <div class="boxes">
     <table>
       <tr>
-        <td><img src="images/about.jpeg" alt="about image"></td>
-        <td><img src="images/about.jpeg" alt="about image"></td>
-        <td><img src="images/about.jpeg" alt="about image"></td>
-        <td><img src="images/about.jpeg" alt="about image"></td>
-        <td><img src="images/about.jpeg" alt="about image"></td>
+        <td><img src="images/1.jpg" alt="about image"></td>
+        <td><img src="images/2.jpeg" alt="about image"></td>
+        <td><img src="images/3.jpg" alt="about image"></td>
+        <td><img src="images/4.jpg" alt="about image"></td>
+        <td><img src="images/5.jpg" alt="about image"></td>
       </tr>
     </table>
 
   </div>
 
-   <!-- <div class="skills-details">
-     <div class="text">
-       <div class="topic">Skills Reflects Our Knowledge</div>
-       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus natus tenetur tempora? Quasi, rem quas omnis. Porro rem aspernatur reiciendis ut praesentium minima ad, quos, officia! Illo libero, et, distinctio repellat sed nesciunt est modi quaerat placeat. Quod molestiae, alias?</p>
-       <div class="experience">
-         <div class="num">10</div>
-         <div class="exp">Years Of <br> Experience</div>
-       </div>
-     </div>
-     <div class="boxes">
-       <div class="box">
-         <div class="topic">HTML</div>
-         <div class="per">90%</div>
-       </div>
-       <div class="box">
-         <div class="topic">CSS</div>
-         <div class="per">80%</div>
-       </div>
-       <div class="box">
-         <div class="topic">JavScript</div>
-         <div class="per">70%</div>
-       </div>
-       <div class="box">
-         <div class="topic">PHP</div>
-         <div class="per">60%</div>
-       </div>
-     </div>
-   </div> -->
+   
  </div>
+
 </section>
 
 <!-- My Services Section Start -->
@@ -188,9 +163,6 @@
         <li> <i class="fas fa-mobile"></i> 071 123 4567</li>
         <li> <i class="fas fa-building"></i> 6.00AM - 11.00PM  Monday - Sunday</li>
       </ul>
-      <!-- <div class="button">
-        <button>Let's Chat</button>
-      </div> -->
     </div>
   </div>
 </section>

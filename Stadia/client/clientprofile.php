@@ -1,4 +1,4 @@
-<!-- <?php include("../linkDB.php"); //database connection function ?> -->
+<?php include("../linkDB.php"); //database connection function ?> 
 
 
 <!DOCTYPE html>
@@ -68,6 +68,7 @@
 
                               <td class='mylabel'>Phone:</td>
                               <td class='mydata'>".$row['phone']."</td>
+                              <td><a href='clientupdatephone.php'><i class='fa fa-pencil-square-o' ></i></a></td>
                               </tr>
 
                               <td class='mylabel'>Date of Birth:</td>
@@ -80,10 +81,12 @@
 
                               <td class='mylabel'>Emergency Contact Number:</td>
                               <td class='mydata'>".$row['emphone']."</td>
+                              <td><a href='clientupdateemphone.php'><i class='fa fa-pencil-square-o' ></i></td>
                               </tr>
 
                               <td class='mylabel'>Emergency Contact Name:</td>
                               <td class='mydata'>".$row['emname']."</td>
+                              <td><a href='clientupdateemname.php'><i class='fa fa-pencil-square-o' ></i></td>
                               </tr>";
                           
                       }
@@ -94,8 +97,7 @@
 
                   <div class="button">
                     <a href="clientchangepassword.php"> Change Password </a>
-                    <a href="clientupdateprofile.php">Update Profile</a>
-                    <a href="clientprofilephoto.php">Update Profile</a>
+                    <a href="clientprofilephoto.php">Update Profile Photo</a>
                   </div>
 
           </div>
