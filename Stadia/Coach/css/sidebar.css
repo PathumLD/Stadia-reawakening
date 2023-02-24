@@ -11,7 +11,7 @@
     position: fixed;
     height: 100%;
     width: 240px;
-    background: #1e3829;
+    background: #3B6E51;
     transition: all 0.5s ease;
 }
 
@@ -41,6 +41,7 @@
     height: 50px;
     width: 100%;
     display: flex;
+    margin-top: 15px;
     align-items: center;
     text-decoration: none;
     transition: all 0.4s ease;
@@ -74,8 +75,9 @@
     align-items: center;
     text-decoration: none;
     transition: all 0.4s ease;
-    background: #1e3829;
+    background: #3B6E51;
     border: none;
+    margin-top: 15px;
     height: 50px;
 }
 
@@ -127,6 +129,6 @@
 
 .sidebar .nav-links .log-out{
     position: absolute;
-    bottom: 0;
+    bottom: 0.8rem;
     width: 100%;
 }

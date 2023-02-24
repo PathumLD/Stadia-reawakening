@@ -15,3 +15,6 @@ hou == 12 = 12
 ***Navbar***
 
 .home-section nav .sidebar-button font weight 500 -> bold
+
+***.home-content .main-content***
+height = 48.9rem
