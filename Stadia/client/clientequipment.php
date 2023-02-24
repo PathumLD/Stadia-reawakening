@@ -38,11 +38,11 @@
 
         <div class="main-content">
 
-          <div class="content">
-
             <?php $var = $_SESSION['email']; ?>
 
             <h1>Order Equipment</h1>
+
+            <div class="content">
 
             <form method="post">
                 <input type="text" name="search" placeholder="Item Name..." class="search">

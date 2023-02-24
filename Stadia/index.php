@@ -1,179 +1,84 @@
+<?php
+require 'linkDB.php';
+$_SESSION["id"] = 1; // User's session
+$sessionId = $_SESSION["id"];
+$user = mysqli_fetch_assoc(mysqli_query($linkDB, "SELECT * FROM profile_photo WHERE id = $sessionId"));
+?>
 <!DOCTYPE html>
-
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="UTF-8">
-    <title> Stadia </title>
-    <link rel="stylesheet" href="css/index.css">
-    <!-- Fontawesome CDN Link -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   </head>
-<body>
-
-  <!-- Move to up button -->
-  <div class="scroll-button">
-    <a href="#home"><i class="fas fa-arrow-up"></i></a>
-  </div>
-
-  <!-- navgaition menu -->
-  <nav>
-    <div class="navbar">
-      <div class="logo"><a href="#"><img src="images/logo2.png" alt="logo"></a></div>
-      <ul class="menu">
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="login.php">Login</a></li>
-          <li><a href="adminlogin.php">Admin</a></li>
-          <div class="cancel-btn">
-            <i class="fas fa-times"></i>
-          </div>
-      </ul>
-      <div class="media-icons">
-        <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://twitter.com/"><i class="fab fa-twitter"></i></a>
-        <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+    <meta charset="utf-8">
+    <title>Update Image Profile</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <form class="form" id = "form" action="" enctype="multipart/form-data" method="post">
+      <div class="upload">
+        <?php
+        $id = $user["id"];
+        $name = $user["name"];
+        $image = $user["image"];
+        ?>
+        <img src="img/<?php echo $image; ?>" width = 125 height = 125 title="<?php echo $image; ?>">
+        <div class="round">
+          <input type="hidden" name="id" value="<?php echo $id; ?>">
+          <input type="hidden" name="name" value="<?php echo $name; ?>">
+          <input type="file" name="image" id = "image" accept=".jpg, .jpeg, .png">
+          <i class = "fa fa-camera" style = "color: #fff;"></i>
+        </div>
       </div>
-    </div>
-    <div class="menu-btn">
-      <i class="fas fa-bars"></i>
-    </div>
-  </nav>
+    </form>
+    <script type="text/javascript">
+      document.getElementById("image").onchange = function(){
+          document.getElementById("form").submit();
+      };
+    </script>
+    <?php
+    if(isset($_FILES["image"]["name"])){
+      $id = $_POST["id"];
+      $name = $_POST["name"];
 
-<!-- Home Section Start -->
- <section class="home" id="home">
-   <div class="home-content">
-     <div class="text">
-       <div class="text-two">STADIA</div>
-       <div class="text-three">PLAY LIKE A CHAMPION</div>
-     </div>
-     <div class="button">
-       <button onclick="location.href='login.php'"> Login Here!</button>
-     </div>
-   </div>
- </section>
+      $imageName = $_FILES["image"]["name"];
+      $imageSize = $_FILES["image"]["size"];
+      $tmpName = $_FILES["image"]["tmp_name"];
 
-<!-- About Section Start -->
-<section class="about" id="about">
-  <div class="content">
-    <div class="title"><span>About US</span></div>
-  <div class="about-details">
-    <div class="left">
-      <img src="images/about.jpeg" alt="about image">
-    </div>
-    <div class="right">
-      <!-- <div class="topic">Designing Is My Passion</div> -->
-      <p>Stadia is an online stadium booking system that comprises two badminton courts, a volleyball court, a basketball court, a tennis court, and a swimming pool. The clients can easily reserve a time slot with or without coaches and pay on-site using the system's built-in payment gateway by following a few easy steps to check whether the courts, swimming pool, and other facilities they need—such as renting sports equipment and refreshments are available according to their preferences.
-        Coaches can arrange classes to suit their schedules and easily manage student information. Additionally, they can rent out equipment based on their needs through our stadia system.</p>
-      <div class="button">
-        <button onclick="location.href='login.php'">Register With Us!</button>
-      </div>
-    </div>
-  </div>
-  </div>
-</section>
-
-
-<section class="gallery" id="gallery">
-
- <div class="content">
-
-   <div class="title"><span>Gallery</span></div>
-
-  <div class="boxes">
-    <table>
-      <tr>
-        <td><img src="images/1.jpg" alt="about image"></td>
-        <td><img src="images/2.jpeg" alt="about image"></td>
-        <td><img src="images/3.jpg" alt="about image"></td>
-        <td><img src="images/4.jpg" alt="about image"></td>
-        <td><img src="images/5.jpg" alt="about image"></td>
-      </tr>
-    </table>
-
-  </div>
-
-   
- </div>
-
-</section>
-
-<!-- My Services Section Start -->
- <section class="services" id="services">
-   <div class="content">
-     <div class="title"><span>Our Services</span></div>
-     <div class="boxes">
-       <div class="box">
-         <div class="icon">
-           <i class="fas fa-swimming-pool"></i>
-       </div>
-       <div class="topic">Court / Pool Booking</div>
-       <p>We provide an efficient system for booking courts and swimming pools in accordance with your needs.</p>
-     </div>
-       <div class="box">
-         <div class="icon">
-           <i class="fas fa-user-secret"></i>
-       </div>
-       <div class="topic">Find Coaches</div>
-       <p>Clients can find and book coaches if they prefer to do practices in a professional manner</p>
-     </div>
-       <div class="box">
-         <div class="icon">
-           <i class="fas fa-shopping-cart"></i>
-       </div>
-       <div class="topic">Rent Equipment</div>
-       <p>Clients can borrow and rent out equipment they need for an affordable rate on an hourly or daily basis.</p>
-     </div>
-       <div class="box">
-         <div class="icon">
-          <i class="fas fa-coffee"></i>
-       </div>
-       <div class="topic">Order Refreshments</div>
-       <p>Clients can place retail or bulk orders for refreshments such as snacks and drinks based on their preferences.</p>
-     </div>
-       <div class="box">
-         <div class="icon">
-           <i class="fas fa-users"></i>
-       </div>
-       <div class="topic">Find Students</div>
-       <p>Consists of a student information management system where records of students are kept and student information can be viewed.</p>
-     </div>
-       <div class="box">
-         <div class="icon">
-           <i class="fas fa-boxes"></i>
-       </div>
-       <div class="topic">Flexible Package Plans</div>
-       <p>Clients can select a flexible package based on their age and level of experience.</p>
-     </div>
-   </div>
-   </div>
- </section>
-
-<!-- Contact Me section Start -->
-<section class="contact" id="contact">
-  <div class="content">
-    <div class="title"><span>Contact Us</span></div>
-    <div class="text">
-      <!-- <div class="topic">Have Any Project?</div> -->
-      <ul>
-        <li> <i class="fas fa-map-marker"></i> 35/A , Stadia , Park Street , Col-07</li>
-        <li> <i class="fas fa-phone"></i> 011 - 2606888</li>
-        <li> <i class="fas fa-mobile"></i> 071 123 4567</li>
-        <li> <i class="fas fa-building"></i> 6.00AM - 11.00PM  Monday - Sunday</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- Footer Section Start -->
-<footer>
-  <div class="text">
-    <span>Created By <a href="#">Stadia.</a> | &#169; 2023 All Rights Reserved</span>
-  </div>
-</footer>
-
-  <script src="js/script.js"></script>
-</body>
+      // Image validation
+      $validImageExtension = ['jpg', 'jpeg', 'png'];
+      $imageExtension = explode('.', $imageName);
+      $imageExtension = strtolower(end($imageExtension));
+      if (!in_array($imageExtension, $validImageExtension)){
+        echo
+        "
+        <script>
+          alert('Invalid Image Extension');
+          document.location.href = '../stadia';
+        </script>
+        ";
+      }
+      elseif ($imageSize > 1200000){
+        echo
+        "
+        <script>
+          alert('Image Size Is Too Large');
+          document.location.href = '../stadia';
+        </script>
+        ";
+      }
+      else{
+        $newImageName = $name . " - " . date("Y.m.d") . " - " . date("h.i.sa"); // Generate new image name
+        $newImageName .= '.' . $imageExtension;
+        $query = "UPDATE profile_photo SET image = '$newImageName' WHERE id = $id";
+        mysqli_query($linkDB, $query);
+        move_uploaded_file($tmpName, 'img/' . $newImageName);
+        echo
+        "
+        <script>
+        document.location.href = '../stadia';
+        </script>
+        ";
+      }
+    }
+    ?>
+  </body>
 </html>

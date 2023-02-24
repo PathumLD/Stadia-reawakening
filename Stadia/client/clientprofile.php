@@ -38,11 +38,11 @@
 
         <div class="main-content">
 
-          <div class="content">
-
             <?php $var = $_SESSION['email']; ?>
 
             <h1>My Profile</h1>
+
+            <div class="content">
 
               <table id="tableprofile">   
 

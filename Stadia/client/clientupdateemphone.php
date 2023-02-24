@@ -38,11 +38,11 @@
 
         <div class="main-content">
 
-          <div class="content">
-
             <?php $var = $_SESSION['email']; ?>
 
             <h1>Update Emergency Contact Phone Number</h1>
+
+            <div class="content">
 
             <form action="" method="POST">
                 

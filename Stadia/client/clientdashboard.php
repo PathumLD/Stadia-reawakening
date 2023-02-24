@@ -38,13 +38,15 @@
 
         <div class="main-content">
 
-          <div class="content">
-
             <?php $var = $_SESSION['email']; ?>
 
             <h1>Dashboard</h1>
 
+            <div class="content">
+
             <a href="test.php" >test</a>
+            <a href="clientphoto.php" >photo</a>
+
 
           </div>
 

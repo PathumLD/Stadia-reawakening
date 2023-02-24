@@ -38,11 +38,11 @@
 
         <div class="main-content">
 
-          <div class="content">
-
             <?php $var = $_SESSION['email']; ?>
 
             <h1>Coaches - Basketball</h1>
+
+            <div class="content">
 
             <label for="coachbasketball">Select Coach:</label>
 

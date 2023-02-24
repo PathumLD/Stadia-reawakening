@@ -1,128 +1,88 @@
 .home-content .main-content .content #tableprofile{
-    width: 100%;
-    margin: 3% auto;
-    max-width: 1000px;
+    width: 75%;
 }
 
 .home-content .main-content .content #tableprofile .mylabel{
-    padding: 10px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #000;
-    text-align: left;
-    border-radius: 20px;
-}
-
-.home-content .main-content .content #tableprofile .mydata{
-    padding: 10px;
-    font-size: 16px;
-    font-weight: 600;
-    background: #6d9976;
-    color: #000;
-    text-align: center;
-    border-radius: 20px;
-}
-
-.home-content .main-content .content #tableprofile tr td:nth-child(1){
-    width: 35%;
-    font-size: 16px;
-}
-
-.home-content .main-content .content .search{
-    font-size: 16px;
-    font-weight: 400;
-    color: #000;
-    padding: 10px;
-    border: 1px solid #6d9976;
-    border-radius: 20px;
-    width: 20rem;
-    margin-left: 40rem;
-    margin-top: 2rem;
-}
-
-.home-content .main-content .content #searchbtn{
-    background: #6d9976;
-    color: #000;
-    border: 1px solid #6d9976;
-    border-radius: 20px;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    font-weight: 400;
-    transition: all 0.3s ease;
-}
-
-.home-content .main-content .content #resetbtn{
-    background: #6d9976;
-    color: #000;
-    border: 1px solid #6d9976;
-    border-radius: 20px;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    font-weight: 400;
-    transition: all 0.3s ease;
-}
-
-.home-content .main-content .content #resetbtn:hover{
-    background: #264838;
-    color: #fff;
-    cursor: pointer;
+    width: 50%;
+    padding: 5px;
+    padding-left: 35px;
+    font-size: 15px;
     font-weight: bold;
+    text-align: left;
 }
 
-.home-content .main-content .content #searchbtn:hover{
-    background: #264838;
+.home-content .main-content .mydata{
+    background-color: #c4d4cc;
+    padding: 5px;
+    font-size: 15px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 50px;
+}
+
+.home-content .main-content .content .button{
+    width: 75%;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 50px;
+}
+
+.home-content .main-content .content .button a{
     color: #fff;
+    background: #3B6E51;
+    padding: 4px 12px;
+    font-size: 15px;
+    font-weight: 400;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.home-content .main-content .content .button a:hover{
+    background:  #264838;
     cursor: pointer;
 }
 
-.home-content .main-content .content #noti{
+.home-content .main-content #noti{
     margin-left: 25%;
     width: 50%;
     margin-bottom: 2%;
+    opacity: 60%;
     border-collapse: separate;
     border-spacing: 10px;
-    border: 0;
 } 
 
-.home-content .main-content .content #noti tr:nth-child(odd) {
+.home-content .main-content .content .table{
+    border-collapse: collapse;
+    width: 80%;
+    margin-left: 12%;
+    border-radius: 20px;
+    margin-top: 3%;
+    margin-bottom: 5%;
+}
+  
+.home-content .main-content .content .table th{
+    color: rgb(0, 0, 0);
+    font-size: 17px;
+    padding: 8px;
+    font-weight: bold;
+}
+  
+.home-content .main-content .content .table td{
+    color: rgb(0, 0, 0);
+    font-size: 15px;
+    padding: 8px;
+    text-align: center;
+}
+  
+.home-content .main-content .content .table tr:nth-child(odd) {
     background-color: #D6EFC7;
     border: 2px solid #D6EFC7;
 }
   
-.home-content .main-content .content #noti tr:nth-child(even) {
+.home-content .main-content .content .table tr:nth-child(even) {
     background-color: #c4d4cc;
     border: 2px solid #c4d4cc;
-}
-
-.home-content .main-content .content .table{
-    width: 100%;
-    margin: 3% auto;
-    max-width: 1200px;
-    text-align: center;
-    border: #6d9976 2px solid;
-    border-radius: 20px;
-    border-collapse: collapse;
-}
-  
-.home-content .main-content .content .table th{
-    padding: 10px;
-    font-size: 18px;
-    font-weight: 600;
-    background: #6d9976;
-    color: #000;
-    text-align: center;
-}
-  
-.home-content .main-content .content .table td{
-    padding: 10px;
-    font-size: 18px;
-    font-weight: 600;
-    color: #000;
-    text-align: center;
-}
-
-.home-content .main-content .content .table tr{
-    background-color: #fff;
 }
   
 .home-content .main-content .content .table a{
@@ -139,50 +99,43 @@
 }
 
 .home-content .main-content .content .form{
-    width: 100%;
-    margin-top: 3rem;
-    margin-left: 10rem;
-    max-width: 64rem;
-    justify-content: space-evenly;
+    margin: 0% auto;
+    width: 75%;
+    /*  max-width: 700px;
+    padding: 15px;*/
+    padding-top: 25px;
+    justify-content: space-evenly;    
 }
   
 .home-content .main-content .content .form input{
-    width: 100%;
-    padding: 1rem;
-    font-size: 1rem;
-    max-width: 20rem;
-    font-weight: 400;
-    border: 2px solid #6d9976;
-    border-radius: 1.3rem;
-    margin-bottom: 1rem;
+    width: 40%;
+    padding: 5px;
+    border: 1px solid #264838;
+    border-radius: 4px;
     box-sizing: border-box;
     resize: vertical;
 }
 
-.home-content .main-content .content .form .aa{
-    width: 100%;
-    padding: 1rem;
-    font-size: 1rem;
-    max-width: 20rem;
-    font-weight: 400;
-    border: 2px solid #6d9976;
-    border-radius: 1.3rem;
-    margin-bottom: 1rem;
+.home-content .main-content .content .form textarea{
+    width: 40%;
+    padding: 5px;
+    border: 1px solid #264838;
+    border-radius: 4px;
     box-sizing: border-box;
+    margin-bottom: 16px;
     resize: vertical;
-    justify-content: center;
 }
 
 .home-content .main-content .content .form .btn{
     width: 80%;
     display: flex;
     justify-content: space-evenly;
-    padding: 4px 12px;
-    margin-left: 10rem;
     color: #fff;
     background: #3B6E51;
-    border: 0;
+    margin-left: 12%;
     border-radius: 20px;
+    border: 0;
+    padding: 4px 12px;
     font-size: 15px;
     font-weight: 400;
     text-decoration: none;
@@ -200,30 +153,6 @@
     padding: 1%;
     float: left;
     font-weight: bold;
-}
-
-.home-content .main-content .content .button{
-    width: 75%;
-    display: flex;
-    justify-content: space-evenly;
-    padding: 3rem;
-    margin-left: 10rem;
-}
-
-.home-content .main-content .content .button a{
-    color: #fff;
-    background: #3B6E51;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    font-weight: 400;
-    border-radius: 0.3rem;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.home-content .main-content .content .button a:hover{
-    background:  #264838;
-    cursor: pointer;
 }
 
 .home-content .main-content .content h3{

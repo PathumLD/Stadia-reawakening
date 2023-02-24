@@ -38,11 +38,11 @@
 
         <div class="main-content">
 
-          <div class="content">
-
             <?php $var = $_SESSION['email']; ?>
 
             <h1>My Facilities</h1>
+
+            <div class="content">
 
             <h3> NOTE: To cancel refreshments ordered you have to cancel it atleast 3 days prior to the order date. </h3>
 
@@ -78,7 +78,6 @@
                                                     <td>" . $rows["orderedquantity"]."</td>
                                                     <td> <a href='clientcancelrefreshment.php?id=$id; ?>'><i class='fa fa-trash'>&nbsp&nbsp&nbsp</i>  </a> 
                                                         <a href='clientupdaterefreshment.php?id=$id; ?>'><i class='fa fa-pencil-square-o' ></i></a> </td>
-                                                    <td> <div class='button'> <a class='ppp' href='#popup1'> Update </a>  </div> </td>
                                                 </tr>";
                                         }
                                     } else {
@@ -129,16 +128,6 @@
                     ?>
 
             </table>
-
-            <div id="popup1" class="overlay">
-	<div class="popup">
-		<h2>Here i am</h2>
-		<a class="close" href="#">&times;</a>
-		<div class="content">
-			Thank to pop me out of that button, but now i'm done so you can close this window.
-		</div>
-	</div>
-</div>
 
           </div>
 

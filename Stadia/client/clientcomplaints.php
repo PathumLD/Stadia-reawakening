@@ -36,13 +36,13 @@
 
     <div class="home-content">
 
-        <div class="main-content">
-
-          <div class="content">
+        <div class="main-content">        
 
             <?php $var = $_SESSION['email']; ?>
 
             <h1>My Complaints</h1>
+            
+            <div class="content">
 
             <table class="table">
 
@@ -88,8 +88,8 @@
 
                 <form method="POST" >
             
-                    <input type="text" name="subject" placeholder="Subject" required> 
-                    <textarea id="details" name="details"  required>Enter Your Complaint Here... </textarea><br><br>
+                    <input type="text" name="subject" placeholder="Subject" required class="aa"> 
+                    <textarea id="details" name="details" class="aa" required>Enter Your Complaint Here... </textarea><br><br>
                     <input type="submit" name="submit" value="Submit" class="btn">
                 
                 </form>

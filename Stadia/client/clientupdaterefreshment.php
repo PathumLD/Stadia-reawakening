@@ -38,11 +38,11 @@
 
         <div class="main-content">
 
-          <div class="content">
-
             <?php $var = $_SESSION['email']; ?>
 
             <h1>Update Refreshment</h1>
+
+            <div class="content">
 
             <?php $id = $_GET['id']; ?>
                 <?php 

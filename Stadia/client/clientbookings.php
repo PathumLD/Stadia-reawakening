@@ -38,11 +38,11 @@
 
         <div class="main-content">
 
-          <div class="content">
-
             <?php $var = $_SESSION['email']; ?>
 
             <h1>My Bookings</h1>
+
+            <div class="content">
 
             <section>
               <button class='popup'><i style='color:black;' class='fa fa-trash'></i></button>
