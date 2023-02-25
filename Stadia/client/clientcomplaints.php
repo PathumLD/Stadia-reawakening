@@ -87,11 +87,16 @@
             <div class="form" id="submitComplaint">
 
                 <form method="POST" >
-            
-                    <input type="text" name="subject" placeholder="Subject" required class="aa"> 
-                    <textarea id="details" name="details" class="aa" required>Enter Your Complaint Here... </textarea><br><br>
+
+                  <table>
+                    <tr>
+                      <td><input type="text" name="subject" placeholder="Subject" required class="cmplnt"></td> 
+                      <td><textarea id="details" name="details" class="cmplnt" required>Enter Your Complaint Here... </textarea></td>
+                    </tr>
+                  </table>
+
                     <input type="submit" name="submit" value="Submit" class="btn">
-                
+                  
                 </form>
 
             </div>
@@ -142,19 +147,18 @@ $details = $_POST['details'];
 $email = $_SESSION['email'];
 
 
-
 $sql = "INSERT INTO complaints (subject, details, email, datetime)
 VALUES ('$subject', '$details' , '$email' , CURRENT_TIMESTAMP)";
 
 $rs= mysqli_query($linkDB,$sql);
 
 if($rs){
-  //header("location : http://localhost/stadia/clientviewcomplaints.php");
+  
   echo "<script>window.location.href='clientcomplaints.php'; </script>";
 
 }
 else{
-  $error3="<p>Could not submit the complaint - please try again.</p>";
+  echo "Could not submit the complaint - please try again.";
 }
  
 }

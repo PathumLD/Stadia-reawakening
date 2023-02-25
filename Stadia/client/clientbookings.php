@@ -17,6 +17,8 @@
      <?php include('../include/javascript.php'); ?>
      <?php include('../include/styles.php'); ?>
 
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+     
    </head>
 <body onload="initClock()">
 
@@ -44,7 +46,15 @@
 
             <div class="content">
 
-            <section>
+            <div id="confirm">
+              <div class="message">Confirm Cancellation?</div><br>
+              <i class="fa fa-minus-circle"></i>
+              <h4>NOTE: We will be charging Rs.100 per each cancellation</h4>
+              <button onclick="window.location.href='clientcancelbooking.php';">Yes, Confirm</button>
+              <button class="close-btn">Don't Cancel</button>
+            </div>
+
+            <!-- <section>
               <button class='popup'><i style='color:black;' class='fa fa-trash'></i></button>
               <span class="overlay"></span>
 
@@ -58,7 +68,7 @@
                     <button class="close-btn">Don't Cancel</button>
                 </div>
               </div>
-            </section>
+            </section> -->
 
             <table class="table">
 
@@ -84,8 +94,7 @@
                                               <td>" . $rows["date"]. "</td>
                                               <td>" . $rows["time"]. "</td>
                                               <td>" . $rows["court"]. "</td>
-                                              <td><a href='clientcancelbooking.php?id=$id; ?>'><i class='fa fa-trash'></i></a></td> 
-                                              <td> <button class='ppp'><i style='color:black;' class='fa fa-trash'></i></button> </td> 
+                                              <td> <i value='Click Me' onclick='functionAlert();' style='color:black;' class='fa fa-trash'></i></td> 
                                               </tr>";
                                     }
                                 } else {
@@ -131,7 +140,7 @@
         }
 </script>
 
-<script>
+<!-- <script>
       const section = document.querySelector("section"),
         overlay = document.querySelector(".overlay"),
         showBtn = document.querySelector(".popup"),
@@ -146,4 +155,16 @@
       closeBtn.addEventListener("click", () =>
         section.classList.remove("active")
       );
-    </script>
+    </script> -->
+
+<script>
+         function functionAlert(msg, myYes) {
+            var confirmBox = $("#confirm");
+            confirmBox.find(".message").text(msg);
+            confirmBox.find(".close-btn").unbind().click(function() {
+               confirmBox.hide();
+            });
+            confirmBox.find(".close-btn").click(myYes);
+            confirmBox.show();
+         }
+      </script>

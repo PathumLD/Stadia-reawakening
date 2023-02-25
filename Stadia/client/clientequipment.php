@@ -73,7 +73,14 @@
                                 {
                                     while($rows=mysqli_fetch_assoc($res))
                                     {
-                                        echo "<tr><td>" . $rows["itemname"]. "</td><td>" . $rows["price"]. "</td><td>" . $rows["quantity"]. "</td><td><input type='number' name='quantity'></td></tr>";
+                                        $id=$rows['id'];
+                                        echo "<tr>
+                                                <td>" . $rows["itemname"]. "</td>
+                                                <td>" . $rows["price"]. "</td>
+                                                <td>" . $rows["quantity"]. "</td>
+                                                <td><input type='number' name='quantity'></td>
+                                                <td><input type='submit' name='add-to-cart' value='Add to Cart'></td>
+                                            </tr>";
                                     }
                                 } else {
                                     echo "0 results";
@@ -90,7 +97,13 @@
                                 {
                                     while($rows=mysqli_fetch_assoc($res))
                                     {
-                                        echo "<tr><td>" . $rows["itemname"]. "</td><td>" . $rows["price"]. "</td><td>" . $rows["quantity"]. "</td><td><input type='number' name='quantity'></td></tr>";
+                                        echo "<tr>
+                                                <td>" . $rows["itemname"]. "</td>
+                                                <td>" . $rows["price"]. "</td>
+                                                <td>" . $rows["quantity"]. "</td>
+                                                <td><input type='number' name='quantity'></td>
+                                                <td><input type='submit' name='add-to-cart' value='Add to Cart'></td>
+                                            </tr>";
                                     }
                                 } else {
                                     echo "0 results";
@@ -139,3 +152,32 @@
           });
         }
 </script>
+
+<?php
+
+if(isset($_POST['add-to-cart'])){
+  
+include('linkDB.php');  
+$id = $_GET['id'];
+
+$item = $_POST['$rows["itemname"]'];
+$price = $_POST['$rows["price"]'];
+$quantity = $_POST['quantity'];
+$email = $_SESSION['email'];
+
+$sql = "INSERT INTO cart (email, item, amount)
+VALUES ('$email', '$item' , '$quantity' )";
+
+$rs= mysqli_query($linkDB,$sql);
+
+if($rs){
+  
+  echo "<script>window.location.href='clientmycart.php'; </script>";
+
+}
+else{
+  echo "Could not add to the cart - please try again.";
+}
+ 
+}
+?>

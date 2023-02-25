@@ -46,7 +46,7 @@
 
             <a href="test.php" >test</a>
             <a href="clientphoto.php" >photo</a>
-
+            <a href="photo.php" >photo2</a>
 
           </div>
 

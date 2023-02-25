@@ -85,7 +85,7 @@
             </table>
 
             <div class="button">
-                <a href="#"> Pay Now </a>
+                <a href="#"> Checkout </a>
             </div>
 
           </div>

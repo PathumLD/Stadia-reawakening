@@ -103,7 +103,7 @@
                 </tr>
 
                 <?php
-                    $query = "SELECT * FROM client_equipment WHERE email = '".$var."'";
+                    $query = "SELECT * FROM ordered_equipment WHERE email = '".$var."'";
                     $res = mysqli_query($linkDB, $query); 
                             if($res == TRUE) 
                             {

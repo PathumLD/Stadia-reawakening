@@ -210,7 +210,9 @@
     overflow: auto;
   } */
 
-  .overlay {
+
+
+  /* .overlay {
     position: fixed;
     height: 100%;
     width: 100%;
@@ -322,4 +324,4 @@ img {
   font-size: 15px;
   cursor: pointer;
   display: none;
-}
+} */

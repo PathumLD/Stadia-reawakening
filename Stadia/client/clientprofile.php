@@ -68,7 +68,17 @@
 
                               <td class='mylabel'>Phone:</td>
                               <td class='mydata'>".$row['phone']."</td>
-                              <td><a href='clientupdatephone.php'><i class='fa fa-pencil-square-o' ></i></a></td>
+                              <td><button class='open-button' onclick='openForm()'><i class='fa fa-pencil-square-o' ></i></button>
+                                <div class='form-popup' id='myForm'>
+                                  <form class='form-container' action='' method='POST'>
+                                
+                                    <label for='phone'><b>Phone</b></label>
+                                    <input type='tel' placeholder='Enter phone' name='phone' pattern='[0-9]{10}'required>
+                                
+                                    <input type='submit' class='btn' id='update-btn' name='update' value='update'>
+                                    <button type='button' class='btn' onclick='closeForm()'><i class='fa fa-times' ></i></button>
+                                  </form>
+                                </div></td>
                               </tr>
 
                               <td class='mylabel'>Date of Birth:</td>
@@ -81,12 +91,32 @@
 
                               <td class='mylabel'>Emergency Contact Number:</td>
                               <td class='mydata'>".$row['emphone']."</td>
-                              <td><a href='clientupdateemphone.php'><i class='fa fa-pencil-square-o' ></i></td>
+                              <td><button class='open-button' onclick='openForm2()'><i class='fa fa-pencil-square-o' ></i></button>
+                                <div class='form-popup' id='myForm2'>
+                                  <form class='form-container' action='' method='POST'>
+                                
+                                    <label for='emphone'><b>Emergency Contact Number</b></label>
+                                    <input type='tel' placeholder='Enter number' name='emphone' pattern='[0-9]{10}'required>
+                                
+                                    <input type='submit' class='btn' id='update-btn' name='update2' value='update'>
+                                    <button type='button' class='btn' onclick='closeForm2()'><i class='fa fa-times' ></i></button>
+                                  </form>
+                                </div></td>
                               </tr>
 
                               <td class='mylabel'>Emergency Contact Name:</td>
                               <td class='mydata'>".$row['emname']."</td>
-                              <td><a href='clientupdateemname.php'><i class='fa fa-pencil-square-o' ></i></td>
+                              <td><button class='open-button' onclick='openForm3()'><i class='fa fa-pencil-square-o' ></i></button>
+                                <div class='form-popup' id='myForm3'>
+                                  <form class='form-container' action='' method='POST'>
+                                
+                                    <label for='emname'><b>Emergency Contact Name</b></label>
+                                    <input type='text' placeholder='Enter name' name='emname' required>
+                                
+                                    <input type='submit' class='btn' id='update-btn' name='update3' value='update'>
+                                    <button type='button' class='btn' onclick='closeForm3()'><i class='fa fa-times' ></i></button>
+                                  </form>
+                                </div></td>
                               </tr>";
                           
                       }
@@ -134,3 +164,92 @@
           });
         }
 </script>
+
+
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script>
+<script>
+function openForm2() {
+  document.getElementById("myForm2").style.display = "block";
+}
+
+function closeForm2() {
+  document.getElementById("myForm2").style.display = "none";
+}
+</script>
+<script>
+function openForm3() {
+  document.getElementById("myForm3").style.display = "block";
+}
+
+function closeForm3() {
+  document.getElementById("myForm3").style.display = "none";
+}
+</script>
+
+
+<?php
+if(isset($_POST['update'])) {
+$phone=$_POST['phone'];
+$var = $_SESSION['email'];
+
+$query = "UPDATE users SET phone=$phone WHERE email = '".$var."' ";
+
+$res = mysqli_query($linkDB, $query); 
+
+if($res){
+  echo "<script>window.location.href='clientprofile.php'; </script>";
+
+}
+else{
+  echo "Could not update the profile - please try again.";
+}
+
+}
+?>
+
+<?php
+if(isset($_POST['update2'])) {
+$emphone=$_POST['emphone'];
+$var = $_SESSION['email'];
+
+$query = "UPDATE users SET emphone=$emphone WHERE email = '".$var."' ";
+
+$res = mysqli_query($linkDB, $query) or die(mysqli_error($linkDB)); 
+
+if($res){
+  echo "<script>window.location.href='clientprofile.php'; </script>";
+
+}
+else{
+  echo "Could not update the profile - please try again.";
+}
+}
+?>
+
+<?php
+if(isset($_POST['update3'])) {
+$emname=$_POST['emname'];
+$var = $_SESSION['email'];
+
+$query = "UPDATE users SET emname=$emname WHERE email = '".$var."' ";
+
+$res = mysqli_query($linkDB, $query) or die(mysqli_error($linkDB)); 
+    
+if($res){
+  echo "<script>window.location.href='clientprofile.php'; </script>";
+
+}
+else{
+  echo "Could not update the profile - please try again.";
+}
+
+}
+?>
