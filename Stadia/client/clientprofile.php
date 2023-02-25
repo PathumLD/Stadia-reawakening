@@ -72,10 +72,10 @@
                                 <div class='form-popup' id='myForm'>
                                   <form class='form-container' action='' method='POST'>
                                 
-                                    <label for='phone'><b>Phone</b></label>
+                                    <label for='phone'><b>Update Phone</b></label>
                                     <input type='tel' placeholder='Enter phone' name='phone' pattern='[0-9]{10}'required>
                                 
-                                    <input type='submit' class='btn' id='update-btn' name='update' value='update'>
+                                    <input type='submit' class='btn' id='update-btn' name='update' value='Update'>
                                     <button type='button' class='btn' onclick='closeForm()'><i class='fa fa-times' ></i></button>
                                   </form>
                                 </div></td>

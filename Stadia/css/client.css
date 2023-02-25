@@ -414,7 +414,7 @@ img {
   display: none;
 } */
 
-#confirm {
+/* #confirm {
   display: none;
   background-color: #c4d4cc;
   color: #000000;
@@ -465,30 +465,40 @@ img {
   font-weight: 400;
   color: red;
   text-align: center;
-}
+} */
  
 .form-popup {
   display: none;
   position: fixed;
-  border: 2px solid #6d9976;
   z-index: 9;
+  width: 18rem;
+  height: 17rem;
+  margin-left: -35rem;
+  margin-top: -10rem;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2); 
 }
 
 .form-container {
-  max-width: 150px;
+  max-width: 18rem;
   padding: 10px;
   background-color: white;
 }
 
-.form-container input[type=tel]{
+.form-container label{
+  font-size: 1.2rem;
+}
+
+.form-container input[type=tel], .form-container input[type=text]{
   width: 100%;
   padding: 15px;
-  margin: 5px 0 22px 0;
+  margin: 25px 0 22px 0;
   border: none;
   background: #f1f1f1;
 }
 
-.form-container input[type=tel]:focus{
+.form-container input[type=tel]:focus, .form-container input[type=text]:focus{
   background-color: #ddd;
   outline: none;
 }
@@ -497,12 +507,17 @@ img {
   background-color: #3B6E51;
   border: none;
   color: #fff;
-  padding: 10px;
+  margin-top: 3 rem;
+  padding: 10px 20px;
+  font-size: 1rem;
 }
 
 .form-container .fa-times{
   color: red;
-  font-size: 30px;
+  font-size: 40px;
+  margin-left: 40px;
+  margin-top: 4rem;
+
 }
 
 .form-container button{
