@@ -42,9 +42,25 @@
 
             <?php $var = $_SESSION['email']; ?>
 
-            <h1>Dashboard</h1>
+            <h1>Checkout</h1>
 
-           
+                <div class="summary">
+
+                    <h3> Ordered Items </h3>
+
+                </div>
+                
+                <div class="checkout">
+
+                    <h3> Total </h3>
+
+                </div>
+
+                <div class="paymentgateway">
+                  
+
+
+                </div>
 
           </div>
 

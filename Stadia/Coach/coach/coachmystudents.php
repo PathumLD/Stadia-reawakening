@@ -6,7 +6,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    <title> Students </title>
+    <title> Stadia </title>
     
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
@@ -40,18 +40,14 @@
 
             <h1>My Students</h1>
 
-        
+            <?php $var = $_SESSION['email']; ?>
 
-        <table class="ps">
-                <tr><td>    </td></tr>
-               <tr><td> <form method="post">
+
+                <form method="post">
                     <input type="text" name="search" class ="search" placeholder="Student Name...">
                     <input type="submit" name="go" value="search" id = "searchbtn">
-                    <input type="submit" name="reset" value="reset" id = "resetbtn">
-                </form></td></tr>
-            </table>
-
-            <?php $var = $_SESSION['email']; ?>
+                    <a href="coachmystudents.php"><input type="submit" name="reset" value="reset" id = "resetbtn"></a>
+                </form>
             
             <table class="table">
 
@@ -79,6 +75,9 @@ class CoachStudents {
     public function getStudents($search = null) {
         if ($search) {
             $query = "SELECT * FROM coach_students WHERE name LIKE '%$search%'";
+        }
+        elseif ($search) {
+                $query = "SELECT * FROM coach_students WHERE gender LIKE '%$search%'";
         } else {
             $query = "SELECT * FROM coach_students";
         }
@@ -105,7 +104,7 @@ class CoachStudents {
             }
         }
     }
-}
+}                   
 
 $coachStudents = new CoachStudents($linkDB);
 
@@ -117,10 +116,7 @@ if (isset($_POST['go'])) {
 
 $coachStudents->getStudents($search);
 
-?>
-
-
-                
+?>          
      
             </table>
 

@@ -6,7 +6,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    <title> Add New Class </title>
+    <title> Stadia </title>
     
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
@@ -50,33 +50,58 @@
 
                 <form method="POST">
 
-                <select name="day" class="drop">
-                    <option value="monday">Badminton</option>
-                    <option value="tuesday">Basketball</option>
-                    <option value="wednesday">Volleyball</option>
-                    <option value="thursday">Tennis</option>
-                    <option value="friday">Swimming</option>
+                <input type="text" name="class_id" placeholder="Class ID" > <br>
+
+                <select name="level" class="drop">
+                    <option value="beginner">Beginner</option>
+                    <option value="intermediate">Intermediate</option>
+                    <option value="pro">Pro</option>
                 </select> <br><br>
+
+                <select name="sport" class="drop">
+                    <option value="badminton">Badminton</option>
+                    <option value="basketball">Basketball</option>
+                    <option value="volleyball">Volleyball</option>
+                    <option value="tennis">Tennis</option>
+                    <option value="swimming">Swimming</option>
+                </select> <br><br>
+
+                <select name="date" class="drop">
+                    <option value="monday">Monday</option>
+                    <option value="tuesday">Tuesday</option>
+                    <option value="wednesday">Wednesday</option>
+                    <option value="thursday">Thursday</option>
+                    <option value="friday">Friday</option>
+                    <option value="saturday">Saturday</option>
+                    <option value="sunday">Sunday</option>
+                </select> <br><br>
+
                 <select name="time" class="drop">
-                    <option value="monday">6.00 - 7.00 a.m</option>
-                    <option value="tuesday">7.00 - 8.00 a.m</option>
-                    <option value="wednesday">8.00 - 9.00 a.m</option>
-                    <option value="thursday">9.00 - 10.00 a.m</option>
-                    <option value="friday">10.00 - 11.00 a.m</option>
-                    <option value="saturday">11.00 - 12.00 a.m</option>
-                    <option value="sunday">12.00 - 13.00 p.m</option>
-                    <option value="sunday">13.00 - 14.00 p.m</option>
-                    <option value="sunday">14.00 - 15.00 p.m</option>
-                    <option value="sunday">15.00 - 16.00 p.m</option>
-                    <option value="sunday">16.00 - 17.00 p.m</option>
-                    <option value="sunday">17.00 - 18.00 p.m</option>
-                    <option value="sunday">18.00 - 19.00 p.m</option>
-                    <option value="sunday">19.00 - 20.00 p.m</option>
-                    <option value="sunday">20.00 - 21.00 p.m</option>
-                    <option value="sunday">21.00 - 22.00 p.m</option>
+                    <option value="6.00 - 7.00 a.m">6.00 - 7.00 a.m</option>
+                    <option value="7.00 - 8.00 a.m">7.00 - 8.00 a.m</option>
+                    <option value="8.00 - 9.00 a.m">8.00 - 9.00 a.m</option>
+                    <option value="9.00 - 10.00 a.m">9.00 - 10.00 a.m</option>
+                    <option value="10.00 - 11.00 a.m">10.00 - 11.00 a.m</option>
+                    <option value="11.00 - 12.00 a.m">11.00 - 12.00 a.m</option>
+                    <option value="12.00 - 13.00 p.m">12.00 - 13.00 p.m</option>
+                    <option value="13.00 - 14.00 p.m">13.00 - 14.00 p.m</option>
+                    <option value="14.00 - 15.00 p.m">14.00 - 15.00 p.m</option>
+                    <option value="15.00 - 16.00 p.m">15.00 - 16.00 p.m</option>
+                    <option value="16.00 - 17.00 p.m">16.00 - 17.00 p.m</option>
+                    <option value="17.00 - 18.00 p.m">17.00 - 18.00 p.m</option>
+                    <option value="18.00 - 19.00 p.m">18.00 - 19.00 p.m</option>
+                    <option value="19.00 - 20.00 p.m">19.00 - 20.00 p.m</option>
+                    <option value="20.00 - 21.00 p.m">20.00 - 21.00 p.m</option>
+                    <option value="21.00 - 22.00 p.m">21.00 - 22.00 p.m</option>
                 </select> <br><br>
-                        <input type="text" name="age_group" placeholder="Age Group" > <br><br>
-                        <input type="text" name="no_of_students" placeholder="No of Students" pattern="[0-9]{10}" > <br><br>
+
+                <select name="age_group" class="drop">
+                    <option value="Below 12 Years">Below 12 Years</option>
+                    <option value="13 - 20 Years">13 - 20 Years</option>
+                    <option value="Above 21">Above 21</option>
+                </select> <br><br>
+
+                        <input type="text" name="no_of_students" placeholder="No of Students" > <br><br>
                         <input type="submit" name="Save" value="Save" class="btn">
 
                 </form>
@@ -97,6 +122,32 @@
 
 </body>
 </html>
+
+<?php 
+
+    if(isset($_POST['Save'])){
+
+        $class_id= $_POST['class_id'];
+        $level = $_POST['level'];
+        $sport = $_POST['sport'];
+        $date = $_POST['date'];
+        $time = $_POST['time'];
+        $age_group = $_POST['age_group'];
+        $no_of_students = $_POST['no_of_students'];
+        $email = $_SESSION['email'];
+
+        echo "$level";
+        $sql = "INSERT INTO coach_classes (class_id, level, sport, date, time, age_group, no_of_students, email) VALUES ('$class_id', $level', '$sport', '$date', '$time', '$age_group', '$no_of_students', '$email')";
+
+        if(mysqli_query($linkDB, $sql)){
+          header("Location:coachclasses.php");
+        } else {
+            echo "Error: " . $sql . "<br>" . mysqli_error($linkDB);
+        }
+
+    }
+
+?>
 
 <script>
         /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */

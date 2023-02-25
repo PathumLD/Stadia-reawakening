@@ -6,7 +6,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    <title> Equipments </title>
+    <title> Stadia </title>
     
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
@@ -42,105 +42,71 @@
 
        
 
-        <table class="ps">
-                <tr><td>    </td></tr>
-               <tr><td> <form method="post">
+                <form method="post">
                     <input type="text" name="search" class ="search" placeholder="Equipment Name...">
                     <input type="submit" name="go" value="search" id = "searchbtn">
-                </form></td></tr>
-            </table>
+                    <a href="coachequipments.php"><input type="submit" name="reset" value="reset" id = "resetbtn"></a>
+                </form>
 
             <?php $var = $_SESSION['email']; ?>
             
             <table class="table">
 
                 <tr>
-
                     <th>Item Name</th>
                     <th>Price</th> 
-                    <th>Quantity</th>
-
+                    <th>Available</th>
+                    <th>Quantity Needed</th>  
                 </tr>
 
                 <?php
 
-class CoachEquipment {
-    private $linkDB;
+                    if(isset($_POST['go'])){
+                    
+                        $search = $_POST['search'];
 
-    public function __construct($db) {
-        $this->linkDB = $db;
-    }
-
-    public function getEquipment($search) {
-        $query = "SELECT * FROM coachequipment WHERE item LIKE '%$search%' ";
-        $res = mysqli_query($this->linkDB, $query); 
-        if($res == TRUE) {
-            $count = mysqli_num_rows($res); //calculate number of rows
-            if($count>0) {
-                while($rows=mysqli_fetch_assoc($res)) {
-                    echo "<tr>
-                        <td>" . $rows["item"]. "</td>
-                        <td>" . $rows["price"]. "</td>
-                        <td>" . $rows["quantity"]. "</td>
-                    </tr>";
-                }
-            } elseif($search=='all') {
-                $query = "SELECT * FROM coachequipment ";
-                $res = mysqli_query($this->linkDB, $query); 
-                if($res == TRUE) {
-                    $count = mysqli_num_rows($res); //calculate number of rows
-                    if($count>0) {
-                        while($rows=mysqli_fetch_assoc($res)) {
-                            echo "<tr>
-                                <td>" . $rows["item"]. "</td>
-                                <td>" . $rows["price"]. "</td>
-                                <td>" . $rows["quantity"]. "</td>
-                            </tr>";
-                        }
-                    } else {
-                        echo "0 results";
+                        $query = "SELECT * FROM equipment WHERE itemname LIKE '%$search%' ";
+                        $res = mysqli_query($linkDB, $query); 
+                            if($res == TRUE) 
+                            {
+                                $count = mysqli_num_rows($res); //calculate number of rows
+                                if($count>0)
+                                {
+                                    while($rows=mysqli_fetch_assoc($res))
+                                    {
+                                        echo "<tr><td>" . $rows["itemname"]. "</td><td>" . $rows["price"]. "</td><td>" . $rows["quantity"]. "</td><td><input type='number' name='quantity'></td></tr>";
+                                    }
+                                } else {
+                                    echo "0 results";
+                                }
+                            }
                     }
-                }
-                // echo "0 results";
-            }
-        }
-    }
+                    else{
+                    $query = "SELECT * FROM equipment ";
+                    $res = mysqli_query($linkDB, $query); 
+                            if($res == TRUE) 
+                            {
+                                $count = mysqli_num_rows($res); //calculate number of rows
+                                if($count>0)
+                                {
+                                    while($rows=mysqli_fetch_assoc($res))
+                                    {
+                                        echo "<tr><td>" . $rows["itemname"]. "</td><td>" . $rows["price"]. "</td><td>" . $rows["quantity"]. "</td><td><input type='number' name='quantity'></td></tr>";
+                                    }
+                                } else {
+                                    echo "0 results";
+                                }
+                            }    
+                        }      
+                    ?>
 
-    public function getAllEquipment() {
-        $query = "SELECT * FROM coachequipment ";
-        $res = mysqli_query($this->linkDB, $query); 
-        if($res == TRUE) {
-            $count = mysqli_num_rows($res); //calculate number of rows
-            if($count>0) {
-                while($rows=mysqli_fetch_assoc($res)) {
-                    echo "<tr>
-                    <td>" . $rows["item"]. "</td>
-                    <td>" . $rows["price"]. "</td>
-                    <td>" . $rows["quantity"]. "</td>
-                        </tr>";
-                }
-            } else {
-                echo "0 results";
-            }
-        }
-    }
-}
-
-// Usage Example
-$equipment = new CoachEquipment($linkDB);
-if(isset($_POST['go'])) {
-    $search = $_POST['search'];
-    $equipment->getEquipment($search);
-} else {
-    $equipment->getAllEquipment();
-}
-
-?>
-
-     
             </table>
 
-            </div>
+                    <div class="button">
+                        <a href="coachmycart.php"> Add to Cart </a>
+                    </div>
+
+        </div>
 
     </div>
 

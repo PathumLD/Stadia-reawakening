@@ -46,8 +46,8 @@
         
     <div class="profile-details">
 
-        <a href='clientmycart.php'><i style='color:white;' class='fa fa-shopping-cart' ></i></a>
-        <a href='clientnotifications.php'><i style='color:white;' class='fa fa-bell'></i></a>
+        <a href='coachmycart.php'><i style='color:white;' class='fa fa-shopping-cart' ></i></a>
+        <a href='coaachnotifications.php'><i style='color:white;' class='fa fa-bell'></i></a>
         <img src="../images/profile.jpg" alt="">
         
       </div>

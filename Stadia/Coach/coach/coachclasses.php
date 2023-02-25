@@ -6,7 +6,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8">
-    <title> Classes </title>
+    <title> Stadia </title>
     
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
@@ -40,9 +40,11 @@
 
             <h1>My Classes</h1>
 
-       
+            <?php $var = $_SESSION['email']; ?>
 
-        <table class = "ps">
+            
+
+        <table class = "searchtable">
             <tr><td><a href="coachaddnewclass.php"><i class="fa fa-plus-circle" id="plus" style="font-size:36px;"></i></a></td>
 
             <td><form method="POST">
@@ -62,7 +64,7 @@
                 </form></td></tr>
         </table>
 
-            <?php $var = $_SESSION['email']; ?>
+            
             
             <table class="table">
 
@@ -105,16 +107,16 @@ class CoachClass {
 
             if($count > 0) {
                 while($rows = mysqli_fetch_assoc($res)) {
-                    $id = $rows['id'];
+                    $class_id = $rows['class_id'];
 
                     echo "<tr>
                         <td>" . $rows["date"]. "</td>
                         <td>" . $rows["time"]. "</td>
                         <td>" . $rows["age_group"]. "</td>
                         <td>" . $rows["no_of_students"]. "</td>
-                        <td><a href='coachstudentdetails.php'>View</a> </td>
-                        <td><a href='coachupdateclass.php'>Edit</a> </td>
-                        <td><a href='coachdeleteclass.php?id=$id; ?>'><i class='fa fa-trash'></i></a></td>
+                        <td><a href='coachstudentdetails.php?id=$class_id;'>View</a> </td>
+                        <td><a href='coachupdateclass.php?id=$class_id;'>Update</a> </td>
+                        <td><a href='coachdeleteclass.php?id=$class_id; ?>'><i class='fa fa-trash'></i></a></td>
                     </tr>";
                 }
             } else {
@@ -134,6 +136,9 @@ $coachClass = new CoachClass($linkDB, $date, $search);
 $coachClass->getClasses();
 
 ?>
+
+
+
 
      
             </table>
