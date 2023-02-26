@@ -73,7 +73,7 @@
                                 {
                                     while($rows=mysqli_fetch_assoc($res))
                                     {
-                                        $id=$rows['id'];
+                                        $id=$rows['itemid'];
                                         echo "<tr>
                                                 <td>" . $rows["itemname"]. "</td>
                                                 <td>" . $rows["price"]. "</td>
@@ -97,6 +97,7 @@
                                 {
                                     while($rows=mysqli_fetch_assoc($res))
                                     {
+                                        $id=$rows['itemid'];
                                         echo "<tr>
                                                 <td>" . $rows["itemname"]. "</td>
                                                 <td>" . $rows["price"]. "</td>

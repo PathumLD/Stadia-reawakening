@@ -111,12 +111,12 @@ $query = "SELECT * FROM users WHERE email= '".$var."' ";
     $result = mysqli_query($linkDB, $query);
             $row = mysqli_fetch_array($result);
             $verify = md5($currentpswd);
-            $baba = md5($newpswd);
+            $encrypt = md5($newpswd);
             if (count($row)) {
                 
                 if ($verify==$row['password']) {
 
-                  $sql = "UPDATE users SET password = '$baba' WHERE email = '{$_SESSION['email']}' ";
+                  $sql = "UPDATE users SET password = '$encrypt' WHERE email = '{$_SESSION['email']}' ";
                 }
 
 $rs= mysqli_query($linkDB,$sql);

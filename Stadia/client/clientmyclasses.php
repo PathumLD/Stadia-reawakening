@@ -58,7 +58,7 @@
                 </tr>
 
                 <?php
-                    $query = "SELECT * FROM client_classes WHERE email = '".$var."'";
+                    $query = "SELECT client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.date, coach_classes.time, client_classes.payment_details FROM coach_classes INNER JOIN client_classes ON coach_classes.class_id = client_classes.class_id WHERE client_classes.email = '".$var."'";
                     $res = mysqli_query($linkDB, $query); 
                             if($res == TRUE) 
                             {
@@ -67,8 +67,15 @@
                                 {
                                     while($rows=mysqli_fetch_assoc($res))
                                     {
-                                        $id=$rows['id'];
-                                        echo "<tr><td>" . $rows["sport"]. "</td><td>" . $rows["coach"]. "</td><td>" . $rows["date"]. "</td><td>" . $rows["time"]. "</td><td>" .$rows["paymentdetails"]. "</td><td><a href='clientcancelclass.php?id=$id; ?>'><i class='fa fa-trash'></i></a></td></tr>";
+                                        $id=$rows['class_id'];
+                                        echo "<tr>
+                                          <td>" . $rows["sport"]. "</td>
+                                          <td>" . $rows["coach"]. "</td>
+                                          <td>" . $rows["date"]. "</td>
+                                          <td>" . $rows["time"]. "</td>
+                                          <td>" .$rows["payment_details"]. "</td>
+                                          <td><a href='clientcancelclass.php?id=$id; ?>'><i class='fa fa-trash'></i></a></td>
+                                        </tr>";
                                     }
                                 } else {
                                     echo "0 results";

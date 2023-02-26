@@ -46,64 +46,52 @@
 
             <div class="content">
 
-            <div id="confirm">
+            <!-- <div id="confirm">
               <div class="message">Confirm Cancellation?</div><br>
               <i class="fa fa-minus-circle"></i>
               <h4>NOTE: We will be charging Rs.100 per each cancellation</h4>
-              <button onclick="window.location.href='clientcancelbooking.php';">Yes, Confirm</button>
+              <button onclick="window.location.href='clientcancelbooking.php?id=<?php echo $id ;?>';">Yes, Confirm</button>
               <button class="close-btn">Don't Cancel</button>
-            </div>
-
-            <!-- <section>
-              <button class='popup'><i style='color:black;' class='fa fa-trash'></i></button>
-              <span class="overlay"></span>
-
-              <div class="modal-box">
-                <i class="fa fa-minus-circle"></i>
-                <h2>Confirm Cancellation?</h2>
-                <h4>NOTE: We will be charging Rs.100 per every cancellation</h4>
-
-                <div class="buttons">
-                    <button onclick="window.location.href='clientcancelbooking.php';">Yes, Confirm</button>
-                    <button class="close-btn">Don't Cancel</button>
-                </div>
-              </div>
-            </section> -->
+            </div> -->
 
             <table class="table">
 
-                <tr>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Court</th>    
-                        <th>Action</th>
-                </tr>
+              <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Court</th>    
+                <th>Action</th>
+              </tr>
 
-                <?php
-                    $query = "SELECT * FROM bookings WHERE email = '".$var."'";
-                    $res = mysqli_query($linkDB, $query); 
-                            if($res == TRUE) 
-                            {
-                                $count = mysqli_num_rows($res); //calculate number of rows
-                                if($count>0)
-                                {
-                                    while($rows=mysqli_fetch_assoc($res))
-                                    {
-                                        $id=$rows['id'];
-                                        echo "<tr>
-                                              <td>" . $rows["date"]. "</td>
-                                              <td>" . $rows["time"]. "</td>
-                                              <td>" . $rows["court"]. "</td>
-                                              <td> <i value='Click Me' onclick='functionAlert();' style='color:black;' class='fa fa-trash'></i></td> 
-                                              </tr>";
-                                    }
-                                } else {
-                                    echo "0 results";
-                                }
-                            }    
-                    ?>
+              <?php
+              $query = "SELECT * FROM bookings WHERE email = '".$var."'";
+              $res = mysqli_query($linkDB, $query); 
+              if($res == TRUE) 
+              {
+                $count = mysqli_num_rows($res); //calculate number of rows
+                if($count>0)
+                {
+                  while($rows=mysqli_fetch_assoc($res))
+                  {
+                    $id=$rows['id'];
+                    echo "<tr id='row_$id'>
+                            <td>" . $rows["date"]. "</td>
+                            <td>" . $rows["time"]. "</td>
+                            <td>" .$rows["court"]. "</td>
+                            <td><input type='button' value='submit' onclick='confirmRowData($id)'></td>
+                          </tr>";
+                  }
+                } else {
+                  echo "0 results";
+                }
+              }    
+              ?>
 
             </table>
+
+
+
+
             
           </div>
 
@@ -141,23 +129,6 @@
 </script>
 
 <!-- <script>
-      const section = document.querySelector("section"),
-        overlay = document.querySelector(".overlay"),
-        showBtn = document.querySelector(".popup"),
-        closeBtn = document.querySelector(".close-btn");
-
-      showBtn.addEventListener("click", () => section.classList.add("active"));
-
-      overlay.addEventListener("click", () =>
-        section.classList.remove("active")
-      );
-
-      closeBtn.addEventListener("click", () =>
-        section.classList.remove("active")
-      );
-    </script> -->
-
-<script>
          function functionAlert(msg, myYes) {
             var confirmBox = $("#confirm");
             confirmBox.find(".message").text(msg);
@@ -167,4 +138,52 @@
             confirmBox.find(".close-btn").click(myYes);
             confirmBox.show();
          }
-      </script>
+      </script> -->
+
+      <!-- <script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script> -->
+
+<!-- <script>
+        function show() {
+            var rowId =
+                event.target.parentNode.parentNode.id;
+        //this gives id of tr whose button was clicked
+            var data =
+        document.getElementById(rowId).querySelectorAll(".row-data");
+        /*returns array of all elements with
+        "row-data" class within the row with given id*/
+          
+            var name = data[0].innerHTML;
+            var age = data[1].innerHTML;
+          
+            alert("Name: " + name + "\nAge: " + age);
+        }
+    </script> -->
+
+<script>
+function confirmRowData(id) {
+  // Get the row with the booking data
+  var row = document.getElementById('row_' + id);
+
+  // Get the booking data from the row
+  var date = row.cells[0].innerHTML;
+  var time = row.cells[1].innerHTML;
+  var court = row.cells[2].innerHTML;
+
+  // Ask the user to confirm or cancel the action
+  var confirmMessage = 'Confirm Cancellation?\n\nBooking Details:\n\nDate: ' + date + '\nTime: ' + time + '\nCourt: ' + court + '\nNOTE: We will be charging Rs.100 per each cancellation';
+  if (confirm(confirmMessage)) {
+    // Redirect to the clientcancelclass.php page
+    window.location.href = 'clientcancelbooking.php?id=' + id;
+  } else {
+    // Do nothing if the user cancels the action
+  }
+}
+</script>
