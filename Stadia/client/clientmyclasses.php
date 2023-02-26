@@ -17,6 +17,8 @@
      <?php include('../include/javascript.php'); ?>
      <?php include('../include/styles.php'); ?>
 
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
    </head>
 <body onload="initClock()">
 
@@ -58,7 +60,7 @@
                 </tr>
 
                 <?php
-                    $query = "SELECT client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.date, coach_classes.time, client_classes.payment_details FROM coach_classes INNER JOIN client_classes ON coach_classes.class_id = client_classes.class_id WHERE client_classes.email = '".$var."'";
+                    $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.date, coach_classes.time, client_classes.payment_details FROM coach_classes INNER JOIN client_classes ON coach_classes.class_id = client_classes.class_id WHERE client_classes.email = '".$var."'";
                     $res = mysqli_query($linkDB, $query); 
                             if($res == TRUE) 
                             {
@@ -67,15 +69,15 @@
                                 {
                                     while($rows=mysqli_fetch_assoc($res))
                                     {
-                                        $id=$rows['class_id'];
-                                        echo "<tr>
-                                          <td>" . $rows["sport"]. "</td>
-                                          <td>" . $rows["coach"]. "</td>
-                                          <td>" . $rows["date"]. "</td>
-                                          <td>" . $rows["time"]. "</td>
-                                          <td>" .$rows["payment_details"]. "</td>
-                                          <td><a href='clientcancelclass.php?id=$id; ?>'><i class='fa fa-trash'></i></a></td>
-                                        </tr>";
+                                        $id=$rows['id'];
+                                        echo "<tr id='row_$id'>
+                                            <td>" . $rows["sport"]. "</td>
+                                            <td>" . $rows["coach"]. "</td>
+                                            <td>" . $rows["date"]. "</td>
+                                            <td>" . $rows["time"]. "</td>
+                                            <td>" .$rows["payment_details"]. "</td>
+                                            <td><button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button></td>
+                                          </tr>";
                                     }
                                 } else {
                                     echo "0 results";
@@ -118,4 +120,38 @@
             }
           });
         }
+</script>
+
+<script>
+function confirmRowData(id) {
+  // Get the row with the booking data
+  var row = document.getElementById('row_' + id);
+
+  // Get the booking data from the row
+  var sport = row.cells[0].innerHTML;
+  var coach = row.cells[1].innerHTML;
+  var date = row.cells[2].innerHTML;
+  var time = row.cells[3].innerHTML;
+  var paymentDetails = row.cells[4].innerHTML;
+
+  // Create a custom confirm box
+  var confirmBox = document.createElement('div');
+  confirmBox.classList.add('confirm-box');
+  confirmBox.innerHTML = '<h2>Confirm Cancellation?</h2></i><p>Class Details:</p><ul><li>Sport: ' + sport + '</li><li>Coach: ' + coach + '</li><li>Date: ' + date + '</li><li>Time: ' + time + '</li><li>Payment Details: ' + paymentDetails + '</li></ul><h4><p>NOTE: Class cancellation will be only possible if you have completed the payments.</p></h4><button id="confirm-button">Confirm</button><button id="cancel-button">Cancel</button>';
+
+  // Add the confirm box to the page
+  document.body.appendChild(confirmBox);
+
+  // Add event listeners to the confirm and cancel buttons
+  var confirmButton = document.getElementById('confirm-button');
+  var cancelButton = document.getElementById('cancel-button');
+  confirmButton.addEventListener('click', function() {
+    // Redirect to the clientcancelclass.php page
+    window.location.href = 'clientcancelclass.php?id=' + id;
+  });
+  cancelButton.addEventListener('click', function() {
+    // Remove the confirm box from the page
+    document.body.removeChild(confirmBox);
+  });
+}
 </script>

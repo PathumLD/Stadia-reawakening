@@ -17,6 +17,8 @@
      <?php include('../include/javascript.php'); ?>
      <?php include('../include/styles.php'); ?>
 
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
    </head>
 <body onload="initClock()">
 
@@ -71,12 +73,12 @@
                                         while($rows=mysqli_fetch_assoc($res))
                                         {
                                             $id=$rows['id'];
-                                            echo "<tr>
+                                            echo "<tr id='row_$id'>
                                                     <td>" . $rows["date"]. "</td>
                                                     <td>" . $rows["time"]. "</td>
                                                     <td>" . $rows["itemname"].  "</td>
                                                     <td>" . $rows["orderedquantity"]."</td>
-                                                    <td> <a href='clientcancelrefreshment.php?id=$id; ?>'><i class='fa fa-trash'>&nbsp&nbsp&nbsp</i>  </a> 
+                                                    <td> <button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button> 
                                                         <a href='clientupdaterefreshment.php?id=$id; ?>'><i class='fa fa-pencil-square-o' ></i></a> </td>
                                                 </tr>";
                                         }
@@ -113,11 +115,11 @@
                                     while($rows=mysqli_fetch_assoc($res))
                                     {
                                         $id=$rows['id'];
-                                        echo "<tr>
+                                        echo "<tr id='row__$id'>
                                                 <td>" . $rows["date"]. "</td>
                                                 <td>" . $rows["itemname"]. "</td>
                                                 <td>" . $rows["orderedquantity"]. "</td>
-                                                <td><a href='clientcancelequipment.php?id=$id; ?>'><i class='fa fa-trash'>&nbsp&nbsp&nbsp</i>  </a> 
+                                                <td><button class='submit-button' onclick='confirmRowData2($id)'><i class='fa fa-trash'></i></button>
                                                     <a href='clientupdateequipment.php?id=$id; ?>'><i class='fa fa-pencil-square-o' ></i> </a> </td>
                                             </tr>";
                                     }
@@ -162,4 +164,69 @@
             }
           });
         }
+</script>
+
+<script>
+function confirmRowData(id) {
+  // Get the row with the booking data
+  var row = document.getElementById('row_' + id);
+
+  // Get the booking data from the row
+  var date = row.cells[0].innerHTML;
+  var time = row.cells[1].innerHTML;
+  var item_name = row.cells[2].innerHTML;
+  var ordered_quantity = row.cells[3].innerHTML;
+
+  // Create a custom confirm box
+  var confirmBox = document.createElement('div');
+  confirmBox.classList.add('confirm-box');
+  confirmBox.innerHTML = '<h2>Confirm Cancellation?</h2><p>Order Details:</p><ul><li>Date: ' + date + '</li><li>Time: ' + time + '</li><li>Item: ' + item_name + '</li><li>Ordered Quantity: ' + ordered_quantity + '</li></ul><h4><p>NOTE: We will be only refunding 75% of your payment per each cancellation</p></h4><button id="confirm-button">Confirm</button><button id="cancel-button">Cancel</button>';
+
+  // Add the confirm box to the page
+  document.body.appendChild(confirmBox);
+
+  // Add event listeners to the confirm and cancel buttons
+  var confirmButton = document.getElementById('confirm-button');
+  var cancelButton = document.getElementById('cancel-button');
+  confirmButton.addEventListener('click', function() {
+    // Redirect to the clientcancelrefreshment.php page
+    window.location.href = 'clientcancelrefreshment.php?id=' + id;
+  });
+  cancelButton.addEventListener('click', function() {
+    // Remove the confirm box from the page
+    document.body.removeChild(confirmBox);
+  });
+}
+</script>
+
+<script>
+function confirmRowData2(id) {
+  // Get the row with the booking data
+  var row = document.getElementById('row__' + id);
+
+  // Get the booking data from the row
+  var date = row.cells[0].innerHTML;
+  var item_name = row.cells[1].innerHTML;
+  var ordered_quantity = row.cells[2].innerHTML;
+
+  // Create a custom confirm box
+  var confirmBox = document.createElement('div');
+  confirmBox.classList.add('confirm-box');
+  confirmBox.innerHTML = '<h2>Confirm Cancellation?</h2><p>Order Details:</p><ul><li>Date: ' + date + '</li><li>Item: ' + item_name + '</li><li>Ordered Quantity: ' + ordered_quantity + '</li></ul><h4><p>NOTE: We will be only refunding 75% of your payment per each cancellation</p></h4><button id="confirm-button">Confirm</button><button id="cancel-button">Cancel</button>';
+
+  // Add the confirm box to the page
+  document.body.appendChild(confirmBox);
+
+  // Add event listeners to the confirm and cancel buttons
+  var confirmButton = document.getElementById('confirm-button');
+  var cancelButton = document.getElementById('cancel-button');
+  confirmButton.addEventListener('click', function() {
+    // Redirect to the clientcancelequipment.php page
+    window.location.href = 'clientcancelequipment.php?id=' + id;
+  });
+  cancelButton.addEventListener('click', function() {
+    // Remove the confirm box from the page
+    document.body.removeChild(confirmBox);
+  });
+}
 </script>

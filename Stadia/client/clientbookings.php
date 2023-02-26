@@ -46,14 +46,6 @@
 
             <div class="content">
 
-            <!-- <div id="confirm">
-              <div class="message">Confirm Cancellation?</div><br>
-              <i class="fa fa-minus-circle"></i>
-              <h4>NOTE: We will be charging Rs.100 per each cancellation</h4>
-              <button onclick="window.location.href='clientcancelbooking.php?id=<?php echo $id ;?>';">Yes, Confirm</button>
-              <button class="close-btn">Don't Cancel</button>
-            </div> -->
-
             <table class="table">
 
               <tr>
@@ -64,35 +56,31 @@
               </tr>
 
               <?php
-              $query = "SELECT * FROM bookings WHERE email = '".$var."'";
-              $res = mysqli_query($linkDB, $query); 
-              if($res == TRUE) 
-              {
-                $count = mysqli_num_rows($res); //calculate number of rows
-                if($count>0)
+                $query = "SELECT * FROM bookings WHERE email = '".$var."'";
+                $res = mysqli_query($linkDB, $query); 
+                if($res == TRUE) 
                 {
-                  while($rows=mysqli_fetch_assoc($res))
+                  $count = mysqli_num_rows($res); //calculate number of rows
+                  if($count>0)
                   {
-                    $id=$rows['id'];
-                    echo "<tr id='row_$id'>
-                            <td>" . $rows["date"]. "</td>
-                            <td>" . $rows["time"]. "</td>
-                            <td>" .$rows["court"]. "</td>
-                            <td><input type='button' value='submit' onclick='confirmRowData($id)'></td>
-                          </tr>";
+                    while($rows=mysqli_fetch_assoc($res))
+                    {
+                      $id=$rows['id'];
+                      echo "<tr id='row_$id'>
+                              <td>" . $rows["date"]. "</td>
+                              <td>" . $rows["time"]. "</td>
+                              <td>" .$rows["court"]. "</td>
+                              <td><button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button></td>
+                            </tr>";
+                    }
+                  } else {
+                    echo "0 results";
                   }
-                } else {
-                  echo "0 results";
-                }
-              }    
+                }    
               ?>
 
             </table>
-
-
-
-
-            
+           
           </div>
 
         </div>
@@ -128,45 +116,6 @@
         }
 </script>
 
-<!-- <script>
-         function functionAlert(msg, myYes) {
-            var confirmBox = $("#confirm");
-            confirmBox.find(".message").text(msg);
-            confirmBox.find(".close-btn").unbind().click(function() {
-               confirmBox.hide();
-            });
-            confirmBox.find(".close-btn").click(myYes);
-            confirmBox.show();
-         }
-      </script> -->
-
-      <!-- <script>
-function openForm() {
-  document.getElementById("myForm").style.display = "block";
-}
-
-function closeForm() {
-  document.getElementById("myForm").style.display = "none";
-}
-</script> -->
-
-<!-- <script>
-        function show() {
-            var rowId =
-                event.target.parentNode.parentNode.id;
-        //this gives id of tr whose button was clicked
-            var data =
-        document.getElementById(rowId).querySelectorAll(".row-data");
-        /*returns array of all elements with
-        "row-data" class within the row with given id*/
-          
-            var name = data[0].innerHTML;
-            var age = data[1].innerHTML;
-          
-            alert("Name: " + name + "\nAge: " + age);
-        }
-    </script> -->
-
 <script>
 function confirmRowData(id) {
   // Get the row with the booking data
@@ -177,13 +126,24 @@ function confirmRowData(id) {
   var time = row.cells[1].innerHTML;
   var court = row.cells[2].innerHTML;
 
-  // Ask the user to confirm or cancel the action
-  var confirmMessage = 'Confirm Cancellation?\n\nBooking Details:\n\nDate: ' + date + '\nTime: ' + time + '\nCourt: ' + court + '\nNOTE: We will be charging Rs.100 per each cancellation';
-  if (confirm(confirmMessage)) {
+  // Create a custom confirm box
+  var confirmBox = document.createElement('div');
+  confirmBox.classList.add('confirm-box');
+  confirmBox.innerHTML = '<h2>Confirm Cancellation?</h2><p>Booking Details:</p><ul><li>Date: ' + date + '</li><li>Time: ' + time + '</li><li>Court: ' + court + '</li></ul><h4><p>NOTE: We will be only refunding 75% of your payment per each cancellation</p></h4><button id="confirm-button">Confirm</button><button id="cancel-button">Cancel</button>';
+
+  // Add the confirm box to the page
+  document.body.appendChild(confirmBox);
+
+  // Add event listeners to the confirm and cancel buttons
+  var confirmButton = document.getElementById('confirm-button');
+  var cancelButton = document.getElementById('cancel-button');
+  confirmButton.addEventListener('click', function() {
     // Redirect to the clientcancelclass.php page
     window.location.href = 'clientcancelbooking.php?id=' + id;
-  } else {
-    // Do nothing if the user cancels the action
-  }
+  });
+  cancelButton.addEventListener('click', function() {
+    // Remove the confirm box from the page
+    document.body.removeChild(confirmBox);
+  });
 }
 </script>
