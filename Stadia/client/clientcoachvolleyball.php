@@ -40,13 +40,13 @@
 
             <?php $var = $_SESSION['email']; ?>
 
-            <h1>Coaches - Swimming</h1>
+            <h1>Coaches - Volleyball</h1>
             
             <div class="content">
 
-            <label for="coachswimming">Select Coach:</label>
+            <label for="coachvolleyball">Select Coach:</label>
 
-            <select name="coachswimming" class="search">
+            <select name="coachvolleyball" class="search">
                 <option value="sir1">sir1</option>
                 <option value="sir2">sir2</option>
                 <option value="sir3">sir3</option>
@@ -76,7 +76,7 @@
 
                     $search = $_POST['search'];
 
-                    $query = "SELECT * FROM coach_classes WHERE sport='swimming'AND coachname LIKE '%$search%' ";
+                    $query = "SELECT * FROM coach_classes WHERE sport='volleyball'AND coachname LIKE '%$search%' ";
                     $res = mysqli_query($linkDB, $query); 
                         if($res == TRUE) 
                         {
@@ -101,7 +101,7 @@
                 }
                 else{
 
-                    $query = "SELECT * FROM coach_classes WHERE sport='swimming'";
+                    $query = "SELECT * FROM coach_classes WHERE sport='volleyball'";
                     $res = mysqli_query($linkDB, $query); 
                             if($res == TRUE) 
                             {

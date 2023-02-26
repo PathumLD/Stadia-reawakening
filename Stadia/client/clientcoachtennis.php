@@ -1,4 +1,4 @@
-<?php include("../linkDB.php"); //database connection function ?> 
+<?php include("../linkDB.php"); //database connection function ?>
 
 
 <!DOCTYPE html>
@@ -41,7 +41,7 @@
             <?php $var = $_SESSION['email']; ?>
 
             <h1>Coaches - Tennis</h1>
-
+            
             <div class="content">
 
             <label for="coachtennis">Select Coach:</label>
@@ -60,9 +60,10 @@
 
             <tr>
 
+                <th>Age Group</th>
+                <th>Level</th>
                 <th>Date</th>
                 <th>Time</th>
-                <th>Age Group</th>
                 <th>Class Fee</th>
                 <th>Action</th>
 
@@ -84,8 +85,15 @@
                             {
                                 while($rows=mysqli_fetch_assoc($res))
                                 {
-                                    echo "<tr><td>" . $rows["date"]. "</td><td>" . $rows["time"]. "</td><td>" . $rows["agegroup"]. "</td><td>" . $rows["fee"]. "</td><td><a href='clientmyclasses.php'>Register</a></td></tr>";
-                                }
+                                    echo "<tr>
+                                            <td>" . $rows["age_group"]. "</td>
+                                            <td>" . $rows["level"]. "</td>
+                                            <td>" . $rows["date"]. "</td>
+                                            <td>" . $rows["time"]. "</td>
+                                            <td>" . $rows["fee"]. "</td>
+                                            <td><a href='clientmycart.php'>Register</a></td>
+                                        </tr>";                                
+                                    }
                             } else {
                                 echo "0 results";
                             }
@@ -102,7 +110,14 @@
                                 {
                                     while($rows=mysqli_fetch_assoc($res))
                                     {
-                                        echo "<tr><td>" . $rows["date"]. "</td><td>" . $rows["time"]. "</td><td>" . $rows["agegroup"]. "</td><td>" . $rows["fee"]. "</td><td><a href='clientmyclasses.php'>Register</a></td></tr>";
+                                        echo "<tr>
+                                                <td>" . $rows["age_group"]. "</td>
+                                                <td>" . $rows["level"]. "</td>
+                                                <td>" . $rows["date"]. "</td>
+                                                <td>" . $rows["time"]. "</td>
+                                                <td>" . $rows["fee"]. "</td>
+                                                <td><a href='clientmycart.php'>Register</a></td>
+                                            </tr>";
                                     }
                                 } else {
                                     echo "0 results";
