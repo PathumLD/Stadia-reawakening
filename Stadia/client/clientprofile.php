@@ -1,5 +1,5 @@
+<?php session_start(); ?>
 <?php include("../linkDB.php"); //database connection function ?> 
-
 
 <!DOCTYPE html>
 
@@ -76,7 +76,7 @@
                                     <input type='tel' placeholder='Enter phone' name='phone' pattern='[0-9]{10}'required>
                                 
                                     <input type='submit' class='btn' id='update-btn' name='update' value='Update'>
-                                    <button type='button' class='btn' onclick='closeForm()'><i class='fa fa-times' ></i></button>
+                                    <button type='button' class='btn'id='cancel-btn' onclick='closeForm()'>Cancel</button>
                                   </form>
                                 </div></td>
                               </tr>
@@ -99,7 +99,7 @@
                                     <input type='tel' placeholder='Enter number' name='emphone' pattern='[0-9]{10}'required>
                                 
                                     <input type='submit' class='btn' id='update-btn' name='update2' value='update'>
-                                    <button type='button' class='btn' onclick='closeForm2()'><i class='fa fa-times' ></i></button>
+                                    <button type='button' class='btn'id='cancel-btn' onclick='closeForm2()'>Cancel</button>
                                   </form>
                                 </div></td>
                               </tr>
@@ -114,7 +114,7 @@
                                     <input type='text' placeholder='Enter name' name='emname' required>
                                 
                                     <input type='submit' class='btn' id='update-btn' name='update3' value='update'>
-                                    <button type='button' class='btn' onclick='closeForm3()'><i class='fa fa-times' ></i></button>
+                                    <button type='button' class='btn'id='cancel-btn' onclick='closeForm3()'>Cancel</button>
                                   </form>
                                 </div></td>
                               </tr>";

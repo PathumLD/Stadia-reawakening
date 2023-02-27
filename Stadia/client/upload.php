@@ -1,5 +1,5 @@
+<?php session_start();?>
 <?php include("../linkDB.php"); //database connection function ?> 
-
 
 <!DOCTYPE html>
 
@@ -42,28 +42,15 @@
 
             <h1>Upload CV</h1>
 
-            <div class="content">
+            <div class="content"></div>
 
-            <?php
-            if (isset($_POST['submit'])) {
-  // Get the file data
-  $name = $_FILES['document']['name'];
-  $type = $_FILES['document']['type'];
-  $data = file_get_contents($_FILES['document']['tmp_name']);
-
-  // Insert the file into the database
-  $stmt = $linkDB->prepare('INSERT INTO documents (name, type, content) VALUES ($name, $type, $data)');
-  $stmt->execute([$name, $type, $data]);
-
-  echo 'File uploaded successfully.';
-}
-?>
-
-<form method="post" enctype="multipart/form-data">
-  <input type="file" name="document">
-  <button type="submit" name="submit">Upload</button>
-</form>
-          </div>
+            <form action="" method="post" enctype="multipart/form-data">
+                <label for="file">Select a file to upload:</label>
+                <input type="file" name="file" id="file"><br>
+                <input type="submit" value="Upload">
+            </form>
+            
+            </div>
 
         </div>
 
@@ -97,3 +84,35 @@
           });
         }
 </script>
+
+<?php
+// Connect to the database
+$conn = new mysqli('localhost', 'root', '', 'stadia-new');
+
+// Check connection
+if ($linkDB->connect_error) {
+    die("Connection failed: " . $linkDB->connect_error);
+}
+
+// Check if file has been uploaded
+if (isset($_FILES['file'])) {
+    // Get file information
+    $fileName = $_FILES['file']['name'];
+    $fileType = $_FILES['file']['type'];
+    $fileSize = $_FILES['file']['size'];
+    $fileContent = file_get_contents($_FILES['file']['tmp_name']);
+    $email = $_SESSION['email'];
+
+    // Prepare and execute the SQL statement
+    $stmt = $linkDB->prepare("INSERT INTO files (name, type, size, content, email) VALUES (?, ?, ?, ?, '$email')");
+    $stmt->bind_param("ssis", $fileName, $fileType, $fileSize, $fileContent);
+    $stmt->execute();
+
+    // Check if the file was successfully uploaded
+    if ($stmt->affected_rows > 0) {
+        echo "File uploaded successfully.";
+    } else {
+        echo "Error uploading file.";
+    }
+}
+?>

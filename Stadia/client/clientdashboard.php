@@ -1,5 +1,5 @@
+<?php session_start(); ?>
 <?php include("../linkDB.php"); //database connection function ?> 
-
 
 <!DOCTYPE html>
 
@@ -48,6 +48,8 @@
             <a href="clientphoto.php" >photo</a>
             <a href="photo.php" >photo2</a>
             <a href="upload.php" >upload cv</a>
+            <a href="show.php" >show cv</a>
+            <a href="calendar.php">calendar</a>
 
           </div>
 

@@ -84,7 +84,7 @@
     transition: all 0.3s ease;
 }
 
-.home-content .main-content .content #searchtble #resetbtn{
+.home-content .main-content .content #searchtable #resetbtn{
   background: #6d9976;
   color: #000;
   border: 1px solid #6d9976;
@@ -108,7 +108,7 @@
     cursor: pointer;
 }
 
-.home-content .main-content .content #disable  {
+.home-content .main-content .content #searchtable #disable  {
   color: #666;
 }
 
@@ -287,7 +287,8 @@
 .home-content .main-content .content h3{
     padding: 8px;
     background-color: red;
-    width: 100%;
+    width: 80%;
+    margin-left: 10%;
 }
 
   /* .overlay {
@@ -466,7 +467,7 @@ img {
   position: fixed;
   z-index: 9;
   width: 18rem;
-  height: 17rem;
+  height: 15rem;
   margin-left: -35rem;
   margin-top: -10rem;
   background-color: #ffffff;
@@ -501,17 +502,21 @@ img {
   background-color: #3B6E51;
   border: none;
   color: #fff;
-  margin-top: 3 rem;
+  margin-top: 4 rem;
   padding: 10px 20px;
   font-size: 1rem;
+  border-radius: 20px;
 }
 
-.form-container .fa-times{
-  color: red;
-  font-size: 40px;
-  margin-left: 40px;
-  margin-top: 4rem;
-
+.form-container #cancel-btn{
+  background-color: red;
+  border: none;
+  color: #fff;
+  margin-top: 4 rem;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 20px;
+  float: right;
 }
 
 .form-container button{

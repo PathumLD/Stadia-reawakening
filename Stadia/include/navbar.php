@@ -4,7 +4,7 @@
         <span class="hello">
             <?php 
 
-                session_start();
+                // session_start();
 
                 $var = $_SESSION['email'];
 

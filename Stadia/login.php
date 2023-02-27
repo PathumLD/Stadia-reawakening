@@ -73,6 +73,7 @@
               <div class="input-box">
                 <i class="fas fa-venus-mars"></i>
                 <select name="gender" placeholder="Gender" class="drop" required>
+                    <option value="" disabled selected>Gender</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                     <option value="other">Other</option>
@@ -83,7 +84,7 @@
               <div class="input-box">
                 <i class="fas fa-envelope"></i>
                 <input type="text" placeholder="Email" name="email" required>
-                <input type="date" name="dob" placeholder="Date of Birth " onchange="this.className=(this.value!=''?'has-value':'')" required>
+                <input type="text" name="dob" onfocus="(this.type = 'date')" placeholder="Date of Birth">
               </div>
 
               <div class="input-box">

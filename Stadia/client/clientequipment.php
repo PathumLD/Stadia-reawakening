@@ -1,5 +1,5 @@
+<?php session_start(); ?>
 <?php include("../linkDB.php"); //database connection function ?> 
-
 
 <!DOCTYPE html>
 
@@ -47,6 +47,7 @@
             <form method="post">
                 <input type="text" name="search" placeholder="Item Name..." class="search">
                 <input type="submit" name="go" value="Search" id="searchbtn">
+                <a href="clientbookings.php"><input type="submit" value="reset" id = "resetbtn"></a>
             </form>
 
             <table class="table">
@@ -55,7 +56,8 @@
                     <th>Item Name</th>
                     <th>Price</th> 
                     <th>Available</th>
-                    <th>Quantity Needed</th>  
+                    <th>Quantity Needed</th> 
+                    <th>Action</th> 
                 </tr>
 
                 <?php
@@ -79,7 +81,7 @@
                                                 <td>" . $rows["price"]. "</td>
                                                 <td>" . $rows["quantity"]. "</td>
                                                 <td><input type='number' name='quantity'></td>
-                                                <td><input type='submit' name='add-to-cart' value='Add to Cart'></td>
+                                                <td><button type='submit' name='add-to-cart'><i class='fa fa-cart-plus'></i></button></td>
                                             </tr>";
                                     }
                                 } else {
@@ -103,7 +105,7 @@
                                                 <td>" . $rows["price"]. "</td>
                                                 <td>" . $rows["quantity"]. "</td>
                                                 <td><input type='number' name='quantity'></td>
-                                                <td><input type='submit' name='add-to-cart' value='Add to Cart'></td>
+                                                <td><button type='submit' name='add-to-cart'><i class='fa fa-cart-plus'></i></button></td>
                                             </tr>";
                                     }
                                 } else {
@@ -115,9 +117,9 @@
 
             </table>
 
-            <div class="button">
+            <!-- <div class="button">
                 <a href="clientmycart.php"> Add to Cart </a>
-            </div>
+            </div> -->
 
           </div>
 

@@ -164,6 +164,12 @@ body{
 .form-content .input-box select:valid{
   border-color: #386e51;
 }
+.form-content .input-box select:required:invalid{
+  color: #666;
+}
+.form-content .input-box option[value=""][disabled]{
+  display: none;
+}
 .form-content .input-box label{
   color: black;
 }
