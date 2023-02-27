@@ -46,15 +46,30 @@
 
             <div class="content">
 
-              <form method="post">
-                  <input type="date" name="search" class="search" min="1997-01-01" max="2030-12-31">
-                  <input type="submit" name="go" value="Search" id="searchbtn">
-              </form>
-
-              <form method="post">
-                  <input type="text" name="court_search" class="search">
-                  <input type="submit" name="go2" value="Search" id="searchbtn">
-              </form>
+            <table id="searchtable">
+              <tr>
+                <td>
+                    <form method="post">
+                        <input type="text" name="search" class="search" onfocus="(this.type = 'date')" placeholder="Search by Date">
+                        <input type="submit" name="go" value="Search" id="searchbtn">
+                    </form>
+                </td>
+                <td>
+                    <form method="post">
+                            <select name="court_search" class="search" id="disable">
+                                <option value="" disabled selected>Search by Court</option>
+                                <option value="Badminton">Badminton</option>
+                                <option value="Basketball">Basketball</option>
+                                <option value="Volleyball">Volleyball</option>
+                                <option value="Tennis">Tennis</option>
+                                <option value="Swimming">Swimming</option>
+                            </select>
+                        <input type="submit" name="go2" value="Search" id="searchbtn">
+                        <a href="clientbookings.php"><input type="submit" value="reset" id = "resetbtn"></a>
+                    </form>
+                </td>
+              </tr>
+            </table>
 
               <table class="table">
 
@@ -93,84 +108,59 @@
                               }
                           }
                       } 
-                      else{
-                          $query = "SELECT * FROM bookings WHERE email = '".$var."'";
-                          $res = mysqli_query($linkDB, $query); 
-                          if($res == TRUE) 
-                          {
-                              $count = mysqli_num_rows($res); //calculate number of rows
-                              if($count>0)
-                              {
-                                  while($rows=mysqli_fetch_assoc($res))
-                                  {
-                                      $id=$rows['id'];
-                                      echo "<tr id='row_$id'>
-                                              <td>" . $rows["date"]. "</td>
-                                              <td>" . $rows["time"]. "</td>
-                                              <td>" .$rows["court"]. "</td>
-                                              <td><button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button></td>
-                                          </tr>";
-                                  }
-                              } else {
-                                  echo "0 results";
-                              }
-                          }
-                      }   
+                      else{                  
+
+                        if(isset($_POST['go2'])){
+                                            
+                            $court_search = $_POST['court_search'];
+
+                            $query = "SELECT * FROM bookings WHERE court LIKE '%$court_search%' AND email = '".$var."'";
+                            $res = mysqli_query($linkDB, $query); 
+                            if($res == TRUE) 
+                            {
+                                $count = mysqli_num_rows($res); //calculate number of rows
+                                if($count>0)
+                                {
+                                    while($rows=mysqli_fetch_assoc($res))
+                                    {
+                                        $id=$rows['id'];
+                                        echo "<tr id='row_$id'>
+                                                <td>" . $rows["date"]. "</td>
+                                                <td>" . $rows["time"]. "</td>
+                                                <td>" .$rows["court"]. "</td>
+                                                <td><button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button></td>
+                                            </tr>";
+                                    }
+                                } else {
+                                    echo "0 results";
+                                }
+                            }
+                        } 
+                        else{
+                            $query = "SELECT * FROM bookings WHERE email = '".$var."'";
+                            $res = mysqli_query($linkDB, $query); 
+                            if($res == TRUE) 
+                            {
+                                $count = mysqli_num_rows($res); //calculate number of rows
+                                if($count>0)
+                                {
+                                    while($rows=mysqli_fetch_assoc($res))
+                                    {
+                                        $id=$rows['id'];
+                                        echo "<tr id='row_$id'>
+                                                <td>" . $rows["date"]. "</td>
+                                                <td>" . $rows["time"]. "</td>
+                                                <td>" .$rows["court"]. "</td>
+                                                <td><button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button></td>
+                                            </tr>";
+                                    }
+                                } else {
+                                    echo "0 results";
+                                }
+                            }
+                        }  
+                      } 
                   ?>
-
-                  <?php
-
-                  if(isset($_POST['go2'])){
-                                      
-                      $court_search = $_POST['court_search'];
-
-                      $query = "SELECT * FROM bookings WHERE court LIKE '%$court_search%' AND email = '".$var."'";
-                      $res = mysqli_query($linkDB, $query); 
-                      if($res == TRUE) 
-                      {
-                          $count = mysqli_num_rows($res); //calculate number of rows
-                          if($count>0)
-                          {
-                              while($rows=mysqli_fetch_assoc($res))
-                              {
-                                  $id=$rows['id'];
-                                  echo "<tr id='row_$id'>
-                                          <td>" . $rows["date"]. "</td>
-                                          <td>" . $rows["time"]. "</td>
-                                          <td>" .$rows["court"]. "</td>
-                                          <td><button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button></td>
-                                      </tr>";
-                              }
-                          } else {
-                              echo "0 results";
-                          }
-                      }
-                  } 
-                  else{
-                      $query = "SELECT * FROM bookings WHERE email = '".$var."'";
-                      $res = mysqli_query($linkDB, $query); 
-                      if($res == TRUE) 
-                      {
-                          $count = mysqli_num_rows($res); //calculate number of rows
-                          if($count>0)
-                          {
-                              while($rows=mysqli_fetch_assoc($res))
-                              {
-                                  $id=$rows['id'];
-                                  echo "<tr id='row_$id'>
-                                          <td>" . $rows["date"]. "</td>
-                                          <td>" . $rows["time"]. "</td>
-                                          <td>" .$rows["court"]. "</td>
-                                          <td><button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button></td>
-                                      </tr>";
-                              }
-                          } else {
-                              echo "0 results";
-                          }
-                      }
-                  }   
-                  ?>
-
 
               </table>
                     
