@@ -1,0 +1,80 @@
+.home-section nav{
+    display: flex;
+    justify-content: space-between;
+    height: 80px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    width: calc(100% - 240px);
+    left: 240px;
+    z-index: 100;
+    padding: 0 20px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    transition: all 0.5s ease;
+}
+
+.home-section nav .sidebar-button{
+    display:flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav .sidebar-button i{
+    font-size: 25px;
+    margin-right: 10px;
+}
+
+.sidebar.active ~ .home-section{
+    width: calc(100% - 60px);
+    left: 60px;
+}
+
+.sidebar.active ~ .home-section nav{
+    left: 60px;
+    width: calc(100% - 60px);
+}
+
+.home-section nav .date-time{
+    position: relative;
+    height: 50px;
+    max-width: 600px;
+    width: 100%;
+    margin-left: 20%;
+}
+
+.home-section nav .profile-details{
+    display: flex;
+    align-items: center;
+    /* background: #c4d4cc;
+    border: 2px solid #6D9976; */
+    border-radius: 6px;
+    height: 50px;
+    min-width:max-content;
+    padding: 0 10px 0 2px;
+}
+
+nav .profile-details img{
+    height: 40px;
+    width: 40px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+nav .profile-details a{
+    margin-right: 3%;
+  }
+
+nav .profile-details i{
+    font-size: 25px;
+    height: 40px;
+    width: 40px;
+    background: #3B6E51;
+    right: 5px;
+    top: 50%;
+    border-radius: 4px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 22px;
+}
