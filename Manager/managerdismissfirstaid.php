@@ -2,7 +2,7 @@
     include("../linkDB.php");
 
     $id = $_GET['id'];
-    $sql = "DELETE FROM manager_first_aid WHERE item_id=$id";
+    $sql = "DELETE FROM first_aid WHERE item_id=$id";
 
     $res = mysqli_query($linkDB, $sql);
 
