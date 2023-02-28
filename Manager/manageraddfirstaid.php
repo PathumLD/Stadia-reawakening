@@ -105,7 +105,7 @@ if (isset($_POST['submit'])) {
   $item_name = $_POST['item_name'];
   $quantity = $_POST['quantity']; 
 
-  $sql = "INSERT INTO manager_first_aid (item_id,item_name,quantity) VALUES ('$item_id', '$item_name', '$quantity')";
+  $sql = "INSERT INTO first_aid (item_id,item_name,quantity) VALUES ('$item_id', '$item_name', '$quantity')";
   $rs = mysqli_query($linkDB, $sql);
 
   //if ($rs) {
@@ -118,18 +118,6 @@ if (isset($_POST['submit'])) {
 
   }
 }
-      
-   //Check if Item is already exist in the Database
-
-    // $query = "SELECT ItemId FROM addequipment WHERE ItemId = '$ItemId'";
-    // $result = mysqli_query($linkDB, $sql);
-    // if (mysqli_num_rows($result) > 0) {
-    //     $error .="<p>Your Item has been recorded already!</p>";
-    // } else {
-    //     $sql = "INSERT INTO addequipment (ItemId, Itemname, Quantity) VALUES ('$ItemId','$Itemname','$Quantity')";
-
-    //     //header("Location: addequipment.php");  
-    // }
  
 ?>
 
