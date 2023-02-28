@@ -65,7 +65,7 @@
                 </tr>
  <?php
 
-    $query = "SELECT * FROM manager_first_aid ";
+    $query = "SELECT * FROM first_aid ";
     $res = mysqli_query($linkDB, $query); 
     if($res == TRUE) 
              {
