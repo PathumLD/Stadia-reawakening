@@ -64,7 +64,7 @@
                 </tr>
                 
                     <?php
-                        $query = "SELECT * FROM client_refreshments WHERE email = '".$var."'";
+                        $query = "SELECT * FROM client_refreshments WHERE status=1 AND email = '".$var."'";
                         $res = mysqli_query($linkDB, $query); 
                                 if($res == TRUE) 
                                 {
@@ -106,7 +106,7 @@
                 </tr>
 
                 <?php
-                    $query = "SELECT * FROM ordered_equipment WHERE email = '".$var."'";
+                    $query = "SELECT * FROM ordered_equipment WHERE status=1 AND email = '".$var."'";
                     $res = mysqli_query($linkDB, $query); 
                             if($res == TRUE) 
                             {

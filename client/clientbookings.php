@@ -88,7 +88,7 @@
                                           
                           $search = $_POST['search'];
 
-                          $query = "SELECT * FROM bookings WHERE date LIKE '%$search%' AND email = '".$var."'";
+                          $query = "SELECT * FROM bookings WHERE date LIKE '%$search%' AND status=1 AND email = '".$var."'";
                           $res = mysqli_query($linkDB, $query); 
                           if($res == TRUE) 
                           {
@@ -116,7 +116,7 @@
                                             
                             $court_search = $_POST['court_search'];
 
-                            $query = "SELECT * FROM bookings WHERE court LIKE '%$court_search%' AND email = '".$var."'";
+                            $query = "SELECT * FROM bookings WHERE court LIKE '%$court_search%' AND status=1 AND email = '".$var."'";
                             $res = mysqli_query($linkDB, $query); 
                             if($res == TRUE) 
                             {
@@ -139,7 +139,7 @@
                             }
                         } 
                         else{
-                            $query = "SELECT * FROM bookings WHERE email = '".$var."'";
+                            $query = "SELECT * FROM bookings WHERE status=1 AND email = '".$var."'";
                             $res = mysqli_query($linkDB, $query); 
                             if($res == TRUE) 
                             {

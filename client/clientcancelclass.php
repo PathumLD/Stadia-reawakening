@@ -3,7 +3,7 @@
     include("../linkDB.php");
 
     $id = $_GET['id'];
-    $sql = "DELETE FROM client_classes WHERE id=$id";
+    $sql = "UPDATE client_classes SET status=0 WHERE id=$id";
 
     $res = mysqli_query($linkDB, $sql);
 
