@@ -66,22 +66,18 @@
                                 {
                                     while($rows=mysqli_fetch_assoc($res))
                                     {
-                                    
-                                        $subject=$rows['subject'];
-                                        $details=$rows['details'];
-                                        $datetime=$rows['datetime']
-                                    ?>
-                                    <tr>
-                                                <td><?php echo $subject; ?> </td>
-                                                <td><?php echo $details; ?></td>
-                                                <td><?php echo $datetime; ?></td>
-                                            </tr>
-                                            <?php
-                                    }
-                                }    
-
-                            } 
-                    ?>
+                                  
+                                        echo "<tr>
+                                                <td>" . $rows["subject"]. "</td>
+                                                <td>" . $rows["details"]. "</td>
+                                                <td>" . $rows["datetime"]. "</td>
+                                              </tr>";
+                            }
+                        } else {
+                            echo "0 results";
+                        }
+                    }    
+            ?>
 
             </table>
             

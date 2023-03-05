@@ -126,9 +126,57 @@
                   ?>
               </table>
 
+              <div class="profilepic">
+                <?php
+
+                    // Retrieve the image from the database
+                    $folder = "../img/";
+                    $result = mysqli_query($linkDB, "SELECT * FROM users WHERE email = '".$var."'");
+                    $row = mysqli_fetch_array($result);
+                    $filename = $row['dp'];
+                    
+                    // Display the image on the web page
+                    echo '<img src="' . $folder . $filename . '" alt ="dp">';
+
+                ?>
+
+                <!-- HTML form to upload the image -->
+                <form method="post" enctype="multipart/form-data">
+                  <label for="inputTag">
+                    <i class="fa fa-2x fa-camera"></i>
+                    <input type="file" id="inputTag" name="image" accept="image/*">
+                  </label>
+                  <span id="imageName"></span>
+                    <input type="submit" name="submit" value="Update">
+                </form>
+
+                <?php
+                      // Check if the form was submitted
+                      if(isset($_POST['submit'])) {
+                      
+                        // Upload the image to a temporary location
+                        $tempname = $_FILES['image']['name'];
+                        $folder = "../img/";
+                        $target_file = $folder . basename($tempname);
+                        move_uploaded_file($_FILES['image']['tmp_name'], $target_file);
+                        $email = $_SESSION['email'];
+                        
+                        // Store the image file name in the database
+                        $sql = "UPDATE users SET dp='$tempname' WHERE email= '".$var."'";
+                        $rs=mysqli_query($linkDB, $sql);
+
+                        if($rs){
+  
+                          echo "<script>window.location.href='clientprofile.php'; </script>";
+                        
+                        }
+                      }
+                    ?>
+                
+              </div>
+
                   <div class="button">
                     <a href="clientchangepassword.php"> Change Password </a>
-                    <a href="clientprofilephoto.php">Update Profile Photo</a>
                   </div>
 
           </div>
@@ -254,3 +302,14 @@ else{
 
 }
 ?>
+
+<script>
+        let input = document.getElementById("inputTag");
+        let imageName = document.getElementById("imageName")
+
+        input.addEventListener("change", ()=>{
+            let inputImage = document.querySelector("input[type=file]").files[0];
+
+            imageName.innerText = inputImage.name;
+        })
+    </script>
