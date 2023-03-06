@@ -87,7 +87,7 @@
     <table>
       <tr>
         <td><img src="images/1.jpg" alt="about image"></td>
-        <td><img src="images/2.jpeg" alt="about image"></td>
+        <td><img src="images/bb.gif" alt="about image"></td>
         <td><img src="images/3.jpg" alt="about image"></td>
         <td><img src="images/4.jpg" alt="about image"></td>
         <td><img src="images/5.jpg" alt="about image"></td>
