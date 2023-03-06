@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/client.css">
+    <link rel="stylesheet" href="../css/profile.css">
  
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -45,13 +46,20 @@
 
             <div class="content">
 
-            <a href="test.php" >test</a>
-            <a href="clientphoto.php" >photo</a>
-            <a href="photo.php" >photo2</a>
-            <a href="upload.php" >upload cv</a>
-            <a href="show.php" >show cv</a>
-            <a href="calendar.php">calendar</a>
-            <a href="clientcoachprofile.php">coach profile</a>
+            <section class="section">
+                <button class="show-modal">Show Modal</button>
+                <span class="overlay"></span>
+
+                <div class="modal-box">
+                    <i class="fa-regular fa-circle-check"></i>
+                    <h2>Completed</h2>
+                    <h3>You have sucessfully downloaded all the source code files.</h3>
+
+                    <div class="buttons">
+                        <button class="close-btn">Ok, Close</button>
+                    </div>
+                </div>
+            </section>
 
           </div>
 
@@ -87,3 +95,20 @@
           });
         }
 </script>
+
+<script>
+      const section = document.querySelector(".section"),
+        overlay = document.querySelector(".overlay"),
+        showBtn = document.querySelector(".show-modal"),
+        closeBtn = document.querySelector(".close-btn");
+
+      showBtn.addEventListener("click", () => section.classList.add("active"));
+
+      overlay.addEventListener("click", () =>
+        section.classList.remove("active")
+      );
+
+      closeBtn.addEventListener("click", () =>
+        section.classList.remove("active")
+      );
+    </script>

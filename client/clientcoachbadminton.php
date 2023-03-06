@@ -12,8 +12,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/client.css">
- 
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/profile.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
      <?php include('../include/javascript.php'); ?>
      <?php include('../include/styles.php'); ?>
@@ -45,17 +46,40 @@
             
             <div class="content">
 
-            <label for="coachbadminton">Select Coach:</label>
+            <table id="searchtable">
+              <tr>
+                <td>
+                    <form method="post">
+                                <select name="court_search" class="search" id="disable">
+                                    <option value="" disabled selected>Search by Coach</option>
+                                    <option value="coach1">Coach1</option>
+                                    <option value="coach2">Coach2</option>
+                                    <option value="coach3">Coach3</option>
+                                    <option value="coach4">Coach4</option>
+                                    <option value="coach5">Coach5</option>
+                                </select>
+                        <input type="submit" name="go" value="Search" id="searchbtn">
+                        <a href="clientbookings.php"><input type="submit" value="reset" id = "resetbtn"></a>
+                    </form>
+                </td>
+                <td>
+                    <section class="section">
+                        <button class="show-modal">View Coach</button>
+                        <span class="overlay"></span>
 
-            <select name="coachbadminton" class="search">
-                <option value="sir1">sir1</option>
-                <option value="sir2">sir2</option>
-                <option value="sir3">sir3</option>
-                <option value="sir4">sir4</option>
-            </select>
-            <form method="post">
-                <input type="submit" name="go" value="Search" id="searchbtn">
-            </form>
+                        <div class="modal-box">
+                            <i class="fa-regular fa-circle-check"></i>
+                            <h2>Completed</h2>
+                            <h3>You have sucessfully downloaded all the source code files.</h3>
+
+                            <div class="buttons">
+                                <button class="close-btn">Ok, Close</button>
+                            </div>
+                        </div>
+                    </section>
+                </td>
+            </tr>
+            </table>
 
             <table class="table">
 
@@ -163,3 +187,20 @@
           });
         }
 </script>
+
+<script>
+      const section = document.querySelector(".section"),
+        overlay = document.querySelector(".overlay"),
+        showBtn = document.querySelector(".show-modal"),
+        closeBtn = document.querySelector(".close-btn");
+
+      showBtn.addEventListener("click", () => section.classList.add("active"));
+
+      overlay.addEventListener("click", () =>
+        section.classList.remove("active")
+      );
+
+      closeBtn.addEventListener("click", () =>
+        section.classList.remove("active")
+      );
+    </script>
