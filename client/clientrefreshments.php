@@ -57,7 +57,7 @@
                 </tr>
 
                 <?php
-                    $query = "SELECT itemname, price FROM refreshments_drinks ";
+                    $query = "SELECT * FROM refreshments_drinks ";
                     $res = mysqli_query($linkDB, $query); 
                             if($res == TRUE) 
                             {
@@ -93,7 +93,7 @@
                 </tr>
 
                 <?php
-                    $query = "SELECT itemname, price FROM refreshments_snacks ";
+                    $query = "SELECT * FROM refreshments_snacks ";
                     $res = mysqli_query($linkDB, $query); 
                             if($res == TRUE) 
                             {
@@ -102,11 +102,13 @@
                                 {
                                     while($rows=mysqli_fetch_assoc($res))
                                     {
-                                        echo "<tr>
+                                        $id=$rows['id'];
+                                        echo "<tr id='row__$id'>
                                                 <td>" . $rows["itemname"]. "</td>
                                                 <td>" . $rows["price"]. "</td>
                                                 <td><input type='number' name='quantity'></td>
-                                                <td><button type='submit' name='add-to-cart'><i class='fa fa-cart-plus'></i></button></td>
+                                                <td><button type='submit' name='add-to-cart' ><i class='fa fa-cart-plus'></i></button>
+                                                     <a href='clientaddtocart.php?id=$id; ?>'><i class='fa fa-pencil-square-o' ></i> </a> </td>
                                             </tr>";
                                         }
                                     } else {
@@ -155,32 +157,3 @@
           });
         }
 </script>
-
-<?php
-
-if(isset($_POST['add-to-cart'])){
-  
-include('linkDB.php');  
-$id = $_GET['id'];
-
-$item = $_POST['$rows["itemname"]'];
-$price = $_POST['$rows["price"]'];
-$quantity = $_POST['quantity'];
-$email = $_SESSION['email'];
-
-$sql = "INSERT INTO cart (email, item, amount)
-VALUES ('$email', '$item' , '$quantity' )";
-
-$rs= mysqli_query($linkDB,$sql);
-
-if($rs){
-  
-  echo "<script>window.location.href='clientmycart.php'; </script>";
-
-}
-else{
-  echo "Could not add to the cart - please try again.";
-}
- 
-}
-?>

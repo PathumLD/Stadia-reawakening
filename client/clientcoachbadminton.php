@@ -50,34 +50,122 @@
               <tr>
                 <td>
                     <form method="post">
-                                <select name="court_search" class="search" id="disable">
-                                    <option value="" disabled selected>Search by Coach</option>
-                                    <option value="coach1">Coach1</option>
-                                    <option value="coach2">Coach2</option>
-                                    <option value="coach3">Coach3</option>
-                                    <option value="coach4">Coach4</option>
-                                    <option value="coach5">Coach5</option>
-                                </select>
+
+                        <select name="court_search" class="search" id="disable">
+                        <option value="" disabled selected>Search by Coach</option>
+                        <?php
+                            $query = "SELECT * from users WHERE type = 'coach' ";
+                            $res = mysqli_query($linkDB, $query);
+                            if($res == TRUE)
+                            {
+                                $count =mysqli_num_rows($res); //calculate the number of rows
+                                if($count>0)
+                                {
+                                    $option = '';
+                                    while($rows=mysqli_fetch_assoc($res))
+                                    {
+                                        $option .= '<option value="' .$rows['email'] . '">' .$rows['fname'] . " " . $rows['lname'] .'</option>';
+                                    }
+                                    echo '' . $option . '</select>';
+                                } else{
+                                    echo "0 results";
+                                }
+                            }
+                        ?>
+
                         <input type="submit" name="go" value="Search" id="searchbtn">
                         <a href="clientbookings.php"><input type="submit" value="reset" id = "resetbtn"></a>
                     </form>
-                </td>
-                <td>
+                    </td>
+                    <td><button id = "viewbtn"  onclick='viewCoach()'>View Coach</button></td>
+                <!-- <td>
                     <section class="section">
                         <button class="show-modal">View Coach</button>
                         <span class="overlay"></span>
 
                         <div class="modal-box">
-                            <i class="fa-regular fa-circle-check"></i>
-                            <h2>Completed</h2>
-                            <h3>You have sucessfully downloaded all the source code files.</h3>
+                            <div class="container-fluid content-section" id="profile">
+                                <div class="container-fluid ">
+                                    <img src="../images/profile.jpg" alt="Profile Photo" class="profile-picture">
+                                    <div class="overlay"></div>
+                                    <div class="profile-details">
+                                        <h1>John Doe</h1>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="about-me container content-section" id="about">
+                            <div class="heading text-center">
+			<h1>About Me</h1>
+
+			<div class="row about-description-section">
+				<section class="col-xs12 col-md-4 container">
+					<h4 class="section-heading">Who I am</h4>
+					<p class="text-left">
+						I am an Android developer who cares for good UI. I'm currently exploring the realm of Web and mobile development. I was introduced to C/C++ in 11<sup>th</sup> grade and I've been a fan of algorithms and programming ever since. I love coffee, Dum Biriyaani, the sweetness of Urdu poetry, the depth of Tarantino's and Kashyap's flicks, the soul in Pink Floyd's and Led Zeppelin's music and the grace with which Madhuri Dixit smiles. I'm a team player and a self starter. I have a keen eye for designing and wire framing and I prefer having an entrepreneurial approach towards my work. When not coding, I can either be found exploring places in the blocked arteries of Mumbai or at some corner of my home, scribbling poetry in illegible handwriting. 
+					</p>
+				</section>
+
+				
+				<section class="col-xs12 col-md-4 list-section container">
+					
+					<h4 class="section-heading">Languages that I code in/work with</h4>
+					<ul class="list-group text-left">
+						
+						<li class="list-group-item col-xs-12">Core Java</li>
+						<li class="list-group-item col-xs-12">XML (For Android UI design)</li>
+						<li class="list-group-item col-xs-12">C/C++</li>
+						<li class="list-group-item col-xs-12">HTML</li>
+						<li class="list-group-item col-xs-12">CSS</li>
+						<li class="list-group-item col-xs-12">PHP</li>
+
+					</ul>
+				</section>
+
+				<section class="col-xs12 col-md-4 list-section experience-section container">
+					<h4 class="section-heading">Experience</h4>
+					
+					<ul class="list-group">
+						<li class="list-group-item text-left col-xs-12">
+							
+							<div>
+								SpeakingLamp Technologies
+								
+							</div>
+							<small class="position-in-company">Android Developer</small>
+							
+							<div>
+								<small class="position-in-company">May'16-present</small>
+							</div>
+						</li>
+
+						<li class="list-group-item text-left col-xs-12">
+							
+							<div>
+								TOPS Technologies
+								
+							</div>
+							<small class="position-in-company">Android Intern</small>
+							
+							<div>
+								<small class="position-in-company">Feb'16-May'16</small>
+							</div>
+						</li>
+
+						
+					</ul>
+				</section>
+				
+
+			</div>
+		</div>
+                            </div>
 
                             <div class="buttons">
                                 <button class="close-btn">Ok, Close</button>
                             </div>
                         </div>
                     </section>
-                </td>
+                </td> -->
             </tr>
             </table>
 
@@ -203,4 +291,24 @@
       closeBtn.addEventListener("click", () =>
         section.classList.remove("active")
       );
+    </script>
+
+    <script>
+    function viewCoach() {
+
+    // Create a custom confirm box
+    var confirmBox = document.createElement('div');
+    confirmBox.classList.add('confirm-box');
+    confirmBox.innerHTML = '<h2>Pathum Lakshan</h2><p>Order Details:</p><h4><p>NOTE: We will be only refunding 75% of your payment per each cancellation</p></h4><button id="confirm-button">Confirm</button><button id="cancel-button">Cancel</button>';
+
+    // Add the confirm box to the page
+    document.body.appendChild(confirmBox);
+
+    // Add event listeners to the confirm and cancel buttons
+    var cancelButton = document.getElementById('cancel-button');
+    cancelButton.addEventListener('click', function() {
+        // Remove the confirm box from the page
+        document.body.removeChild(confirmBox);
+    });
+    }
     </script>
