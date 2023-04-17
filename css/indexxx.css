@@ -278,6 +278,7 @@ section .button button:hover{
   object-fit: cover;
   border-radius: 12px;
   margin-bottom: 50px;
+  object-fit: cover;
 }
 
  /* .skills .skills-details{
