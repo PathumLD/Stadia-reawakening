@@ -86,64 +86,51 @@
 
                 </tr>
 
-                <?php
+                            <?php
 
-class CoachClass {
-    private $linkDB;
-    private $date;
-    private $search;
 
-    public function __construct($linkDB, $date, $search) {
-        $this->linkDB = $linkDB;
-        $this->date = $date;
-        $this->search = $search;
-    }
+                                $linkDB = mysqli_connect("localhost", "root", "", "stadia-new");
 
-    public function getClasses() {
-        if($this->search == 'all') {
-            $query = "SELECT * FROM coach_classes";
-        } else {
-            $query = "SELECT * FROM coach_classes WHERE date LIKE '%$this->search%'";
-        }
+                                if(isset($_POST['go'])) {
+                                    $search = $_POST['search'];
+                                } else {
+                                    $search = null;
+                                }
 
-        $res = mysqli_query($this->linkDB, $query);
+                                if($search == 'all') {
+                                    $query = "SELECT * FROM coach_classes";
+                                } else {
+                                    $query = "SELECT * FROM coach_classes WHERE date LIKE '%$search%'";
+                                }
 
-        if($res == TRUE) {
-            $count = mysqli_num_rows($res);
+                                $res = mysqli_query($linkDB, $query);
 
-            if($count > 0) {
-                while($rows = mysqli_fetch_assoc($res)) {
-                    $class_id = $rows['class_id'];
+                                if($res == TRUE) {
+                                    $count = mysqli_num_rows($res);
 
-                    echo "<tr id='row_$class_id'>
+                                    if($count > 0) {
+                                        while($rows = mysqli_fetch_assoc($res)) {
+                                            $class_id = $rows['class_id'];
 
-                        <td>" . $rows["date"]. "</td>
-                        <td>" . $rows["sport"]. "</td>
-                        <td>" . $rows["time"]. "</td>
-                        <td>" . $rows["age_group"]. "</td>
-                        <td>" . $rows["no_of_students"]. "</td>
-                        <td><a href='coachstudentdetails.php?id=$class_id;'>View</a> </td>
-                        <td><a href='coachupdateclass.php?id=$class_id;'>Update</a> </td>
-                        <td><button class='submit-button' onclick='confirmRowData($class_id)'><i class='fa fa-trash'></i></button></td>
-                    </tr>";
-                }
-            } else {
-                echo "0 results";
-            }
-        }
-    }
-}
+                                            echo "<tr id='row_$class_id'>
+                                                <td>" . $rows["date"]. "</td>
+                                                <td>" . $rows["sport"]. "</td>
+                                                <td>" . $rows["time"]. "</td>
+                                                <td>" . $rows["age_group"]. "</td>
+                                                <td>" . $rows["no_of_students"]. "</td>
+                                                <td><a href='coachstudentdetails.php?id=$class_id;'>View</a> </td>
+                                                <td><a href='coachupdateclass.php?id=$class_id;'>Update</a> </td>
+                                                <td><button class='submit-button' onclick='confirmRowData($class_id)'><i class='fa fa-trash'></i></button></td>
+                                            </tr>";
+                                        }
+                                    } else {
+                                        echo "0 results";
+                                    }
+                                }
 
-if(isset($_POST['go'])) {
-    $search = $_POST['search'];
-} else {
-    $search = null;
-}
+                                mysqli_close($linkDB);
+                                ?>
 
-$coachClass = new CoachClass($linkDB, $date, $search);
-$coachClass->getClasses();
-
-?>
 
 
 
@@ -184,38 +171,4 @@ $coachClass->getClasses();
             }
           });
         }
-</script>
-
-<script>
-function confirmRowData(class_id) {
-  // Get the row with the booking data
-  var row = document.getElementById('row_' + class_id);
-
-  // Get the booking data from the row
-  var date = row.cells[0].innerHTML;
-  var sport = row.cells[1].innerHTML;
-  var time = row.cells[2].innerHTML;
-  var age_group = row.cells[3].innerHTML;
-  var no_of_students = row.cells[4].innerHTML;
-
-  // Create a custom confirm box
-  var confirmBox = document.createElement('div');
-  confirmBox.classList.add('confirm-box');
-  confirmBox.innerHTML = '<h2>Confirm Cancellation?</h2><p>Class Details:</p><ul><li>Day : ' + date + '</li><li>Sport : ' + sport + '</li><li>Time : ' + time + '</li><li>Age Group : ' + age_group + '</li><li>No of Students : ' + no_of_students+ '</li></ul><h4><p>NOTE: We will be only refunding 75% of your payment per each cancellation</p></h4><button id="confirm-button">Confirm</button><button id="cancel-button">Cancel</button>';
-
-  // Add the confirm box to the page
-  document.body.appendChild(confirmBox);
-
-  // Add event listeners to the confirm and cancel buttons
-  var confirmButton = document.getElementById('confirm-button');
-  var cancelButton = document.getElementById('cancel-button');
-  confirmButton.addEventListener('click', function() {
-    // Redirect to the clientcancelclass.php page
-    window.location.href = 'coachcancelbooking.php?id=' + class_id;
-  });
-  cancelButton.addEventListener('click', function() {
-    // Remove the confirm box from the page
-    document.body.removeChild(confirmBox);
-  });
-}
 </script>
