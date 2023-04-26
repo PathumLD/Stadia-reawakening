@@ -67,58 +67,52 @@
 
                 <?php
 
-class CoachStudents {
-    private $linkDB;
+                        $linkDB = mysqli_connect('localhost', 'username', 'root', 'stadia-new');
 
-    public function __construct($linkDB) {
-        $this->linkDB = $linkDB;
-    }
+                        if (!$linkDB) {
+                            die('Connection failed: ' . mysqli_connect_error());
+                        }
 
-    public function getStudents($search = null) {
-        if ($search) {
-            $query = "SELECT * FROM coach_students WHERE name LIKE '%$search%'";
-        }
-        elseif ($search) {
-                $query = "SELECT * FROM coach_students WHERE gender LIKE '%$search%'";
-        } else {
-            $query = "SELECT * FROM coach_students";
-        }
+                        if (isset($_POST['go'])) {
+                            $search = $_POST['search'];
+                        } else {
+                            $search = null;
+                        }
 
-        $res = mysqli_query($this->linkDB, $query);
+                        if ($search) {
+                            $query = "SELECT * FROM coach_students WHERE name LIKE '%$search%'";
+                        } elseif ($search) {
+                            $query = "SELECT * FROM coach_students WHERE gender LIKE '%$search%'";
+                        } else {
+                            $query = "SELECT * FROM coach_students";
+                        }
 
-        if ($res == TRUE) {
-            $count = mysqli_num_rows($res);
+                        $res = mysqli_query($linkDB, $query);
 
-            if ($count > 0) {
-                while ($rows = mysqli_fetch_assoc($res)) {
-                    echo "<tr>
-                            <td> </td>
-                            <td>" . $rows["name"]. "</td>
-                            <td>" . $rows["dob"]. "</td>
-                            <td>" . $rows["gender"]. "</td>
-                            <td>" . $rows["NIC"]. "</td>
-                            <td>" . $rows["phoneNo"]. "</td>
-                            <td>" . $rows["address"]. "</td>
-                        </tr>";
-                }
-            } else {
-                echo "0 results";
-            }
-        }
-    }
-}                   
+                        if ($res == TRUE) {
+                            $count = mysqli_num_rows($res);
 
-$coachStudents = new CoachStudents($linkDB);
+                            if ($count > 0) {
+                                while ($rows = mysqli_fetch_assoc($res)) {
+                                    echo "<tr>
+                                            <td> </td>
+                                            <td>" . $rows["name"]. "</td>
+                                            <td>" . $rows["dob"]. "</td>
+                                            <td>" . $rows["gender"]. "</td>
+                                            <td>" . $rows["NIC"]. "</td>
+                                            <td>" . $rows["phoneNo"]. "</td>
+                                            <td>" . $rows["address"]. "</td>
+                                        </tr>";
+                                }
+                            } else {
+                                echo "0 results";
+                            }
+                        }
 
-if (isset($_POST['go'])) {
-    $search = $_POST['search'];
-} else {
-    $search = null;
-}
+                        mysqli_close($linkDB);
 
-$coachStudents->getStudents($search);
-
-?>          
+                        ?>
+          
      
             </table>
 
