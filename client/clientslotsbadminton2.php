@@ -18,7 +18,7 @@
     <?php include('../include/javascript.php'); ?>
     <?php include('../include/styles.php'); ?>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.css" />
+    <link rel="stylesheet" href="../css/calender.css" />
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css" /> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -28,41 +28,57 @@
 
     <script>
    
-  $(document).ready(function() {
-   var calendar = $('#calendar').fullCalendar({
+   $(document).ready(function() {
+  var calendar = $('#calendar').fullCalendar({
     editable:true,
     header:{
-     left:'prev,next today',
-     center:'title',
-     right:'month,agendaWeek,agendaDay'
+      left:'prev,next today',
+      center:'title',
+      right:'agendaWeek,month'
     },
+    defaultView: 'agendaWeek',
     events: 'slotsbadminton2load.php',
+    views: {
+      month: {
+        selectable: false
+      },
+      agenda: {
+        slotDuration: '01:00:00',
+        slotLabelInterval: '01:00:00',
+        minTime: '07:00:00',
+        maxTime: '22:00:00'
+      }
+    },
     selectable:true,
     selectHelper:true,
     select: function(start, end, allDay)
     {
-     var title = prompt("Enter Event Title");
-     if(title)
-     {
-      var start = $.fullCalendar.formatDate(start, "Y-MM-DD HH:mm:ss");
-      var end = $.fullCalendar.formatDate(end, "Y-MM-DD HH:mm:ss");
-      $.ajax({
-       url:"slotsbadminton2insert.php",
-       type:"POST",
-       data:{title:title, start:start, end:end},
-       success:function()
-       {
-        calendar.fullCalendar('refetchEvents');
-        alert("Added Successfully");
-       }
-      })
-     }
+      var title = prompt("Enter Event Title");
+      if(title)
+      {
+        var startDate = moment(start).startOf('hour');
+        var endDate = moment(start).startOf('hour').add(1, 'hour');
+
+        var start = $.fullCalendar.formatDate(startDate, "Y-MM-DD HH:mm:ss");
+        var end = $.fullCalendar.formatDate(endDate, "Y-MM-DD HH:mm:ss");
+
+        $.ajax({
+          url:"slotsbadminton2insert.php",
+          type:"POST",
+          data:{title:title, start:start, end:end},
+          success:function()
+          {
+            calendar.fullCalendar('refetchEvents');
+            alert("Added Successfully");
+          }
+        })
+      }
     },
     editable:true,
     eventResize:function(event)
     {
      var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
-     var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+     var end = $.fullCalendar.formatDate(event.start.add(1, 'hour'), "Y-MM-DD HH:mm:ss");
      var title = event.title;
      var id = event.id;
      $.ajax({
@@ -79,7 +95,7 @@
     eventDrop:function(event)
     {
      var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
-     var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD HH:mm:ss");
+     var end = $.fullCalendar.formatDate(event.start.add(1, 'hour'), "Y-MM-DD HH:mm:ss");
      var title = event.title;
      var id = event.id;
      $.ajax({
@@ -112,10 +128,11 @@
      }
     },
 
-   });
   });
-   
+});
+
   </script>
+
 
    </head>
 <body onload="initClock()">
@@ -150,7 +167,7 @@
                 <label for="tab-1" class= "segmented-control__1">
                   <p><a href="clientslotsbadminton1.php">Court 1</a></p>
                 </label>
-                              
+                                
                 <input type="radio" name="radio2" value="2" id="tab-2" checked/>
                 <label for="tab-2" class= "segmented-control__2">
                   <p><a href="clientslotsbadminton2.php">Court 2</a></p>

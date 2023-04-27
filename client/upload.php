@@ -42,13 +42,36 @@
 
             <h1>Upload CV</h1>
 
-            <div class="content"></div>
+            <div class="content">
 
-            <form action="" method="POST" enctype="multipart/form-data">
-                <label for="file">Select a file to upload:</label>
-                <input type="file" name="file" id="file"><br>
-                <input type="submit" name="submit" value="Upload">
-            </form>
+				<form method="post" enctype="multipart/form-data">
+					<div class="form-input py-2">
+						<div class="form-group">
+						<input type="text" class="form-control" name="name"
+								placeholder="Enter your name" required>
+						</div>                                 
+						<div class="form-group">
+						<input type="file" name="pdf_file"
+								class="form-control" accept=".pdf"
+								title="Upload CV"/>
+						</div>
+						<div class="form-group">
+						<input type="submit" class="btnRegister"
+								name="submit" value="Submit">
+						</div>
+					</div>
+				</form>
+
+				<button id="view-cv-btn">View CV</button>
+
+				<!-- PHP code -->
+				<?php
+					// Retrieve the pdf from the database
+					$folder = "../pdf/";
+					$result = mysqli_query($linkDB, "SELECT * FROM pdf_data WHERE email = '".$var."'");
+					$row = mysqli_fetch_array($result);
+					$filename = $row['filename'];
+				?>
             
             </div>
 
@@ -86,118 +109,42 @@
 </script>
 
 <?php
-if(isset($_POST['submit'])) {
-	$servername = "localhost";
-	$username = "root";
-	$password = "";
-	$dbname = "stadia";
+	if (isset($_POST['submit'])) {
 
-	// Create connection
-	$conn = mysqli_connect($servername, $username, $password, $dbname);
+		$name = $_POST['name'];
+		$email = $_SESSION['email'];
 
-	// Check connection
-	if (!$conn) {
-		die("Connection failed: " . mysqli_connect_error());
-	}
+		if (isset($_FILES['pdf_file']['name']))
+		{
+		$file_name = $_FILES['pdf_file']['name'];
+		$file_tmp = $_FILES['pdf_file']['tmp_name'];
 
-	// File details
-	$file_name = $_FILES['file']['name'];
-	$file_size = $_FILES['file']['size'];
-	$file_type = $_FILES['file']['type'];
-	$file_temp = $_FILES['file']['tmp_name'];
+		move_uploaded_file($file_tmp,"../pdf/".$file_name);
 
-	// Read file 
-	$fp = fopen($file_temp, 'r');
-	$content = fread($fp, filesize($file_temp));
-	$content = addslashes($content);
-	fclose($fp);
-
-	// Insert file data into database
-	$sql = "INSERT INTO files (name, size, type, content) VALUES ('$file_name', '$file_size', '$file_type', '$content')";
-
-	if (mysqli_query($conn, $sql)) {
-		echo "File uploaded successfully.";
-	} else {
-		echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-	}
-
-	// Close connection
-	mysqli_close($conn);
-}
-?>
-
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "stadia";
-
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-
-// Check connection
-if (!$conn) {
-	die("Connection failed: " . mysqli_connect_error());
-}
-
-// Retrieve file data from database
-$sql = "SELECT * FROM files";
-$result = mysqli_query($conn, $sql);
-
-if (mysqli_num_rows($result) > 0) {
-	while ($row = mysqli_fetch_assoc($result)) {
-		$file_name = $row['name'];
-		$file_size = $row['size'];
-		$file_type = $row['type'];
-		$file_content = $row['content'];
-		echo "<a href='upload2.php?id=".$row['id']."'>".$file_name."</a><br>";
-	}
-} else {
-	echo "No files found.";
-}
-
-// Close connection
-mysqli_close($conn);
-?>
-
-<?php
-	$servername = "localhost";
-	$username = "root";
-	$password = "";
-	$dbname = "stadia";
-
-	// Create connection
-	$conn = mysqli_connect($servername, $username, $password, $dbname);
-
-	// Check connection
-	if (!$conn) {
-		die("Connection failed: " . mysqli_connect_error());
-	}
-
-	if (isset($_GET['id'])) {
-		$id = $_GET['id'];
-
-		// Retrieve file data from database
-		$sql = "SELECT * FROM files WHERE id='$id'";
-		$result = mysqli_query($conn, $sql);
-
-		if (mysqli_num_rows($result) > 0) {
-			$row = mysqli_fetch_assoc($result);
-			$file_name = $row['name'];
-			$file_type = $row['type'];
-			$file_size = $row['size'];
-			$file_content = $row['content'];
-
-			// Embed file content within iframe
-			echo "<iframe srcdoc='" . $file_content . "'></iframe>";
-			exit;
-		} else {
-			echo "File not found.";
+		$query ="INSERT INTO pdf_data(username,filename,email) VALUES('$name','$file_name', '$email')";
+		$res = mysqli_query($linkDB, $query);
+		}
+		else
+		{
+		?>
+			<div class=
+			"alert alert-danger alert-dismissible
+			fade show text-center">
+			<a class="close" data-dismiss="alert"
+				aria-label="close">×</a>
+			<strong>Failed!</strong>
+				File must be uploaded in PDF format!
+			</div>
+		<?php
 		}
 	}
-
-	// Close connection
-	mysqli_close($conn);
 ?>
 
-			
+<script>
+    const viewCvBtn = document.getElementById('view-cv-btn');
+    
+    viewCvBtn.addEventListener('click', () => {
+        const url = "<?php echo $folder . $filename; ?>";
+        window.open(url, '_blank');
+    });
+</script>

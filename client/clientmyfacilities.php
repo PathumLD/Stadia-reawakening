@@ -49,6 +49,18 @@
 
             <h3> NOTE: To cancel refreshments ordered you have to cancel it atleast 3 days prior to the order date. </h3>
 
+            <table id="searchtable">
+              <tr>
+                <td>
+                    <form method="post">
+                        <input type="text" name="search" class="search" onfocus="(this.type = 'date')" placeholder="Search by Date">
+                        <input type="submit" name="go" value="Search" id="searchbtn">
+                        <a href="clientbookings.php"><input type="submit" value="reset" id = "resetbtn"></a>
+                    </form>
+                </td>
+              </tr>
+            </table>
+
             <table class="table">
 
             <caption id="cap"> Refreshments </caption>
@@ -64,7 +76,14 @@
                 </tr>
                 
                     <?php
-                        $query = "SELECT * FROM client_refreshments WHERE status=1 AND email = '".$var."'";
+
+                      if(isset($_POST['go'])) {
+                        $search = $_POST['search'];
+                      } else {
+                        $search = null;
+                      }
+
+                        $query = "SELECT * FROM client_refreshments WHERE date LIKE '%$search%' AND status=1 AND email = '".$var."'";
                         $res = mysqli_query($linkDB, $query); 
                                 if($res == TRUE) 
                                 {
@@ -106,7 +125,7 @@
                 </tr>
 
                 <?php
-                    $query = "SELECT * FROM ordered_equipment WHERE status=1 AND email = '".$var."'";
+                    $query = "SELECT * FROM ordered_equipment WHERE date LIKE '%$search%' AND status=1 AND email = '".$var."'";
                     $res = mysqli_query($linkDB, $query); 
                             if($res == TRUE) 
                             {

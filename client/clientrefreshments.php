@@ -18,6 +18,9 @@
      <?php include('../include/javascript.php'); ?>
      <?php include('../include/styles.php'); ?>
 
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
    </head>
 <body onload="initClock()">
 
@@ -69,9 +72,8 @@
                                         echo "<tr>
                                                 <td>" . $rows["itemname"]. "</td>
                                                 <td>" . $rows["price"]. "</td>
-                                                <td><input type='number' name='quantity'></td>
-                                                <td><button type='submit' name='add-to-cart'><i class='fa fa-cart-plus'></i></button></td>
-                                            </tr>";
+                                                <td><input type='number' name='quantity' id='qty_" . $rows["id"] . "'></td>
+                                                <td><button type='button' name='add-to-cart' onclick='addToCart(" . $rows["id"] . ", document.getElementById(\"qty_" . $rows["id"] . "\").value)'><i class='fa fa-cart-plus'></i></button></td>      </tr>";
                                         }
                                     } else {
                                         echo "0 results";
@@ -95,26 +97,25 @@
                 <?php
                     $query = "SELECT * FROM refreshments_snacks ";
                     $res = mysqli_query($linkDB, $query); 
-                            if($res == TRUE) 
-                            {
-                                $count = mysqli_num_rows($res); //calculate number of rows
-                                if($count>0)
-                                {
-                                    while($rows=mysqli_fetch_assoc($res))
-                                    {
-                                        $id=$rows['id'];
-                                        echo "<tr id='row__$id'>
-                                                <td>" . $rows["itemname"]. "</td>
-                                                <td>" . $rows["price"]. "</td>
-                                                <td><input type='number' name='quantity'></td>
-                                                <td><button type='submit' name='add-to-cart' ><i class='fa fa-cart-plus'></i></button>
-                                                     <a href='clientaddtocart.php?id=$id; ?>'><i class='fa fa-pencil-square-o' ></i> </a> </td>
-                                            </tr>";
-                                        }
-                                    } else {
-                                        echo "0 results";
-                                    }
-                                }    
+                    if($res == TRUE) {
+                        $count = mysqli_num_rows($res); //calculate number of rows
+                        if($count>0) {
+                            while($rows=mysqli_fetch_assoc($res)) {
+                                $id=$rows['id'];
+                                echo "<tr id='row__$id'>
+                                    <td>" . $rows["itemname"]. "</td>
+                                    <td>" . $rows["price"]. "</td>
+                                    <td><input type='number' name='quantity'></td>
+                                    <td>
+                                        <button type='button' class='add-to-cart-btn' data-item-id='$id'><i class='fa fa-cart-plus'></i></button>
+                                        <a href='clientaddtocart.php?id=$id; ?>'><i class='fa fa-pencil-square-o' ></i> </a>
+                                    </td>
+                                </tr>";
+                            }
+                        } else {
+                            echo "0 results";
+                        }
+                    }    
                         ?>
 
             </table>
@@ -157,3 +158,4 @@
           });
         }
 </script>
+
