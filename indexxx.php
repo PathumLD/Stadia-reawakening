@@ -28,9 +28,6 @@
           <li><a href="#contact">Contact</a></li>
           <li><a href="login.php">Login</a></li>
           <li><a href="adminlogin.php">Admin</a></li>
-          <div class="cancel-btn">
-            <i class="fas fa-times"></i>
-          </div>
       </ul>
       <div class="media-icons">
         <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
@@ -38,17 +35,14 @@
         <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
       </div>
     </div>
-    <div class="menu-btn">
-      <i class="fas fa-bars"></i>
-    </div>
   </nav>
 
 <!-- Home Section Start -->
  <section class="home" id="home">
    <div class="home-content">
      <div class="text">
-       <div class="text-two">STADIA</div>
-       <div class="text-three">PLAY LIKE A CHAMPION</div>
+       <div class="text-one">STADIA</div>
+       <div class="text-two">PLAY LIKE A CHAMPION</div>
      </div>
      <div class="button">
        <button onclick="location.href='login.php'"> Login Here!</button>
@@ -87,17 +81,15 @@
     <table>
       <tr>
         <td><img src="images/1.jpg" alt="about image"></td>
-        <td><img src="images/bb.gif" alt="about image"></td>
+        <td><img src="images/2.jpeg" alt="about image"></td>
         <td><img src="images/3.jpg" alt="about image"></td>
         <td><img src="images/4.jpg" alt="about image"></td>
         <td><img src="images/5.jpg" alt="about image"></td>
       </tr>
     </table>
-
   </div>
 
-   
- </div>
+</div>
 
 </section>
 
@@ -106,20 +98,23 @@
    <div class="content">
      <div class="title"><span>Our Services</span></div>
      <div class="boxes">
-       <div class="box">
-         <div class="icon">
-           <i class="fas fa-swimming-pool"></i>
-       </div>
-       <div class="topic">Court / Pool Booking</div>
-       <p>We provide an efficient system for booking courts and swimming pools in accordance with your needs.</p>
-     </div>
-       <div class="box">
-         <div class="icon">
-           <i class="fas fa-user-secret"></i>
-       </div>
-       <div class="topic">Find Coaches</div>
-       <p>Clients can find and book coaches if they prefer to do practices in a professional manner</p>
-     </div>
+
+      <div class="box">
+        <div class="icon">
+          <i class="fas fa-swimming-pool"></i>
+        </div>
+        <div class="topic">Court / Pool Booking</div>
+        <p>We provide an efficient system for booking courts and swimming pools in accordance with your needs.</p>
+      </div>
+
+      <div class="box">
+        <div class="icon">
+          <i class="fas fa-user-secret"></i>
+        </div>
+        <div class="topic">Find Coaches</div>
+        <p>Clients can find and book coaches if they prefer to do practices in a professional manner</p>
+      </div>
+
        <div class="box">
          <div class="icon">
            <i class="fas fa-shopping-cart"></i>
@@ -127,6 +122,7 @@
        <div class="topic">Rent Equipment</div>
        <p>Clients can borrow and rent out equipment they need for an affordable rate on an hourly or daily basis.</p>
      </div>
+
        <div class="box">
          <div class="icon">
           <i class="fas fa-coffee"></i>
@@ -134,6 +130,7 @@
        <div class="topic">Order Refreshments</div>
        <p>Clients can place retail or bulk orders for refreshments such as snacks and drinks based on their preferences.</p>
      </div>
+
        <div class="box">
          <div class="icon">
            <i class="fas fa-users"></i>
@@ -141,6 +138,7 @@
        <div class="topic">Find Students</div>
        <p>Consists of a student information management system where records of students are kept and student information can be viewed.</p>
      </div>
+
        <div class="box">
          <div class="icon">
            <i class="fas fa-boxes"></i>
@@ -148,6 +146,7 @@
        <div class="topic">Flexible Package Plans</div>
        <p>Clients can select a flexible package based on their age and level of experience.</p>
      </div>
+
    </div>
    </div>
  </section>
@@ -157,7 +156,6 @@
   <div class="content">
     <div class="title"><span>Contact Us</span></div>
     <div class="text">
-      <!-- <div class="topic">Have Any Project?</div> -->
       <ul>
         <li> <i class="fas fa-map-marker"></i> 35/A , Stadia , Park Street , Col-07</li>
         <li> <i class="fas fa-phone"></i> 011 - 2606888</li>

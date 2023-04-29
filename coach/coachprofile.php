@@ -32,7 +32,7 @@
 
     <nav>
 
-        <?php include('../include/navbar.php'); ?>
+        <?php include('../include/coachnavbar.php'); ?>
 
     </nav>
 
@@ -40,86 +40,90 @@
 
         <div class="main-content">
 
-            <h1>My Profile</h1>
+          <?php $var = $_SESSION['email']; ?>
 
+          <h1>My Profile</h1>
 
-    <div class="content">
-        <table id="tableprofile">   
+          <div class="content">
 
-            <?php $var = $_SESSION['email']; ?>
-            
-            <?php
+            <table id="tableprofile">   
 
-                  $sql = "SELECT fname, lname, gender, NIC, phone, dob, emphone, emname
-                  FROM users WHERE email = '".$var."'";
+                <?php
 
-                  $result = $linkDB->query($sql);
+                      $sql = "SELECT * FROM users WHERE email = '".$var."'";
 
-                  if ($result-> num_rows>0){
-                      while($row = $result->fetch_assoc()){
+                      $result = $linkDB->query($sql);
 
-                          echo "<tr>
-                              <td class='mylabel'>Name:</td>
-                              <td class='mydata'>".$row['fname']." ".$row['lname']."</td>
-                              </tr>
-                              <td class='mylabel'>Gender:</td>
-                              <td class='mydata'>".$row['gender']."</td>
-                              </tr>
-                              <td class='mylabel'>Phone:</td>
-                              <td class='mydata'>".$row['phone']."</td>
-                              <td><button class='open-button' onclick='openForm()'><i class='fa fa-pencil-square-o' ></i></button>
-                                <div class='form-popup' id='myForm'>
-                                  <form class='form-container' action='' method='POST'>
-                                
-                                    <label for='phone'><b>Update Phone</b></label>
-                                    <input type='tel' placeholder='Enter phone' name='phone' pattern='[0-9]{10}'required>
-                                
-                                    <input type='submit' class='btn' id='update-btn' name='update' value='Update'>
-                                    <button type='button' class='cancelbtn' onclick='closeForm()'><i class='fa fa-times' ></i></button>
-                                  </form>
-                                </div></td>
-                              </tr>
-                              <td class='mylabel'>Date of Birth:</td>
-                              <td class='mydata'>".$row['dob']."</td>
-                              </tr>
-                              <td class='mylabel'>NIC / Guardian NIC:</td>
-                              <td class='mydata'>".$row['NIC']."</td>
-                              </tr>
-                              <td class='mylabel'>Emergency Contact Number:</td>
-                              <td class='mydata'>".$row['emphone']."</td>
-                              <td><button class='open-button' onclick='openForm2()'><i class='fa fa-pencil-square-o' ></i></button>
-                                <div class='form-popup' id='myForm2'>
-                                  <form class='form-container' action='' method='POST'>
-                                
-                                    <label for='emphone'><b>Emergency Contact Number</b></label>
-                                    <input type='tel' placeholder='Enter number' name='emphone' pattern='[0-9]{10}'required>
-                                
-                                    <input type='submit' class='btn' id='update-btn' name='update2' value='update'>
-                                    <button type='button' class='cancelbtn' onclick='closeForm2()'><i class='fa fa-times' ></i></button>
-                                  </form>
-                                </div></td>
-                              </tr>
-                              <td class='mylabel'>Emergency Contact Name:</td>
-                              <td class='mydata'>".$row['emname']."</td>
-                              <td><button class='open-button' onclick='openForm3()'><i class='fa fa-pencil-square-o' ></i></button>
-                                <div class='form-popup' id='myForm3'>
-                                  <form class='form-container' action='' method='POST'>
-                                
-                                    <label for='emname'><b>Emergency Contact Name</b></label>
-                                    <input type='text' placeholder='Enter name' name='emname' required>
-                                
-                                    <input type='submit' class='btn' id='update-btn' name='update3' value='update'>
-                                    <button type='button' class='cancelbtn' onclick='closeForm3()'><i class='fa fa-times' ></i></button>
-                                  </form>
-                                </div></td>
-                              </tr>";
-                          
+                      if ($result-> num_rows>0){
+                          while($row = $result->fetch_assoc()){
+
+                              echo "<tr>
+                                  <td class='mylabel'>Name:</td>
+                                  <td class='mydata'>".$row['fname']." ".$row['lname']."</td>
+                                  </tr>
+
+                                  <td class='mylabel'>Gender:</td>
+                                  <td class='mydata'>".$row['gender']."</td>
+                                  </tr>
+
+                                  <td class='mylabel'>Phone:</td>
+                                  <td class='mydata'>".$row['phone']."</td>
+                                  <td><button class='open-button' onclick='openForm()'><i class='fa fa-pencil-square-o' ></i></button>
+                                    <div class='form-popup' id='myForm'>
+                                      <form class='form-container' action='' method='POST'>
+                                    
+                                        <label for='phone'><b>Update Phone</b></label>
+                                        <input type='tel' placeholder='Enter phone' name='phone' pattern='[0-9]{10}'required>
+                                    
+                                        <input type='submit' class='btn' id='update-btn' name='update' value='Update'>
+                                        <button type='button' class='cancelbtn' onclick='closeForm()'><i class='fa fa-times' ></i></button>
+                                      </form>
+                                    </div></td>
+                                  </tr>
+
+                                  <td class='mylabel'>Date of Birth:</td>
+                                  <td class='mydata'>".$row['dob']."</td>
+                                  </tr>
+                                  <td class='mylabel'>NIC / Guardian NIC:</td>
+                                  <td class='mydata'>".$row['NIC']."</td>
+                                  </tr>
+
+                                  <td class='mylabel'>Emergency Contact Number:</td>
+                                  <td class='mydata'>".$row['emphone']."</td>
+                                  <td><button class='open-button' onclick='openForm2()'><i class='fa fa-pencil-square-o' ></i></button>
+                                    <div class='form-popup' id='myForm2'>
+                                      <form class='form-container' action='' method='POST'>
+                                    
+                                        <label for='emphone'><b>Emergency Contact Number</b></label>
+                                        <input type='tel' placeholder='Enter number' name='emphone' pattern='[0-9]{10}'required>
+                                    
+                                        <input type='submit' class='btn' id='update-btn' name='update2' value='update'>
+                                        <button type='button' class='cancelbtn' onclick='closeForm2()'><i class='fa fa-times' ></i></button>
+                                      </form>
+                                    </div></td>
+                                  </tr>
+                                  
+                                  <td class='mylabel'>Emergency Contact Name:</td>
+                                  <td class='mydata'>".$row['emname']."</td>
+                                  <td><button class='open-button' onclick='openForm3()'><i class='fa fa-pencil-square-o' ></i></button>
+                                    <div class='form-popup' id='myForm3'>
+                                      <form class='form-container' action='' method='POST'>
+                                    
+                                        <label for='emname'><b>Emergency Contact Name</b></label>
+                                        <input type='text' placeholder='Enter name' name='emname' required>
+                                    
+                                        <input type='submit' class='btn' id='update-btn' name='update3' value='update'>
+                                        <button type='button' class='cancelbtn' onclick='closeForm3()'><i class='fa fa-times' ></i></button>
+                                      </form>
+                                    </div></td>
+                                  </tr>";
+                              
+                          }
                       }
-                  }
 
-                  ?>
+                      ?>
 
-</table>
+    </table>
 
                   <div class="button">
                     <a href="coachchangepassword.php"> Change Password </a>
@@ -233,7 +237,7 @@ if(isset($_POST['update3'])) {
 $emname=$_POST['emname'];
 $var = $_SESSION['email'];
 
-$query = "UPDATE users SET emname=$emname WHERE email = '".$var."' ";
+$query = "UPDATE users SET emname= '$emname' WHERE email = '".$var."' ";
 
 $res = mysqli_query($linkDB, $query) or die(mysqli_error($linkDB)); 
     

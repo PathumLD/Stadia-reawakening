@@ -34,7 +34,7 @@
 
     <nav>
 
-        <?php include('../include/navbar.php'); ?>
+        <?php include('../include/coachnavbar.php'); ?>
 
     </nav>
 
@@ -42,11 +42,10 @@
 
         <div class="main-content">
 
+        <?php $var = $_SESSION['email']; ?>
+
             <h1>My Classes</h1>
 
-            <?php $var = $_SESSION['email']; ?>
-
-            
 
         <table class = "searchtable">
             <tr><td><a href="coachaddnewclass.php"><i class="fa fa-plus-circle" id="plus" style="font-size:36px;"></i></a></td>
@@ -81,15 +80,11 @@
                     <th> Age Group </th>
                     <th> No. of Students </th>
                     <th> Student Details </th>
-                    <th> Update </th>
                     <th> Action </th>
 
                 </tr>
 
                             <?php
-
-
-                                $linkDB = mysqli_connect("localhost", "root", "", "stadia-new");
 
                                 if(isset($_POST['go'])) {
                                     $search = $_POST['search'];
@@ -110,25 +105,24 @@
 
                                     if($count > 0) {
                                         while($rows = mysqli_fetch_assoc($res)) {
-                                            $class_id = $rows['class_id'];
+                                            $id = $rows['id'];
 
-                                            echo "<tr id='row_$class_id'>
+                                            echo "<tr id='row_$id'>  
                                                 <td>" . $rows["date"]. "</td>
                                                 <td>" . $rows["sport"]. "</td>
                                                 <td>" . $rows["time"]. "</td>
                                                 <td>" . $rows["age_group"]. "</td>
                                                 <td>" . $rows["no_of_students"]. "</td>
-                                                <td><a href='coachstudentdetails.php?id=$class_id;'>View</a> </td>
-                                                <td><a href='coachupdateclass.php?id=$class_id;'>Update</a> </td>
-                                                <td><button class='submit-button' onclick='confirmRowData($class_id)'><i class='fa fa-trash'></i></button></td>
+                                                <td><a href='coachstudentdetails.php?id=$id;'>View</a> </td>
+                                                <td><a href='coachupdateclass.php?id=$id;'><i class='fa fa-edit' id='edit' style='font-size:24px'></i></a>
+                                                
                                             </tr>";
                                         }
                                     } else {
                                         echo "0 results";
                                     }
                                 }
-
-                                mysqli_close($linkDB);
+                                
                                 ?>
 
 

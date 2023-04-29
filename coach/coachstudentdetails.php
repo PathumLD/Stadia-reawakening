@@ -32,7 +32,7 @@
 
     <nav>
 
-        <?php include('../include/navbar.php'); ?>
+        <?php include('../include/coachnavbar.php'); ?>
 
     </nav>
 
@@ -52,7 +52,7 @@
             <?php
 
                     // Query the database to get the information for the headline
-                    $sql = "SELECT date, time, age_group FROM coach_classes WHERE class_id = $id ";
+                    $sql = "SELECT date, time, age_group FROM coach_students WHERE class_id = $id ";
                     $result = mysqli_query($linkDB, $sql);
 
                     // Check if the query was successful

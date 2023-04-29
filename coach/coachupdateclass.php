@@ -32,7 +32,7 @@
 
     <nav>
 
-        <?php include('../include/navbar.php'); ?>
+        <?php include('../include/coachnavbar.php'); ?>
 
     </nav>
 
@@ -44,63 +44,40 @@
 
             <?php $var = $_SESSION['email']; ?>
 
-            <h1> Update Classes </h1>
+            <h1> Edit Classes </h1>
 
-            <div class="form" id="getdetails">
 
-            <form method="POST">
+            <?php $id = $_GET['id']; ?>
 
-<select name="level" class="drop">
-    <option value="beginner">Beginner</option>
-    <option value="intermediate">Intermediate</option>
-    <option value="pro">Pro</option>
-</select> <br><br>
+              <?php
+              
+                  $sql = "SELECT * FROM coach_classes WHERE id = '".$id."'";
 
-<select name="sport" class="drop">
-    <option value="badminton">Badminton</option>
-    <option value="basketball">Basketball</option>
-    <option value="volleyball">Volleyball</option>
-    <option value="tennis">Tennis</option>
-    <option value="swimming">Swimming</option>
-</select> <br><br>
+                  $result = mysqli_query($linkDB, $sql);
+  
+                  if($result == TRUE){
+                    $count = mysqli_num_rows($result);
+                    if($count > 0){
+                      while($row = mysqli_fetch_assoc($result)){
+                        echo "
+                        <table class= 'table'>
+                          <th  colspan='6' > Current Situation </th>
+                            <tr>
+                              <td>" . $row['level']. "</td>
+                              <td>" . $row['sport']. "</td>
+                              <td>" . $row['date']. "</td>
+                              <td>" . $row['time']. "</td>
+                              <td>" . $row['age_group']. "</td>
+                              <td>" . $row['no_of_students']. "</td>
+                            </tr> </table>";
 
-<select name="date" class="drop">
-    <option value="monday">Monday</option>
-    <option value="tuesday">Tuesday</option>
-    <option value="wednesday">Wednesday</option>
-    <option value="thursday">Thursday</option>
-    <option value="friday">Friday</option>
-    <option value="saturday">Saturday</option>
-    <option value="sunday">Sunday</option>
-</select> <br><br>
+                      }
+                    }
+                  } 
 
-<select name="time" class="drop">
-    <option value="6.00 - 7.00 a.m">6.00 - 7.00 a.m</option>
-    <option value="7.00 - 8.00 a.m">7.00 - 8.00 a.m</option>
-    <option value="8.00 - 9.00 a.m">8.00 - 9.00 a.m</option>
-    <option value="9.00 - 10.00 a.m">9.00 - 10.00 a.m</option>
-    <option value="10.00 - 11.00 a.m">10.00 - 11.00 a.m</option>
-    <option value="11.00 - 12.00 a.m">11.00 - 12.00 a.m</option>
-    <option value="12.00 - 13.00 p.m">12.00 - 13.00 p.m</option>
-    <option value="13.00 - 14.00 p.m">13.00 - 14.00 p.m</option>
-    <option value="14.00 - 15.00 p.m">14.00 - 15.00 p.m</option>
-    <option value="15.00 - 16.00 p.m">15.00 - 16.00 p.m</option>
-    <option value="16.00 - 17.00 p.m">16.00 - 17.00 p.m</option>
-    <option value="17.00 - 18.00 p.m">17.00 - 18.00 p.m</option>
-    <option value="18.00 - 19.00 p.m">18.00 - 19.00 p.m</option>
-    <option value="19.00 - 20.00 p.m">19.00 - 20.00 p.m</option>
-    <option value="20.00 - 21.00 p.m">20.00 - 21.00 p.m</option>
-    <option value="21.00 - 22.00 p.m">21.00 - 22.00 p.m</option>
-</select> <br><br>
-
-<select name="age_group" class="drop">
-    <option value="Below 12 Years">Below 12 Years</option>
-    <option value="13 - 20 Years">13 - 20 Years</option>
-    <option value="Above 21 Years">Above 21 Years</option>
-</select> <br><br>
-
-        <input type="text" name="no_of_students" placeholder="No of Students" > <br><br>
-        <input type="submit" name="update" value="Update" class="btn">
+              ?>
+  
+                  
 
         <?php 
             $id = $_GET['id'];
@@ -124,17 +101,29 @@
             }
         ?>
 
-</form>
-
                 
 
             </div>
+
+                <div class="update">
+
+                  <h3> Total </h3>
+
+                </div>
+
+                <div class="delete">
+
+                  <h3> Total </h3>
+
+                </div>
 
           </div>
 
         </div>
 
     </div>
+
+    
 
     <footer>
         <div class="foot">
@@ -163,4 +152,24 @@
             }
           });
         }
+</script>
+
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script>
+
+<script>
+function openForm2() {
+  document.getElementById("myForm2").style.display = "block";
+}
+
+function closeForm2() {
+  document.getElementById("myForm2").style.display = "none";
+}
 </script>

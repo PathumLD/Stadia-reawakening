@@ -39,7 +39,7 @@ if (array_key_exists("signUp", $_POST)) {
  
             //Password encryption or Password Hashing
             $hashedPassword = md5($password); 
-            $query = "INSERT INTO users (email, password, type, gender, fname, lname, NIC, phone, dob, emphone, emname, dp) VALUES ('$email', '$hashedPassword', '$type', '$gender', '$fname', '$lname', '$NIC', '$phone', '$dob', '$emphone', '$emname', 'noprofil.jpg')";
+            $query = "INSERT INTO users (email, password, type, gender, fname, lname, NIC, phone, dob, emphone, emname) VALUES ('$email', '$hashedPassword', '$type', '$gender', '$fname', '$lname', '$NIC', '$phone', '$dob', '$emphone', '$emname')";
              
             if (!mysqli_query($linkDB, $query)){
                 $error1 = "<h3> Could not sign you up - please try again.  </h3>";

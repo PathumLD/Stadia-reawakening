@@ -1,12 +1,13 @@
 <div class="logo">
         <span class="logo-img"><img src="../images/logo.png" alt="logo"></span>
-    </div><br><br><br>
+    </div><br>
 
     <div class="nav-links">
         <a href="coachdashboard.php"><i class="fa fa-th-large" ></i><span class="links_name">Dashboard</span></a>
         <a href="coachprofile.php"><i class="fa fa-user" ></i><span class="links_name">My Profile</span></a>
         <a href="coachclasses.php"><i class="fa fa-list-ul" ></i><span class="links_name">My Classes</span></a>
         <a href="coachmystudents.php"><i class="fa fa-users" ></i><span class="links_name">My Students</span></a>
+        <a href="coachequipments.php"><i class="fa fa-stack-exchange" ></i><span class="links_name">Equipment</span></a>
         <!-- <a href="coachslots.php"><i class="fa fa-calendar" ></i><span class="links_name">Time Slots</span></a> -->
         <button class="dropdown-btn"><i class="fa fa-calendar" ></i><span class="links_name">Time Slots</span>
             <i class="fa fa-caret-down"></i>
@@ -20,7 +21,7 @@
             <a href="coachslotsswimming.php">Swimming</a>
           
         </div>
-        <a href="coachequipments.php"><i class="fa fa-stack-exchange" ></i><span class="links_name">Equipments</span></a>
+        
 
        
 

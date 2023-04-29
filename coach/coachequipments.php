@@ -32,7 +32,7 @@
 
     <nav>
 
-        <?php include('../include/navbar.php'); ?>
+        <?php include('../include/coachnavbar.php'); ?>
 
     </nav>
 
@@ -40,25 +40,26 @@
 
         <div class="main-content">
 
-            <h1>Equipments</h1>
-
-       
-
-                <form method="post">
-                    <input type="text" name="search" class ="search" placeholder="Equipment Name...">
-                    <input type="submit" name="go" value="search" id = "searchbtn">
-                    <a href="coachequipments.php"><input type="submit" name="reset" value="reset" id = "resetbtn"></a>
-                </form>
-
             <?php $var = $_SESSION['email']; ?>
-            
+
+            <h1>Order Equipment</h1>
+
+            <div class="content">
+
+            <form method="post">
+                <input type="text" name="search" placeholder="Item Name..." class="search">
+                <input type="submit" name="go" value="Search" id="searchbtn">
+                <a href="clientbookings.php"><input type="submit" value="reset" id = "resetbtn"></a>
+            </form>
+
             <table class="table">
 
                 <tr>
                     <th>Item Name</th>
                     <th>Price</th> 
                     <th>Available</th>
-                    <th>Quantity Needed</th>  
+                    <th>Quantity Needed</th> 
+                    <th>Action</th> 
                 </tr>
 
                 <?php
@@ -76,7 +77,14 @@
                                 {
                                     while($rows=mysqli_fetch_assoc($res))
                                     {
-                                        echo "<tr><td>" . $rows["itemname"]. "</td><td>" . $rows["price"]. "</td><td>" . $rows["quantity"]. "</td><td><input type='number' name='quantity'></td></tr>";
+                                        $id=$rows['itemid'];
+                                        echo "<tr>
+                                                <td>" . $rows["itemname"]. "</td>
+                                                <td>" . $rows["price"]. "</td>
+                                                <td>" . $rows["quantity"]. "</td>
+                                                <td><input type='number' name='quantity'></td>
+                                                <td><button type='submit' name='add-to-cart'><i class='fa fa-cart-plus'></i></button></td>
+                                            </tr>";
                                     }
                                 } else {
                                     echo "0 results";
@@ -93,7 +101,14 @@
                                 {
                                     while($rows=mysqli_fetch_assoc($res))
                                     {
-                                        echo "<tr><td>" . $rows["itemname"]. "</td><td>" . $rows["price"]. "</td><td>" . $rows["quantity"]. "</td><td><input type='number' name='quantity'></td></tr>";
+                                        $id=$rows['itemid'];
+                                        echo "<tr>
+                                                <td>" . $rows["itemname"]. "</td>
+                                                <td>" . $rows["price"]. "</td>
+                                                <td>" . $rows["quantity"]. "</td>
+                                                <td><input type='number' name='quantity'></td>
+                                                <td><button type='submit' name='add-to-cart'><i class='fa fa-cart-plus'></i></button></td>
+                                            </tr>";
                                     }
                                 } else {
                                     echo "0 results";
@@ -104,9 +119,7 @@
 
             </table>
 
-                    <div class="button">
-                        <a href="coachmycart.php"> Add to Cart </a>
-                    </div>
+          </div>
 
         </div>
 
@@ -114,7 +127,7 @@
 
     <footer>
         <div class="foot">
-            <span>Created By <a href="#">Stadia.</a> | &#169; 2023 All Rights Reserved</span>
+          <?php include("../include/footer.php"); ?>
         </div>
     </footer> 
 
@@ -140,3 +153,32 @@
           });
         }
 </script>
+
+<?php
+
+if(isset($_POST['add-to-cart'])){
+  
+include('linkDB.php');  
+$id = $_GET['id'];
+
+$item = $_POST['$rows["itemname"]'];
+$price = $_POST['$rows["price"]'];
+$quantity = $_POST['quantity'];
+$email = $_SESSION['email'];
+
+$sql = "INSERT INTO cart (email, item, amount)
+VALUES ('$email', '$item' , '$quantity' )";
+
+$rs= mysqli_query($linkDB,$sql);
+
+if($rs){
+  
+  echo "<script>window.location.href='clientmycart.php'; </script>";
+
+}
+else{
+  echo "Could not add to the cart - please try again.";
+}
+ 
+}
+?>

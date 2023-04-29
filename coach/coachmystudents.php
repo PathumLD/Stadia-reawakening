@@ -32,7 +32,7 @@
 
     <nav>
 
-        <?php include('../include/navbar.php'); ?>
+        <?php include('../include/coachnavbar.php'); ?>
 
     </nav>
 
@@ -67,11 +67,7 @@
 
                 <?php
 
-                        $linkDB = mysqli_connect('localhost', 'username', 'root', 'stadia-new');
-
-                        if (!$linkDB) {
-                            die('Connection failed: ' . mysqli_connect_error());
-                        }
+                        
 
                         if (isset($_POST['go'])) {
                             $search = $_POST['search'];

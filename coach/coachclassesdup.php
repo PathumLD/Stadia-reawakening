@@ -1,3 +1,10 @@
+
+
+
+                    //this is for test the search function using 2 or more variables...
+
+
+
 <?php session_start(); ?>
 <?php include("../linkDB.php"); //database connection function ?>
 
@@ -32,7 +39,7 @@
 
     <nav>
 
-        <?php include('../include/navbar.php'); ?>
+        <?php include('../include/coachnavbar.php'); ?>
 
     </nav>
 

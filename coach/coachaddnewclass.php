@@ -32,7 +32,7 @@
 
     <nav>
 
-        <?php include('../include/navbar.php'); ?>
+        <?php include('../include/coachnavbar.php'); ?>
 
     </nav>
 
@@ -55,12 +55,14 @@
                 <input type="text" name="class_id" placeholder="Class ID" > <br>
 
                 <select name="level" class="drop" required>
+                    <option value="" disabled selected>Level</option>
                     <option value="beginner">Beginner</option>
                     <option value="intermediate">Intermediate</option>
                     <option value="pro">Pro</option>
                 </select> <br><br>
 
                 <select name="sport" class="drop" required>
+                    <option value="" disabled selected>Sport</option>
                     <option value="badminton">Badminton</option>
                     <option value="basketball">Basketball</option>
                     <option value="volleyball">Volleyball</option>
@@ -69,6 +71,7 @@
                 </select> <br><br>
 
                 <select name="date" class="drop" required>
+                    <option value="" disabled selected>Date</option>
                     <option value="monday">Monday</option>
                     <option value="tuesday">Tuesday</option>
                     <option value="wednesday">Wednesday</option>
@@ -79,6 +82,7 @@
                 </select> <br><br>
 
                 <select name="time" class="drop" required>
+                    <option value="" disabled selected>Time Slot</option>
                     <option value="6.00 - 7.00 a.m">6.00 - 7.00 a.m</option>
                     <option value="7.00 - 8.00 a.m">7.00 - 8.00 a.m</option>
                     <option value="8.00 - 9.00 a.m">8.00 - 9.00 a.m</option>
@@ -98,6 +102,7 @@
                 </select> <br><br>
 
                 <select name="age_group" class="drop" required>
+                    <option value="" disabled selected>Age Group</option>
                     <option value="Below 12 Years">Below 12 Years</option>
                     <option value="13 - 20 Years">13 - 20 Years</option>
                     <option value="Above 21">Above 21</option>
@@ -141,7 +146,7 @@
        
         $sql = "INSERT INTO coach_classes (class_id, level, sport, date, time, age_group, no_of_students, email) VALUES ('$class_id', '$level', '$sport', '$date', '$time', '$age_group', '$no_of_students', '$email')";
         if(mysqli_query($linkDB, $sql)){
-          header("Location:coachclasses.php");
+          echo "<script>window.location.href='coachclasses.php'; </script>";
         } else {
             echo "Error: " . $sql . "<br>" . mysqli_error($linkDB);
         }
