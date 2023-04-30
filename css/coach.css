@@ -1,5 +1,5 @@
                     
-                    /* Table */
+                          /* Table */
 
 #tableprofile{
     width: 100%;
@@ -32,9 +32,8 @@
 }
 
 .table{
-    width: 100%;
-    margin: 3% auto;
-    max-width: 1200px;
+    width: 60%;
+    margin: 3% ;
     text-align: center;
     border: #6d9976 2px solid;
     border-radius: 20px;
@@ -48,15 +47,20 @@
     background: #6d9976;
     color: #000;
     text-align: center;
+    border-right: solid 1px #ffffff;
 }
 
 .table td {
     padding: 10px;
     font-size: 18px;
     font-weight: 600;
-    background: #fff;
     color: #000;
     text-align: center;
+    border-right: solid 1px #ffffff;
+}
+
+.table tr:nth-child(odd){
+  background: #f0f0f0;
 }
 
 .table td a{
@@ -66,6 +70,16 @@
 
 .table td a:hover, .table td a i:hover{
     text-decoration: underline;
+}
+
+.table2{
+  width: 30%;
+  margin: 3% ;
+  text-align: center;
+  float: right;
+  border: #6d9976 2px solid;
+  border-radius: 20px;
+  border-collapse: collapse;
 }
 
 .serachtable{
@@ -105,7 +119,6 @@
   float: left;
   margin-left: 50px;
   border-radius: 15px;
-  background-color: ;
 }
 
 .delete {
@@ -115,7 +128,7 @@
 }
 
 
-        /* change password */ 
+                          /* change password */ 
 
 .form{
     width: 100%;
@@ -227,7 +240,7 @@
 }
 
 
-/* profile update button popup css */
+                              /* profile update button popup css */
 
 .form-popup {
   display: none;
