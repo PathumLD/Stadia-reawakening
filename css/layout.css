@@ -14,7 +14,7 @@
 }
 
 .home-content .main-content{
-    display: fixed;
+    display: inline-block;;
     width: 97%;
     height: 48.5rem;
     background: #fff;
@@ -22,7 +22,6 @@
     margin: 0 20px 0 25px;
     border-radius: 12px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    /* align-items: center; */
 }
 
 .main-content h1{
