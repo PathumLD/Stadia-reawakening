@@ -47,7 +47,7 @@
             <h1>My Classes</h1>
 
 
-        <table class = "searchtable">
+            <table class = "searchtable">
             <tr><td><a href="coachaddnewclass.php"><i class="fa fa-plus-circle" id="plus" style="font-size:36px;"></i></a></td>
 
             <td><form method="POST">
@@ -95,7 +95,7 @@
                                 if($search == 'all') {
                                     $query = "SELECT * FROM coach_classes";
                                 } else {
-                                    $query = "SELECT * FROM coach_classes WHERE date LIKE '%$search%'";
+                                    $query = "SELECT * FROM coach_classes WHERE date LIKE '%$search%' && status = '1'";
                                 }
 
                                 $res = mysqli_query($linkDB, $query);
@@ -131,6 +131,13 @@
 
      
             </table>
+
+            <table class ="table2">
+                <tr>
+                    <th>Pending Classes</t>
+                </tr>
+            </table>
+
         </div>
 
     </div>
