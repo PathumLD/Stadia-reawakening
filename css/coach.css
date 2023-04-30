@@ -61,6 +61,7 @@
 
 .table td a{
     text-decoration: none;
+    color: black;
 }
 
 .table td a:hover, .table td a i:hover{
@@ -91,6 +92,28 @@
     margin-left: 40rem;
     margin-top: 2rem;
 }
+
+.update,.delete {
+  display: inline-block;
+  width: 40%;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.update {
+  float: left;
+  margin-left: 50px;
+  border-radius: 15px;
+  background-color: ;
+}
+
+.delete {
+  float: right;
+  margin-right: 50px;
+  border-radius: 15px;
+}
+
 
         /* change password */ 
 
@@ -207,71 +230,71 @@
 /* profile update button popup css */
 
 .form-popup {
-    display: none;
-    position: fixed;
-    z-index: 9;
-    width: 18rem;
-    height: 15rem;
-    margin-left: -35rem;
-    margin-top: -10rem;
-    background-color: #ffffff;
-    border-radius: 20px;
-    box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2); 
-  }
-  
-  .form-container {
-    max-width: 18rem;
-    padding: 10px;
-    background-color: white;
-  }
-  
-  .form-container label{
-    font-size: 1.2rem;
-  }
-  
-  .form-container input[type=tel], .form-container input[type=text]{
-    width: 100%;
-    padding: 15px;
-    margin: 25px 0 22px 0;
-    border: none;
-    background: #f1f1f1;
-  }
-  
-  .form-container input[type=tel]:focus, .form-container input[type=text]:focus{
-    background-color: #ddd;
-    outline: none;
-  }
-  
-  .form-container #update-btn{
-    background-color: #3B6E51;
-    border: none;
-    color: #fff;
-    margin-top: 4 rem;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 20px;
-  }
-  
-  .form-container #cancel-btn{
-    background-color: red;
-    border: none;
-    color: #fff;
-    margin-top: 4 rem;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 20px;
-    float: right;
-  }
-  
-  .form-container button{
-    background:none;
-    border: 0;
-    margin-left: 10%;
-  }
-  
-  .form-container .btn:hover, .open-button:hover {
-    cursor: pointer;
-  }
+  display: none;
+  position: fixed;
+  z-index: 9;
+  width: 18rem;
+  height: 15rem;
+  margin-left: -35rem;
+  margin-top: -10rem;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2); 
+}
+
+.form-container {
+  max-width: 18rem;
+  padding: 10px;
+  background-color: white;
+}
+
+.form-container label{
+  font-size: 1.2rem;
+}
+
+.form-container input[type=tel], .form-container input[type=text]{
+  width: 100%;
+  padding: 15px;
+  margin: 25px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+.form-container input[type=tel]:focus, .form-container input[type=text]:focus{
+  background-color: #ddd;
+  outline: none;
+}
+
+.form-container #update-btn{
+  background-color: #3B6E51;
+  border: none;
+  color: #fff;
+  margin-top: 4 rem;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 20px;
+}
+
+.form-container #cancel-btn{
+  background-color: red;
+  border: none;
+  color: #fff;
+  margin-top: 4 rem;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 20px;
+  float: right;
+}
+
+.form-container button{
+  background:none;
+  border: 0;
+  margin-left: 10%;
+}
+
+.form-container .btn:hover, .open-button:hover {
+  cursor: pointer;
+}
   
   
   /* confirm cancel popup css */
@@ -342,3 +365,41 @@
     cursor: pointer;
     font-size: 18px;
   }
+
+                                /* checkout css */  
+
+.content .summary{
+  background-color: #ffffff;
+  width: 35rem;
+  height: 25rem;
+  border-radius: 20px;
+  margin-left: 7rem;
+  margin-top: 2rem;
+  box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2); 
+}
+
+.content .checkout{
+  background-color: #ffffff;
+  width: 35rem;
+  height: 10rem;
+  border-radius: 20px;
+  margin-left: 7rem;
+  margin-top: 3rem;
+  box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+.content .paymentgateway{
+  background-color: #ffffff;
+  width: 50rem;
+  height: 40rem;
+  border-radius: 20px;
+  float: right;
+  margin-right: 7rem;
+  margin-top: -39rem;
+  top: 0;
+  box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+.summary h3, .checkout h3{
+  text-align: center;
+}
