@@ -52,17 +52,18 @@
             <?php
 
                     // Query the database to get the information for the headline
-                    $sql = "SELECT date, time, age_group FROM coach_students WHERE class_id = $id ";
+                    $sql = "SELECT * FROM coach_classes WHERE id = '$id' ";
                     $result = mysqli_query($linkDB, $sql);
 
                     // Check if the query was successful
                     if (mysqli_num_rows($result) > 0) {
                     // Output the headline with the database values
                     $row = mysqli_fetch_assoc($result);
+                    $sport = $row['sport'];
                     $day = $row["date"];
                     $timeSlot = $row["time"];
                     $ageGroup = $row["age_group"];
-                    echo "<h2>$day | $timeSlot | Age : $ageGroup</h2>";
+                    echo "<h2>$sport | $day | $timeSlot | Age : $ageGroup</h2>";
                     } else {
                     echo "No results found.";
                     }
