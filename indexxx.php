@@ -163,6 +163,9 @@
         <li> <i class="fas fa-building"></i> 6.00AM - 11.00PM  Monday - Sunday</li>
       </ul>
     </div>
+    <div class="map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.810008881926!2d79.85639471441087!3d6.915620195004827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2486c725a7145%3A0xd5ba5d279874b56c!2sPark%20St%2C%20Colombo%200007!5e0!3m2!1sen!2slk!4v1654478615658!5m2!1sen!2slk" width="300" height="225" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
   </div>
 </section>
 
