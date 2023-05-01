@@ -26,6 +26,7 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #3B6E51;
 }
+
 /* navbar styling */
 nav{
   position: fixed;
@@ -34,7 +35,6 @@ nav{
   z-index: 998;
   transition: all 0.3s ease;
   font-family: "Poppins" , sans-serif;
-  /* font-family: 'Ubuntu', sans-serif; */
 }
 nav.sticky{
   background: #264838;
@@ -47,14 +47,6 @@ nav .navbar{
   align-items: center;
   margin: auto;
 }
-/* nav .navbar .logo a{
-  font-weight: 500;
-  font-size: 35px;
-  color: #264838;
-} */
-/* nav.sticky .navbar .logo a{
-  color: #fff;
-} */
 
 nav .navbar .logo img{
   width: 100px;
@@ -92,28 +84,6 @@ nav.sticky .media-icons a{
   color: #FFF;
 }
 
-/* Side Navigation Menu Button CSS */
-nav .menu-btn,
-.navbar .menu .cancel-btn{
-  position: absolute;
-  color: #fff;
-  right: 30px;
-  top: 20px;
-  font-size: 20px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: none;
-}
-nav .menu-btn{
-  color: #264838;
-}
-nav.sticky .menu-btn{
-  color: #FFF;
-}
-.navbar .menu .menu-btn{
-  color: #fff;
-}
-
 /* home section styling */
 .home{
   height: 100vh;
@@ -123,7 +93,6 @@ nav.sticky .menu-btn{
   background-position: center;
   background-attachment: fixed;
   font-family: "Poppins" , sans-serif;
-  /* font-family: 'Ubuntu', sans-serif; */
 }
 .home .home-content{
   width: 90%;
@@ -133,18 +102,15 @@ nav.sticky .menu-btn{
   flex-direction: column;
   justify-content: center;
 }
+
 .home .text-one{
-  font-size: 25px;
-  color: #0E2431;
-}
-.home .text-two{
   color: #264838;
   font-size: 150px;
   font-weight: 600;
   margin-left: -3px;
   font-family: 'Sports World', sans-serif;
 }
-.home .text-three{
+.home .text-two{
   font-size: 40px;
   margin: 5px 0;
   color: #3B6E51;
@@ -179,8 +145,7 @@ nav.sticky .menu-btn{
 }
 
 /* About Section Styling */
-/* Those Elements Where We Have Apply Same CSS,
- I'm Selecting Directly 'Section Tag' and 'Class'  */
+
 section{
   padding-top: 40px;
 }
@@ -206,22 +171,7 @@ section .title span{
   position: relative;
   padding-bottom: 8px;
 }
-section .title span::before,
-section .title span::after{
-  content: '';
-  position: absolute;
-  height: 3px;
-  width: 100%;
-  background: #264838;
-  left: 0;
-  bottom: 0;
-}
-section .title span::after{
-  bottom: -7px;
-  width: 70%;
-  left: 50%;
-  transform: translateX(-50%);
-}
+
 .about .about-details .left{
   width: 45%;
 }
@@ -280,53 +230,6 @@ section .button button:hover{
   margin-bottom: 50px;
   object-fit: cover;
 }
-
- /* .skills .skills-details{
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
- }
- .skills-details .text{
-   width: 50%;
- }
- .skills-details p{
-   color: #264838;
-   text-align: justify;
- }
-.skills .skills-details .experience{
-  display: flex;
-  align-items: center;
-  margin: 0 10px;
-}
-.skills-details .experience .num{
-  color: #264838;
-  font-size: 80px;
-}
-.skills-details .experience .exp{
-  color: #264838;
-  margin-left: 20px;
-  font-size: 18px;
-  font-weight: 500;
-  margin: 0 6px;
-}
-.skills-details .boxes{
-  width: 45%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-.skills-details .box{
-  width: calc(100% / 2 - 20px);
-  margin: 20px 0;
-}
-.skills-details .boxes .topic{
-  font-size: 20px;
-  color: #264838;
-}
-.skills-details .boxes .per{
-  font-size: 60px;
-  color: #264838;
-} */
 
 /* My Services CSS */
 .services .boxes{
@@ -515,20 +418,7 @@ footer .text span a:hover{
     align-items: center;
     justify-content: center;
   }
-  /* .skills .skills-details{
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
-  .skills-details .text{
-    width: 100%;
-    margin-bottom: 50px;
-  }
-  .skills-details .boxes{
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-  } */
+  
   .services .boxes .box{
     margin: 20px 0;
     width: 100%;
