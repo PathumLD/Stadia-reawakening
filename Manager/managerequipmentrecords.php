@@ -47,7 +47,15 @@
 
             <h1>Equipment Records</h1>
 
-            <a href=manageraddequipment.php><i class='fa fa-plus-circle' ></i></a>
+            <a href="manageraddequipment.php"><i class="fa fa-plus-circle" id="plus" style="font-size:36px;" ></i></a>
+            <table class="ps">
+                
+               <tr><td> <form method="post">
+                    <input type="text" name="search" class ="search" placeholder="Item name...">
+                    <input type="submit" name="go" value="search" id = "searchbtn">
+                    <input type="submit" name="reset" value="reset" id = "resetbtn">
+                </form></td></tr>
+            </table>
 
             <div class = "scroll">
 
