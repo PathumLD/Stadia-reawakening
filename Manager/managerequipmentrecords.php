@@ -73,7 +73,7 @@ if($res == TRUE)
             {
                 while($rows=mysqli_fetch_assoc($res))
                 {
-                    $id=$rows['itemid'];
+                    $id=$rows['id'];
                 
                 echo "<tr id = 'row_$id'>
 

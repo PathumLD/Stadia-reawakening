@@ -90,8 +90,9 @@
                                 <td>" . $rows["item_id"]. "</td>
                                 <td>" . $rows["item_name"]. "</td>
                                 <td>" . $rows["quantity"]. "</td>
-                                <td> <button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button> 
-                                <a href='managerupdatefirstaidrecords.php?id=$id; ?>'><i class='fa fa-pencil-square-o' ></i></a> </td>
+                                <td> <button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button>
+                                 <button class='submit-button' onclick='confirmUpdate($id)'><i class='fa fa-trash'></i></button></td>
+                                
                                 
                                 
                                 
@@ -180,3 +181,62 @@ function confirmRowData(id) {
 }
 </script>
 
+<script>
+
+function confirmUpdate(id) {
+  // Get the row with the booking data
+  var row = document.getElementById('row_' + id);
+
+  // Get the booking data from the row
+  var item_id = row.cells[0].innerHTML;
+  var item_name = row.cells[1].innerHTML;
+  var quantity = row.cells[2].innerHTML;
+
+  // Create a custom confirm box
+  var confirmBox = document.createElement('div');
+  confirmBox.classList.add('confirm-box');
+  confirmBox.innerHTML = '<h2>Update Data?</h2><p>Item Details:</p><ul><li>ID: ' + item_id + '</li><li>Name: ' + item_name + '</li><li>Quantity: ' + quantity + '</li></ul><form method="post"><label for="new_item_id">New Item ID:</label><input type="text" id="new_item_id" name="new_item_id" value="' + item_id + '" required><label for="new_item_name">New Item Name:</label><input type="text" id="new_item_name" name="new_item_name" value="' + item_name + '" required><label for="new_quantity">New Quantity:</label><input type="number" id="new_quantity" name="new_quantity" value="' + quantity + '" required><button type="submit" name="update" id="confirm-button">Confirm</button><button id="cancel-button">Cancel</button></form>';
+
+  // Add the confirm box to the page
+  document.body.appendChild(confirmBox);
+
+  // Add event listeners to the confirm and cancel buttons
+  var confirmButton = document.getElementById('confirm-button');
+  var cancelButton = document.getElementById('cancel-button');
+
+  confirmButton.addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+    
+    // Get the form data
+    var formData = new FormData();
+    formData.append('item_id', document.getElementById('new_item_id').value);
+    formData.append('item_name', document.getElementById('new_item_name').value);
+    formData.append('quantity', document.getElementById('new_quantity').value);
+
+    // Send an HTTP POST request to the server
+    fetch('update.php', {
+      method: 'POST',
+      body: formData
+    })
+    .then(function(response) {
+      if (response.ok) {
+        // Reload the page to reflect the updated data
+        window.location.reload();
+      } else {
+        console.log('Error: ' + response.statusText);
+      }
+    })
+    .catch(function(error) {
+      console.log('Error: ' + error);
+    })
+    .finally(function() {
+      confirmBox.remove(); // Remove the confirm box from the page
+    });
+  });
+  
+  cancelButton.addEventListener('click', function() {
+    confirmBox.remove(); // Remove the confirm box from the page
+  });
+}
+
+</script>

@@ -72,6 +72,24 @@
                 <?php
                     $query = "SELECT fname, lname, NIC, phone, dob, emphone, emname, email
                     FROM users WHERE type = 'client' ";
+
+                    if (!$linkDB) {
+                            die('Connection failed: ' . mysqli_connect_error());
+                        }
+
+                        if (isset($_POST['go'])) {
+                            $search = $_POST['search'];
+                        } else {
+                            $search = null;
+                        }
+
+                        if ($search) {
+                            $query = "SELECT * FROM users WHERE fname LIKE '%$search%'";
+                        } elseif ($search) {
+                            $query = "SELECT * FROM users WHERE NIC LIKE '%$search%'";
+                        } else {
+                            $query = "SELECT * FROM users";
+                        }
                     $res = mysqli_query($linkDB, $query); 
                             if($res == TRUE) 
                             {

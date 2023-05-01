@@ -45,14 +45,11 @@
 
             <h1>Coaches</h1>
 
-            <table class="ps">
-                <tr><td>    </td></tr>
-               <tr><td> <form method="post">
-                    <input type="text" name="search" class ="search" placeholder="Complaint...">
+            <form method="post">
+                    <input type="text" name="search" class ="search" placeholder="Coach Name...">
                     <input type="submit" name="go" value="search" id = "searchbtn">
-                    <input type="submit" name="reset" value="reset" id = "resetbtn">
-                </form></td></tr>
-            </table>
+                    <a href="managercoaches.php"><input type="submit" name="reset" value="reset" id = "resetbtn"></a>
+                </form>
 
             <table class="table">
 
@@ -69,6 +66,25 @@
                 </tr>
 
                 <?php
+
+                    if (!$linkDB) {
+                            die('Connection failed: ' . mysqli_connect_error());
+                        }
+
+                        if (isset($_POST['go'])) {
+                            $search = $_POST['search'];
+                        } else {
+                            $search = null;
+                        }
+
+                        if ($search) {
+                            $query = "SELECT * FROM users WHERE fname LIKE '%$search%'";
+                        } elseif ($search) {
+                            $query = "SELECT * FROM coach_students WHERE NIC LIKE '%$search%'";
+                        } else {
+                            $query = "SELECT * FROM users";
+                        }
+
                     $query = "SELECT fname, lname, NIC, phone, dob, emphone, emname, email
                     FROM users WHERE type = 'coach' ";
                     $res = mysqli_query($linkDB, $query); 
