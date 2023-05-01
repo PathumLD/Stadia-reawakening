@@ -91,7 +91,7 @@
                                 <td>" . $rows["item_name"]. "</td>
                                 <td>" . $rows["quantity"]. "</td>
                                 <td> <button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button>
-                                 <button class='submit-button' onclick='confirmUpdate($id)'><i class='fa fa-trash'></i></button></td>
+                                 <button class='submit-button' onclick='confirmUpdate($id)'><i class='fa fa-pencil-square-o'></i></button></td>
                                 
                                 
                                 
