@@ -55,6 +55,16 @@
             }
             ?>
 
+<?php
+              // Check if a success message is present in the URL
+              if(isset($_GET['mesg']) && $_GET['mesg'] == 'success') {
+                  echo "<div class='success-message'>Complaint submitted successfully.</div>";
+              }
+              if(isset($_GET['mesg']) && $_GET['mesg'] == 'notsuccess') {
+                echo "<div class='notsuccess-message'>Could not submit complaint - Please try again.</div>";
+            }
+            ?>
+
             <div class="left">
 
               <table class="table">
@@ -122,7 +132,7 @@
 
                 <div class="bottom">
 
-                    
+                  <img src="../images/complaint.jpg" alt="Girl in a jacket">
 
                 </div>
 
@@ -214,11 +224,11 @@ $rs= mysqli_query($linkDB,$sql);
 
 if($rs){
   
-  echo "<script>window.location.href='clientcomplaints.php'; </script>";
+  echo "<script>window.location.href='clientcomplaints.php?mesg=success'; </script>";
 
 }
 else{
-  echo "Could not submit the complaint - please try again.";
+  echo "<script>window.location.href='clientcomplaints.php?mesg=notsuccess'; </script>";
 }
  
 }
