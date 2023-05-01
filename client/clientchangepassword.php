@@ -111,7 +111,7 @@ if($newpswd!==$confirmnewpswd){
 
 $query = "SELECT * FROM users WHERE email= '".$var."' ";
     $result = mysqli_query($linkDB, $query);
-            $row = mysqli_fetch_array($result);
+            
             $verify = md5($currentpswd);
             $encrypt = md5($newpswd);
             if (count($row)) {

@@ -157,7 +157,7 @@
                             }
                         } 
                         else{
-                          $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.date, coach_classes.time, client_classes.payment_details 
+                          $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, users.fname, coach_classes.date, coach_classes.time, client_classes.payment_details 
                                     FROM coach_classes INNER JOIN client_classes ON coach_classes.class_id = client_classes.class_id 
                                     WHERE status=1 AND client_classes.email = '".$var."'";
                           $res = mysqli_query($linkDB, $query); 

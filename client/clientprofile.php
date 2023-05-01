@@ -49,10 +49,9 @@
 
               <?php
 
-                  $sql = "SELECT fname, lname, gender, NIC, phone, dob, emphone, emname
-                  FROM users WHERE email = '".$var."'";
+                  $sql = "SELECT * FROM users WHERE email = '".$var."'";
 
-                  $result = $linkDB->query($sql);
+                  $result = mysqli_query($linkDB, $sql);
 
                   if ($result-> num_rows>0){
                       while($row = $result->fetch_assoc()){
@@ -100,7 +99,7 @@
                                     <input type='tel' placeholder='Enter number' name='emphone' pattern='[0-9]{10}'required>
                                 
                                     <input type='submit' class='btn' id='update-btn' name='update2' value='update'>
-                                    <button type='button' class='btn'id='cancel-btn' onclick='closeForm2()'>Cancel</button>
+                                    <button type='button' class='btn' id='cancel-btn' onclick='closeForm2()'>Cancel</button>
                                   </form>
                                 </div></td>
                               </tr>
@@ -115,7 +114,7 @@
                                     <input type='text' placeholder='Enter name' name='emname' required>
                                 
                                     <input type='submit' class='btn' id='update-btn' name='update3' value='update'>
-                                    <button type='button' class='btn'id='cancel-btn' onclick='closeForm3()'>Cancel</button>
+                                    <button type='button' class='btn' id='cancel-btn' onclick='closeForm3()'>Cancel</button>
                                   </form>
                                 </div></td>
                               </tr>";
@@ -288,7 +287,7 @@ if(isset($_POST['update3'])) {
 $emname=$_POST['emname'];
 $var = $_SESSION['email'];
 
-$query = "UPDATE users SET emname=$emname WHERE email = '".$var."' ";
+$query = "UPDATE users SET emname='$emname' WHERE email = '".$var."' ";
 
 $res = mysqli_query($linkDB, $query) or die(mysqli_error($linkDB)); 
     

@@ -11,7 +11,7 @@
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/client.css">
+    <link rel="stylesheet" href="../css/client/clientcomplaints.css">
  
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -45,19 +45,32 @@
             
             <div class="content">
 
-            <table class="table">
+            <?php
+              // Check if a success message is present in the URL
+              if(isset($_GET['msg']) && $_GET['msg'] == 'success') {
+                  echo "<div class='success-message'>Complaint updated successfully.</div>";
+              }
+              if(isset($_GET['msg']) && $_GET['msg'] == 'notsuccess') {
+                echo "<div class='notsuccess-message'>Could not update complaint - Please try again.</div>";
+            }
+            ?>
+
+            <div class="left">
+
+              <table class="table">
 
                 <tr>
 
                     <th>Subject</th>
                     <th>Details</th>
                     <th>Date Time</th>
+                    <th>Action</th>
 
                 </tr>
-                
+
                 <?php
 
-                    $query = "SELECT * FROM complaints WHERE email = '".$var."'" ;
+                    $query = "SELECT * FROM complaints WHERE status = 1 AND email = '".$var."'" ;
                     $res = mysqli_query($linkDB, $query); 
                             if($res == TRUE) 
                             {
@@ -67,36 +80,55 @@
                                     while($rows=mysqli_fetch_assoc($res))
                                     {
                                   
-                                        echo "<tr>
+                                        $id=$rows['id'];
+                                        echo "<tr id='row_$id'>
                                                 <td>" . $rows["subject"]. "</td>
                                                 <td>" . $rows["details"]. "</td>
                                                 <td>" . $rows["datetime"]. "</td>
-                                              </tr>";
+                                                <td> <button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'> / </i></button> 
+                                                <button class='update-button' onclick=\"openPopup($id, '" . $rows["subject"] . "', '" . $rows["details"] . "')\">
+                                                <i class='fa fa-pencil-square-o'></i>
+                                            </button>                                              </tr>";
                             }
                         } else {
                             echo "0 results";
                         }
                     }    
-            ?>
+                ?>
 
-            </table>
-            
-            <div class="form" id="submitComplaint">
+                </table>
+        
+            </div>
 
-                <form method="POST" >
+            <div class="right">
 
-                  <table>
-                    <tr>
-                      <td><input type="text" name="subject" placeholder="Subject" required class="cmplnt"></td> 
-                      <td><textarea id="details" name="details" class="cmplnt" required>Enter Your Complaint Here... </textarea></td>
-                    </tr>
-                  </table>
+                <div class="top">
 
-                    <input type="submit" name="submit" value="Submit" class="btn">
-                  
-                </form>
+                    <h3>Submit a new complaint</h3>
+
+                    <div class="form" id="submitComplaint">
+
+                      <form method="POST" >
+
+                        <input type="text" name="subject" placeholder="Subject" required class="cmplnt"><br>
+                        <textarea id="details" name="details" class="cmplnt" required>Enter Your Complaint Here... </textarea><br>
+                        <input type="submit" name="submit" value="Submit" class="btn">
+                        
+                      </form>
+
+                    </div>
+                
+                </div>
+
+                <div class="bottom">
+
+                    
+
+                </div>
 
             </div>
+
+            
 
           </div>
 
@@ -133,6 +165,37 @@
         }
 </script>
 
+<script>
+function confirmRowData(id) {
+  // Get the row with the complaint
+  var row = document.getElementById('row_' + id);
+
+  // Get the complaint from the row
+  var subject = row.cells[0].innerHTML;
+  var details = row.cells[1].innerHTML;
+
+  // Create a custom confirm box
+  var confirmBox = document.createElement('div');
+  confirmBox.classList.add('confirm-box');
+  confirmBox.innerHTML = '<h2>Confirm Deletion?</h2><p>Complaint Details:</p><ul><li>Subject: ' + subject + '</li><li>Details: ' + details + '</li></ul><button id="confirm-button">Confirm</button><button id="cancel-button">Cancel</button>';
+
+  // Add the confirm box to the page
+  document.body.appendChild(confirmBox);
+
+  // Add event listeners to the confirm and cancel buttons
+  var confirmButton = document.getElementById('confirm-button');
+  var cancelButton = document.getElementById('cancel-button');
+  confirmButton.addEventListener('click', function() {
+    // Redirect to the clientdeletecomplaints.php page
+    window.location.href = 'clientdeletecomplaints.php?id=' + id;
+  });
+  cancelButton.addEventListener('click', function() {
+    // Remove the confirm box from the page
+    document.body.removeChild(confirmBox);
+  });
+}
+</script>
+
 <?php
 
 if(isset($_POST['submit'])){
@@ -160,3 +223,39 @@ else{
  
 }
 ?>
+
+<!-- Popup to update complaint -->
+<div id="complaint-popup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h2>Update Complaint</h2>
+        <form action="update_complaint.php" method="post">
+            <input type="hidden" id="complaint-id" name="complaint_id">
+            <label for="complaint-subject">Subject:</label>
+            <input type="text" id="complaint-subject" name="complaint_subject">
+            <label for="complaint-details">Details:</label>
+            <textarea id="complaint-details" name="complaint_details"></textarea>
+            <input type="submit" value="Update Complaint" class="btn">
+        </form>
+    </div>
+</div>
+
+<script>
+    function openPopup(id, subject, details) {
+        // Set the complaint ID in the hidden input field
+        document.getElementById('complaint-id').value = id;
+
+         // Set the existing subject and details in the input fields
+        document.getElementById('complaint-subject').value = subject;
+        document.getElementById('complaint-details').value = details;
+
+        // Show the popup
+        document.getElementById('complaint-popup').style.display = 'block';
+    }
+
+    function closePopup() {
+        // Hide the popup
+        document.getElementById('complaint-popup').style.display = 'none';
+    }
+</script>
+
