@@ -300,6 +300,12 @@ section .button button:hover{
   padding: 10px;
 }
 
+.map{
+  float: right;
+  margin-left: 20px;
+  margin-top: -18%;
+}
+
 /* Footer CSS */
 footer{
   background: #3B6E51;
