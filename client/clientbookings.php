@@ -12,7 +12,7 @@
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/client.css">
+    <link rel="stylesheet" href="../css/client/clientbookings.css">
  
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -48,75 +48,49 @@
 
             <div class="content">
 
-            <table id="searchtable">
-              <tr>
-                <td>
-                    <form method="post">
-                        <input type="text" name="search" class="search" onfocus="(this.type = 'date')" placeholder="Search by Date">
-                        <input type="submit" name="go" value="Search" id="searchbtn">
-                    </form>
-                </td>
-                <td>
-                    <form method="post">
-                            <select name="court_search" class="search" id="disable">
-                                <option value="" disabled selected>Search by Court</option>
-                                <option value="Badminton">Badminton</option>
-                                <option value="Basketball">Basketball</option>
-                                <option value="Volleyball">Volleyball</option>
-                                <option value="Tennis">Tennis</option>
-                                <option value="Swimming">Swimming</option>
-                            </select>
-                        <input type="submit" name="go2" value="Search" id="searchbtn">
-                        <a href="clientbookings.php"><input type="submit" value="reset" id = "resetbtn"></a>
-                    </form>
-                </td>
-              </tr>
-            </table>
+                <table id="searchtable">
+                <tr>
+                    <td>
+                        <form method="post">
+                            <input type="text" name="search" class="search" onfocus="(this.type = 'date')" placeholder="Search by Date">
+                            <input type="submit" name="go" value="Search" id="searchbtn">
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post">
+                                <select name="court_search" class="search" id="disable">
+                                    <option value="" disabled selected>Search by Court</option>
+                                    <option value="Badminton">Badminton</option>
+                                    <option value="Basketball">Basketball</option>
+                                    <option value="Volleyball">Volleyball</option>
+                                    <option value="Tennis">Tennis</option>
+                                    <option value="Swimming">Swimming</option>
+                                </select>
+                            <input type="submit" name="go2" value="Search" id="searchbtn">
+                            <a href="clientbookings.php"><input type="submit" value="reset" id = "resetbtn"></a>
+                        </form>
+                    </td>
+                </tr>
+                </table>
 
-              <table class="table">
+                <div class="left">
 
-                  <tr>
-                      <th>Date</th>
-                      <th>Time</th>
-                      <th>Court</th>    
-                      <th>Action</th>
-                  </tr>
+                    <table class="table">
 
-                  <?php
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Court</th>    
+                        <th>Action</th>
+                    </tr>
 
-                      if(isset($_POST['go'])){
-                                          
-                          $search = $_POST['search'];
+                    <?php
 
-                          $query = "SELECT * FROM bookings WHERE date LIKE '%$search%' AND status=1 AND email = '".$var."'";
-                          $res = mysqli_query($linkDB, $query); 
-                          if($res == TRUE) 
-                          {
-                              $count = mysqli_num_rows($res); //calculate number of rows
-                              if($count>0)
-                              {
-                                  while($rows=mysqli_fetch_assoc($res))
-                                  {
-                                      $id=$rows['id'];
-                                      echo "<tr id='row_$id'>
-                                              <td>" . $rows["date"]. "</td>
-                                              <td>" . $rows["time"]. "</td>
-                                              <td>" .$rows["court"]. "</td>
-                                              <td><button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button></td>
-                                          </tr>";
-                                  }
-                              } else {
-                                  echo "0 results";
-                              }
-                          }
-                      } 
-                      else{                  
-
-                        if(isset($_POST['go2'])){
+                        if(isset($_POST['go'])){
                                             
-                            $court_search = $_POST['court_search'];
+                            $search = $_POST['search'];
 
-                            $query = "SELECT * FROM bookings WHERE court LIKE '%$court_search%' AND status=1 AND email = '".$var."'";
+                            $query = "SELECT * FROM bookings WHERE date LIKE '%$search%' AND status=1 AND email = '".$var."'";
                             $res = mysqli_query($linkDB, $query); 
                             if($res == TRUE) 
                             {
@@ -138,33 +112,87 @@
                                 }
                             }
                         } 
-                        else{
-                            $query = "SELECT * FROM bookings WHERE status=1 AND email = '".$var."'";
-                            $res = mysqli_query($linkDB, $query); 
-                            if($res == TRUE) 
-                            {
-                                $count = mysqli_num_rows($res); //calculate number of rows
-                                if($count>0)
-                                {
-                                    while($rows=mysqli_fetch_assoc($res))
-                                    {
-                                        $id=$rows['id'];
-                                        echo "<tr id='row_$id'>
-                                                <td>" . $rows["date"]. "</td>
-                                                <td>" . $rows["time"]. "</td>
-                                                <td>" .$rows["court"]. "</td>
-                                                <td><button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button></td>
-                                            </tr>";
-                                    }
-                                } else {
-                                    echo "0 results";
-                                }
-                            }
-                        }  
-                      } 
-                  ?>
+                        else{                  
 
-              </table>
+                            if(isset($_POST['go2'])){
+                                                
+                                $court_search = $_POST['court_search'];
+
+                                $query = "SELECT * FROM bookings WHERE court LIKE '%$court_search%' AND status=1 AND email = '".$var."'";
+                                $res = mysqli_query($linkDB, $query); 
+                                if($res == TRUE) 
+                                {
+                                    $count = mysqli_num_rows($res); //calculate number of rows
+                                    if($count>0)
+                                    {
+                                        while($rows=mysqli_fetch_assoc($res))
+                                        {
+                                            $id=$rows['id'];
+                                            echo "<tr id='row_$id'>
+                                                    <td>" . $rows["date"]. "</td>
+                                                    <td>" . $rows["time"]. "</td>
+                                                    <td>" .$rows["court"]. "</td>
+                                                    <td><button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button></td>
+                                                </tr>";
+                                        }
+                                    } else {
+                                        echo "0 results";
+                                    }
+                                }
+                            } 
+                            else{
+                                $query = "SELECT * FROM bookings WHERE status=1 AND email = '".$var."'";
+                                $res = mysqli_query($linkDB, $query); 
+                                if($res == TRUE) 
+                                {
+                                    $count = mysqli_num_rows($res); //calculate number of rows
+                                    if($count>0)
+                                    {
+                                        while($rows=mysqli_fetch_assoc($res))
+                                        {
+                                            $id=$rows['id'];
+                                            echo "<tr id='row_$id'>
+                                                    <td>" . $rows["date"]. "</td>
+                                                    <td>" . $rows["time"]. "</td>
+                                                    <td>" .$rows["court"]. "</td>
+                                                    <td><button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button></td>
+                                                </tr>";
+                                        }
+                                    } else {
+                                        echo "0 results";
+                                    }
+                                }
+                            }  
+                        } 
+                    ?>
+
+                </table>
+
+                </div>
+
+                <div class="right">
+
+                    <div class="top">
+
+                        <h3>Book Slots</h3>
+
+                        <h4><b>Book a slot now!</b><br>
+                            Our facility offers a wide range of activities to keep you moving, from badminton, basketball and volleyball to tennis and swimming. Book a slot at our stadium today and take your fitness to the next level!</h4>
+                        <a href="clientslotsbadminton1.php"><button class="enroll">Badminton</button></a>
+                        <a href="clientslotsbasketball.php"><button class="enroll">Basketball</button></a><br>
+                        <a href="clientslotsvolleyball.php"><button class="enroll">Volleyball</button></a>
+                        <a href="clientslotstennis.php"><button class="enroll">Tennis</button></a><br>
+                        <a href="clientslotsswimming.php"><button class="enroll sw">Swimming</button></a>
+
+                    </div>
+
+                    <div class="bottom">
+
+                    <img src="../images/bb.gif" alt="gif">
+
+                    </div>
+
+                </div>
                     
           </div>
 

@@ -11,9 +11,9 @@
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/client.css">
- 
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/client/clientcoach.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
      <?php include('../include/javascript.php'); ?>
      <?php include('../include/styles.php'); ?>
@@ -45,25 +45,81 @@
             
             <div class="content">
 
-            <label for="coachvolleyball">Select Coach:</label>
+                        <h3><b>Enroll with the classes we provide!</b><br><br>
+                        Whether you're looking to learn a new skill, develop a new hobby, or advance your career, taking classes can help you achieve your goals.</h3>
 
-            <select name="coachvolleyball" class="search">
-                <option value="sir1">sir1</option>
-                <option value="sir2">sir2</option>
-                <option value="sir3">sir3</option>
-                <option value="sir4">sir4</option>
-            </select>
-            <form method="post">
-                <input type="submit" name="go" value="Search" id="searchbtn">
-            </form>
+            <table id="searchtable">
+              <tr>
+                <td>
+                    <form method="post">
+
+                        <select name="coach_email" class="search" id="disable">
+                        <option value="" disabled selected>Search by Coach</option>
+                        <?php
+                            $query = "SELECT * from users WHERE type = 'coach' ";
+                            $res = mysqli_query($linkDB, $query);
+                            if($res == TRUE)
+                            {
+                                $count =mysqli_num_rows($res); //calculate the number of rows
+                                if($count>0)
+                                {
+                                    $option = '';
+                                    while($rows=mysqli_fetch_assoc($res))
+                                    {
+                                        $option .= '<option value="' .$rows['email'] . '">' .$rows['fname'] . " " . $rows['lname'] .'</option>';
+                                    }
+                                    echo '' . $option . '</select>';
+                                } else{
+                                    echo "0 results";
+                                }
+                            }
+                        ?>
+
+                        <input type="submit" name="go" value="Search" id="searchbtn">
+
+                        <a href="clientbookings.php"><input type="submit" value="reset" id = "resetbtn"></a>
+                    </form>
+                    </td>
+
+                    <td>
+                    <button id="view-cv-btn">View CV</button>
+
+                        <?php
+
+                            if(isset($_POST['go'])){
+
+                                $email = $_POST['coach_email'];
+
+                                // Retrieve the pdf from the database
+                                $folder = "../pdf/";
+                                $sql = "SELECT * FROM pdf_data WHERE email = '$email' ";
+                                $result = mysqli_query($linkDB, $sql);
+                                $row = mysqli_fetch_array($result);
+                                if($row){
+                                    $filename = $row['filename'];
+                                    // code to display the pdf
+                                    } else {
+                                    echo "CV not found for the given email.";
+                                    }
+                            }
+                            
+                            else {
+                                echo "Please select a coach to view his/her CV";
+                            }
+        
+                        ?>
+                    </td>
+
+            </tr>
+            </table>
 
             <table class="table">
 
             <tr>
 
+                <th>Date</th>
                 <th>Age Group</th>
                 <th>Level</th>
-                <th>Date</th>
                 <th>Time</th>
                 <th>Class Fee</th>
                 <th>Action</th>
@@ -75,9 +131,9 @@
 
                 if(isset($_POST['go'])){
 
-                    $search = $_POST['search'];
+                    $email = $_POST['coach_email'];
 
-                    $query = "SELECT * FROM coach_classes WHERE sport='volleyball'AND coachname LIKE '%$search%' ";
+                    $query = "SELECT * FROM coach_classes WHERE sport='volleyball'AND email = '$email' ";
                     $res = mysqli_query($linkDB, $query); 
                         if($res == TRUE) 
                         {
@@ -87,9 +143,9 @@
                                 while($rows=mysqli_fetch_assoc($res))
                                 {
                                     echo "<tr>
+                                            <td>" . $rows["date"]. "</td>
                                             <td>" . $rows["age_group"]. "</td>
                                             <td>" . $rows["level"]. "</td>
-                                            <td>" . $rows["date"]. "</td>
                                             <td>" . $rows["time"]. "</td>
                                             <td>" . $rows["fee"]. "</td>
                                             <td><a href='clientmycart.php'>Register</a></td>
@@ -162,4 +218,30 @@
             }
           });
         }
+</script>
+
+<script>
+      const section = document.querySelector(".section"),
+        overlay = document.querySelector(".overlay"),
+        showBtn = document.querySelector(".show-modal"),
+        closeBtn = document.querySelector(".close-btn");
+
+      showBtn.addEventListener("click", () => section.classList.add("active"));
+
+      overlay.addEventListener("click", () =>
+        section.classList.remove("active")
+      );
+
+      closeBtn.addEventListener("click", () =>
+        section.classList.remove("active")
+      );
+    </script>
+
+<script>
+    const viewCvBtn = document.getElementById('view-cv-btn');
+    
+    viewCvBtn.addEventListener('click', () => {
+        const url = "<?php echo $folder . $filename; ?>";
+        window.open(url, '_blank');
+    });
 </script>

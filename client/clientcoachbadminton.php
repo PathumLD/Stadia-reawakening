@@ -11,7 +11,7 @@
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/client.css">
+    <link rel="stylesheet" href="../css/client/clientcoach.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -44,6 +44,9 @@
             <h1>Coaches - Badminton</h1>
             
             <div class="content">
+
+                        <h3><b>Enroll with the classes we provide!</b><br><br>
+                        Whether you're looking to learn a new skill, develop a new hobby, or advance your career, taking classes can help you achieve your goals.</h3>
 
             <table id="searchtable">
               <tr>
@@ -233,26 +236,6 @@
         section.classList.remove("active")
       );
     </script>
-
-    <!-- <script>
-    function viewCoach() {
-
-    // Create a custom confirm box
-    var confirmBox = document.createElement('div');
-    confirmBox.classList.add('confirm-box');
-    confirmBox.innerHTML = '<h2>Pathum Lakshan</h2><p>Order Details:</p><h4><p>NOTE: We will be only refunding 75% of your payment per each cancellation</p></h4><button id="confirm-button">Confirm</button><button id="cancel-button">Cancel</button>';
-
-    // Add the confirm box to the page
-    document.body.appendChild(confirmBox);
-
-    // Add event listeners to the confirm and cancel buttons
-    var cancelButton = document.getElementById('cancel-button');
-    cancelButton.addEventListener('click', function() {
-        // Remove the confirm box from the page
-        document.body.removeChild(confirmBox);
-    });
-    }
-    </script> -->
 
 <script>
     const viewCvBtn = document.getElementById('view-cv-btn');

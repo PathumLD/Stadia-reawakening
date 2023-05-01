@@ -48,7 +48,7 @@
 
             <div class="form" id="changePassword">
 
-                <form method="POST">
+                <form method="POST" >
           
                     <input type="password" name="currentpswd" placeholder="Current Password"> <br><br>
                     <input type="password" name="newpswd" placeholder="New Password"> <br><br>
@@ -103,13 +103,14 @@ if(isset($_POST['save'])){
 $currentpswd = $_POST['currentpswd'];
 $newpswd = $_POST['newpswd'];
 $confirmnewpswd = $_POST['confirmnewpswd'];
+$email = $_SESSION['email'];
 
 if($newpswd!==$confirmnewpswd){
         echo "<h3> Your Passwords does not match </h3>";
     }
     else{
 
-$query = "SELECT * FROM users WHERE email= '".$var."' ";
+$query = "SELECT * FROM users WHERE email = '$email' ";
     $result = mysqli_query($linkDB, $query);
             
             $verify = md5($currentpswd);

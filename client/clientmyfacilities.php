@@ -11,7 +11,7 @@
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/client.css">
+    <link rel="stylesheet" href="../css/client/clientmyfacilities.css">
  
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -61,95 +61,107 @@
               </tr>
             </table>
 
-            <table class="table">
+            <div class="left">
 
-            <caption id="cap"> Refreshments </caption>
+              <h3>Ordered Refreshments</h3>  
 
-                <tr>
+              <table class="table">
 
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Item Name</th>
-                    <th>Ordered Quantity</th>
-                    <th>Action</th>
+                  <tr>
 
-                </tr>
-                
-                    <?php
+                      <th>Date</th>
+                      <th>Time</th>
+                      <th>Item Name</th>
+                      <th>Ordered Quantity</th>
+                      <th>Action</th>
 
-                      if(isset($_POST['go'])) {
-                        $search = $_POST['search'];
-                      } else {
-                        $search = null;
-                      }
+                  </tr>
+                  
+                      <?php
 
-                        $query = "SELECT * FROM client_refreshments WHERE date LIKE '%$search%' AND status=1 AND email = '".$var."'";
-                        $res = mysqli_query($linkDB, $query); 
-                                if($res == TRUE) 
-                                {
-                                    $count = mysqli_num_rows($res); //calculate number of rows
-                                    if($count>0)
-                                    {
-                                        while($rows=mysqli_fetch_assoc($res))
-                                        {
-                                            $id=$rows['id'];
-                                            echo "<tr id='row_$id'>
-                                                    <td>" . $rows["date"]. "</td>
-                                                    <td>" . $rows["time"]. "</td>
-                                                    <td>" . $rows["itemname"].  "</td>
-                                                    <td>" . $rows["orderedquantity"]."</td>
-                                                    <td> <button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button> 
-                                                        <a href='clientupdaterefreshment.php?id=$id; ?>'><i class='fa fa-pencil-square-o' ></i></a> </td>
-                                                </tr>";
-                                        }
-                                    } else {
-                                        echo "0 results";
-                                    }
-                                }    
-                    ?>
+                        if(isset($_POST['go'])) {
+                          $search = $_POST['search'];
+                        } else {
+                          $search = null;
+                        }
 
-                
-            </table>
+                          $query = "SELECT * FROM client_refreshments WHERE date LIKE '%$search%' AND status=1 AND email = '".$var."'";
+                          $res = mysqli_query($linkDB, $query); 
+                                  if($res == TRUE) 
+                                  {
+                                      $count = mysqli_num_rows($res); //calculate number of rows
+                                      if($count>0)
+                                      {
+                                          while($rows=mysqli_fetch_assoc($res))
+                                          {
+                                              $id=$rows['id'];
+                                              echo "<tr id='row_$id'>
+                                                      <td>" . $rows["date"]. "</td>
+                                                      <td>" . $rows["time"]. "</td>
+                                                      <td>" . $rows["itemname"].  "</td>
+                                                      <td>" . $rows["orderedquantity"]."</td>
+                                                      <td> <button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button> 
+                                                          <a href='clientupdaterefreshment.php?id=$id; ?>'><i class='fa fa-pencil-square-o' ></i></a> </td>
+                                                  </tr>";
+                                          }
+                                      } else {
+                                          echo "0 results";
+                                      }
+                                  }    
+                      ?>
 
-            <table class="table">   
+                  
+              </table>
 
-            <caption id="cap"> Equipment </caption>
+              <a href="clientrefreshments.php"><button class="enroll">Order Refreshments</button></a>
 
-                <tr>
+            </div>
 
-                    <th>Date</th>
-                    <th>Item Name</th>
-                    <th>Ordered Quantity</th>
-                    <th>Action</th>
-                    
-                </tr>
+            <div class="right">
 
-                <?php
-                    $query = "SELECT * FROM ordered_equipment WHERE date LIKE '%$search%' AND status=1 AND email = '".$var."'";
-                    $res = mysqli_query($linkDB, $query); 
-                            if($res == TRUE) 
-                            {
-                                $count = mysqli_num_rows($res); //calculate number of rows
-                                if($count>0)
-                                {
-                                    while($rows=mysqli_fetch_assoc($res))
-                                    {
-                                        $id=$rows['id'];
-                                        echo "<tr id='row__$id'>
-                                                <td>" . $rows["date"]. "</td>
-                                                <td>" . $rows["itemname"]. "</td>
-                                                <td>" . $rows["orderedquantity"]. "</td>
-                                                <td><button class='submit-button' onclick='confirmRowData2($id)'><i class='fa fa-trash'></i></button>
-                                                    <a href='clientupdateequipment.php?id=$id; ?>'><i class='fa fa-pencil-square-o' ></i> </a> </td>
-                                            </tr>";
-                                    }
-                                } else {
-                                    echo "0 results";
-                                }
-                            }    
-                    ?>
+              <h3>Ordered Equipment</h3>                    
 
-            </table>
+              <table class="table">   
+
+                  <tr>
+
+                      <th>Date</th>
+                      <th>Item Name</th>
+                      <th>Ordered Quantity</th>
+                      <th>Action</th>
+                      
+                  </tr>
+
+                  <?php
+                      $query = "SELECT * FROM ordered_equipment WHERE date LIKE '%$search%' AND status=1 AND email = '".$var."'";
+                      $res = mysqli_query($linkDB, $query); 
+                              if($res == TRUE) 
+                              {
+                                  $count = mysqli_num_rows($res); //calculate number of rows
+                                  if($count>0)
+                                  {
+                                      while($rows=mysqli_fetch_assoc($res))
+                                      {
+                                          $id=$rows['id'];
+                                          echo "<tr id='row__$id'>
+                                                  <td>" . $rows["date"]. "</td>
+                                                  <td>" . $rows["itemname"]. "</td>
+                                                  <td>" . $rows["orderedquantity"]. "</td>
+                                                  <td><button class='submit-button' onclick='confirmRowData2($id)'><i class='fa fa-trash'></i></button>
+                                                      <a href='clientupdateequipment.php?id=$id; ?>'><i class='fa fa-pencil-square-o' ></i> </a> </td>
+                                              </tr>";
+                                      }
+                                  } else {
+                                      echo "0 results";
+                                  }
+                              }    
+                      ?>
+
+              </table>
+
+              <a href="clientequipment.php"><button class="enroll">Order Equipment</button></a>
+
+            </div>
 
           </div>
 

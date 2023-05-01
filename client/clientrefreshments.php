@@ -11,7 +11,7 @@
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/client.css">
+    <link rel="stylesheet" href="../css/client/clientrefreshments.css">
  
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -48,81 +48,89 @@
 
             <div class="content">
 
-            <table class="table">
+                <h3><b>Try our snacks and drinks!</b><br>
+                        We sell the best snacks and drinks in town. Try them out to quench your thirst and hunger.</h3>
 
-                <caption id="cap"> Drinks </caption>
+            <div class="left">
 
-                <tr>
-                    <th>Item Name</th>
-                    <th>Price</th> 
-                    <th>Quantity</th>  
-                    <th></th>
-                </tr>
+                <h3>Drinks</h3>
 
-                <?php
-                    $query = "SELECT * FROM refreshments_drinks ";
-                    $res = mysqli_query($linkDB, $query); 
-                            if($res == TRUE) 
-                            {
-                                $count = mysqli_num_rows($res); //calculate number of rows
-                                if($count>0)
+                <table class="table">
+
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Price</th> 
+                        <th>Quantity</th>  
+                        <th></th>
+                    </tr>
+
+                    <?php
+                        $query = "SELECT * FROM refreshments_drinks ";
+                        $res = mysqli_query($linkDB, $query); 
+                                if($res == TRUE) 
                                 {
-                                    while($rows=mysqli_fetch_assoc($res))
+                                    $count = mysqli_num_rows($res); //calculate number of rows
+                                    if($count>0)
                                     {
-                                        echo "<tr>
-                                                <td>" . $rows["itemname"]. "</td>
-                                                <td>" . $rows["price"]. "</td>
-                                                <td><input type='number' name='quantity' id='qty_" . $rows["id"] . "'></td>
-                                                <td><button type='button' name='add-to-cart' onclick='addToCart(" . $rows["id"] . ", document.getElementById(\"qty_" . $rows["id"] . "\").value)'><i class='fa fa-cart-plus'></i></button></td>      </tr>";
+                                        while($rows=mysqli_fetch_assoc($res))
+                                        {
+                                            echo "<tr>
+                                                    <td>" . $rows["itemname"]. "</td>
+                                                    <td>" . $rows["price"]. "</td>
+                                                    <td><input type='number' name='quantity' id='qty_" . $rows["id"] . "'></td>
+                                                    <td><button type='button' name='add-to-cart' onclick='addToCart(" . $rows["id"] . ", document.getElementById(\"qty_" . $rows["id"] . "\").value)'><i class='fa fa-cart-plus'></i></button></td>      </tr>";
+                                            }
+                                        } else {
+                                            echo "0 results";
                                         }
-                                    } else {
-                                        echo "0 results";
-                                    }
-                                }    
-                        ?>
+                                    }    
+                            ?>
 
-            </table>
+                </table>
 
-            <table class="table">
 
-                <caption id="cap"> Snacks </caption>
+            </div>
 
-                <tr>
-                    <th>Item Name</th>
-                    <th>Price</th> 
-                    <th>Quantity</th>  
-                    <th></th>
-                </tr>
+            <div class="right">
 
-                <?php
-                    $query = "SELECT * FROM refreshments_snacks ";
-                    $res = mysqli_query($linkDB, $query); 
-                    if($res == TRUE) {
-                        $count = mysqli_num_rows($res); //calculate number of rows
-                        if($count>0) {
-                            while($rows=mysqli_fetch_assoc($res)) {
-                                $id=$rows['id'];
-                                echo "<tr id='row__$id'>
-                                    <td>" . $rows["itemname"]. "</td>
-                                    <td>" . $rows["price"]. "</td>
-                                    <td><input type='number' name='quantity'></td>
-                                    <td>
-                                        <button type='button' class='add-to-cart-btn' data-item-id='$id'><i class='fa fa-cart-plus'></i></button>
-                                        <a href='clientaddtocart.php?id=$id; ?>'><i class='fa fa-pencil-square-o' ></i> </a>
-                                    </td>
-                                </tr>";
+                <h3>Snacks</h3>
+
+                <table class="table">
+
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Price</th> 
+                        <th>Quantity</th>  
+                        <th></th>
+                    </tr>
+
+                    <?php
+                        $query = "SELECT * FROM refreshments_snacks ";
+                        $res = mysqli_query($linkDB, $query); 
+                        if($res == TRUE) {
+                            $count = mysqli_num_rows($res); //calculate number of rows
+                            if($count>0) {
+                                while($rows=mysqli_fetch_assoc($res)) {
+                                    $id=$rows['id'];
+                                    echo "<tr id='row__$id'>
+                                        <td>" . $rows["itemname"]. "</td>
+                                        <td>" . $rows["price"]. "</td>
+                                        <td><input type='number' name='quantity'></td>
+                                        <td>
+                                            <button type='button' class='add-to-cart-btn' data-item-id='$id'><i class='fa fa-cart-plus'></i></button>
+                                            <a href='clientaddtocart.php?id=$id; ?>'><i class='fa fa-pencil-square-o' ></i> </a>
+                                        </td>
+                                    </tr>";
+                                }
+                            } else {
+                                echo "0 results";
                             }
-                        } else {
-                            echo "0 results";
-                        }
-                    }    
-                        ?>
+                        }    
+                            ?>
 
-            </table>
+                </table>
 
-            <!-- <div class="button">
-                <a href="clientmycart.php"> Add to Cart </a>
-            </div> -->
+            </div>
 
           </div>
 

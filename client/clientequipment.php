@@ -11,7 +11,7 @@
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/client.css">
+    <link rel="stylesheet" href="../css/client/clientequipment.css">
  
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -45,78 +45,90 @@
 
             <div class="content">
 
-            <form method="post">
-                <input type="text" name="search" placeholder="Item Name..." class="search">
-                <input type="submit" name="go" value="Search" id="searchbtn">
-                <a href="clientbookings.php"><input type="submit" value="reset" id = "resetbtn"></a>
-            </form>
+                <h3><b>Haven't got your own equipment?</b><br>
+                    Don't worry we have got you covered! <br>
+                    Rent any equipment you need for the cheapest price.</h3>
 
-            <table class="table">
+                <table id="searchtable">
+                    <tr>
+                        <td>
+                       
+                            <form method="post">
+                                <input type="text" name="search" placeholder="Item Name..." class="search">
+                                <input type="submit" name="go" value="Search" id="searchbtn">
+                                <a href="clientbookings.php"><input type="submit" value="reset" id = "resetbtn"></a>
+                            </form>
+                         
+                        </td>
+                    </tr>
+                </table>
 
-                <tr>
-                    <th>Item Name</th>
-                    <th>Price</th> 
-                    <th>Available</th>
-                    <th>Quantity Needed</th> 
-                    <th>Action</th> 
-                </tr>
+                    <table class="table">
 
-                <?php
+                        <tr>
+                            <th>Item Name</th>
+                            <th>Price</th> 
+                            <th>Available</th>
+                            <th>Quantity Needed</th> 
+                            <th>Action</th> 
+                        </tr>
 
-                    if(isset($_POST['go'])){
-                    
-                        $search = $_POST['search'];
+                        <?php
 
-                        $query = "SELECT * FROM equipment WHERE itemname LIKE '%$search%' ";
-                        $res = mysqli_query($linkDB, $query); 
-                            if($res == TRUE) 
-                            {
-                                $count = mysqli_num_rows($res); //calculate number of rows
-                                if($count>0)
-                                {
-                                    while($rows=mysqli_fetch_assoc($res))
+                            if(isset($_POST['go'])){
+                            
+                                $search = $_POST['search'];
+
+                                $query = "SELECT * FROM equipment WHERE itemname LIKE '%$search%' ";
+                                $res = mysqli_query($linkDB, $query); 
+                                    if($res == TRUE) 
                                     {
-                                        $id=$rows['itemid'];
-                                        echo "<tr>
-                                                <td>" . $rows["itemname"]. "</td>
-                                                <td>" . $rows["price"]. "</td>
-                                                <td>" . $rows["quantity"]. "</td>
-                                                <td><input type='number' name='quantity'></td>
-                                                <td><button type='submit' name='add-to-cart'><i class='fa fa-cart-plus'></i></button></td>
-                                            </tr>";
+                                        $count = mysqli_num_rows($res); //calculate number of rows
+                                        if($count>0)
+                                        {
+                                            while($rows=mysqli_fetch_assoc($res))
+                                            {
+                                                $id=$rows['itemid'];
+                                                echo "<tr>
+                                                        <td>" . $rows["itemname"]. "</td>
+                                                        <td>" . $rows["price"]. "</td>
+                                                        <td>" . $rows["quantity"]. "</td>
+                                                        <td><input type='number' name='quantity'></td>
+                                                        <td><button type='submit' name='add-to-cart'><i class='fa fa-cart-plus'></i></button></td>
+                                                    </tr>";
+                                            }
+                                        } else {
+                                            echo "0 results";
+                                        }
                                     }
-                                } else {
-                                    echo "0 results";
-                                }
                             }
-                    }
-                    else{
-                    $query = "SELECT * FROM equipment ";
-                    $res = mysqli_query($linkDB, $query); 
-                            if($res == TRUE) 
-                            {
-                                $count = mysqli_num_rows($res); //calculate number of rows
-                                if($count>0)
-                                {
-                                    while($rows=mysqli_fetch_assoc($res))
+                            else{
+                            $query = "SELECT * FROM equipment ";
+                            $res = mysqli_query($linkDB, $query); 
+                                    if($res == TRUE) 
                                     {
-                                        $id=$rows['itemid'];
-                                        echo "<tr>
-                                                <td>" . $rows["itemname"]. "</td>
-                                                <td>" . $rows["price"]. "</td>
-                                                <td>" . $rows["quantity"]. "</td>
-                                                <td><input type='number' name='quantity'></td>
-                                                <td><button type='submit' name='add-to-cart'><i class='fa fa-cart-plus'></i></button></td>
-                                            </tr>";
-                                    }
-                                } else {
-                                    echo "0 results";
-                                }
-                            }    
-                        }      
-                    ?>
+                                        $count = mysqli_num_rows($res); //calculate number of rows
+                                        if($count>0)
+                                        {
+                                            while($rows=mysqli_fetch_assoc($res))
+                                            {
+                                                $id=$rows['itemid'];
+                                                echo "<tr>
+                                                        <td>" . $rows["itemname"]. "</td>
+                                                        <td>" . $rows["price"]. "</td>
+                                                        <td>" . $rows["quantity"]. "</td>
+                                                        <td><input type='number' name='quantity'></td>
+                                                        <td><button type='submit' name='add-to-cart'><i class='fa fa-cart-plus'></i></button></td>
+                                                    </tr>";
+                                            }
+                                        } else {
+                                            echo "0 results";
+                                        }
+                                    }    
+                                }      
+                            ?>
 
-            </table>
+                    </table>
 
             <!-- <div class="button">
                 <a href="clientmycart.php"> Add to Cart </a>
