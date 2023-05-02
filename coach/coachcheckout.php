@@ -12,7 +12,7 @@
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/coach.css">
+    <link rel="stylesheet" href="../css/coach/coachcheckout.css">
  
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -40,11 +40,12 @@
 
         <div class="main-content">
 
+          <?php $var = $_SESSION['email']; ?>
+
+              <h1>Checkout</h1>
+
           <div class="content">
 
-            <?php $var = $_SESSION['email']; ?>
-
-            <h1>Checkout</h1>
 
                 <div class="summary">
 
@@ -60,7 +61,7 @@
 
                 <div class="paymentgateway">
                   
-
+                    <h3> Payment Gateway </h3>
 
                 </div>
 
