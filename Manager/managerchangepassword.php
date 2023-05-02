@@ -116,14 +116,14 @@ $query = "SELECT * FROM users WHERE email= '".$var."' ";
                 
                 if ($verify==$row['password']) {
 
-                  $sql = "UPDATE users SET password = '$baba' WHERE email = '{$_SESSION['email']}' ";
+                  $sql = "UPDATE users SET password = '$encrypt' WHERE email = '{$_SESSION['email']}' ";
                 }
 
 $rs= mysqli_query($linkDB,$sql);
 
 if($rs){
   echo "Password Updated";
-  echo "<script>window.location.href='clientprofile.php'; </script>";
+  echo "<script>window.location.href='administrationlogin.php'; </script>";
 }
 else{
     echo "<p>Could not update password - please try again.</p>";
