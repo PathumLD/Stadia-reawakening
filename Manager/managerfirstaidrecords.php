@@ -201,15 +201,15 @@ function confirmRowData(id) {
         <span class="close_u" onclick="closePopup()">&times;</span>
         <h2>Update First-Aid Records</h2>
         <form action="updatefirstaid.php" method="post">
-           
-            <label for="item_id">Item Id:</label>
-            <input type="text" id="item_id" name="item_id">
-            <label for="item_name">Item Name:</label>
-            <input type="text" id="item_name" name="item_name">
-            <label for="quantity">Quantity:</label>
-            <input type="text" id="quantity" name="quantity">
-            <input type="submit" value="Update Complaint" class="btn">
+               <label for="item_id">Item Id:</label>
+               <textbox type="text" id="item_id" name="item_id"></textbox>
+               <label for="item_name">Item Name:</label>
+               <textbox type="text" id="item_name" name="item_name"></textbox>
+               <label for="quantity">Quantity:</label>
+               <textbox type="text" id="quantity" name="quantity"></textbox>
+               <input type="submit" value="Update First-Aid Records" class="btn">
         </form>
+
     </div>
 </div>
 
