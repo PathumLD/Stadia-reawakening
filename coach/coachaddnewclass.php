@@ -145,8 +145,15 @@
         $no_of_students = $_POST['no_of_students'];
         $email = $_SESSION['email'];
 
+
+        $query = "SELECT CONCAT(fname, ' ', lname) AS coach_name FROM users WHERE email = '$email'";
+        $result = mysqli_query($linkDB, $query);
+        $row = mysqli_fetch_assoc($result);
+        $coach = $row['coach_name'];
+
+
        
-        $sql = "INSERT INTO coach_classes (class_id, level, sport, date, time, age_group, no_of_students, email) VALUES ('$class_id', '$level', '$sport', '$date', '$time', '$age_group', '$no_of_students', '$email')";
+        $sql = "INSERT INTO coach_classes (class_id, level, sport, date, time, age_group, no_of_students, email, coach) VALUES ('$class_id', '$level', '$sport', '$date', '$time', '$age_group', '$no_of_students', '$email', '$coach')";
         if(mysqli_query($linkDB, $sql)){
           echo "<script>window.location.href='coachclasses.php'; </script>";
         } else {
