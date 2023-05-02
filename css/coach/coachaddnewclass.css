@@ -1,3 +1,8 @@
+
+              /* 1. form boarder */
+
+
+
 .main-content h1{
     font-size: 40px;
     margin-left: 10px;
@@ -16,13 +21,12 @@
     width: 35%;
     padding: 1rem;
     font-size: 1rem;
-    /* max-width: 20rem; */
+    max-width: 20rem;
     font-weight: 400;
     border: 2px solid #6d9976;
     border-radius: 1.3rem;
     margin-bottom: 1rem;
 }
-
                             /* Submit Button */      
 
 .btn{
