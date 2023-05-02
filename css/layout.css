@@ -14,14 +14,16 @@
 }
 
 .home-content .main-content{
-    display: inline-block;;
+    display: fixed;
     width: 97%;
-    height: 48.5rem;
+    height: 35rem;
     background: #fff;
     padding: 10px;
     margin: 0 20px 0 25px;
     border-radius: 12px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    /* align-items: center; */
 }
 
 .main-content h1{
@@ -29,20 +31,16 @@
   margin-left: 10px;
 }
 
-.main-content h2{
-  margin-left: 28rem;
-  margin-top: 1rem;
-}
-
 .home-content .main-content .content {
   border-collapse: collapse;
   width: 100%;
-  margin-top: 1%;
+  margin-top: 0.5%;
   margin-bottom: 2%;
   margin-right: 15%;
+  max-height: 30rem;
+  overflow-y: auto;
+  z-index: -10;
 }
-
-                                  /* footer */
 
 footer{
   position: fixed;
@@ -70,8 +68,7 @@ footer .foot span a:hover{
   text-decoration: underline;
 }
 
-                        /* Custom Scroll Bar CSS */
-
+/* Custom Scroll Bar CSS */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -87,4 +84,3 @@ footer .foot span a:hover{
 ::-webkit-scrollbar-thumb:hover {
   background: #3B6E51;
 }
-
