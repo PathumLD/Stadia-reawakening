@@ -46,6 +46,71 @@
 
           <div class="content">
 
+             <!-- HTML form to upload the image -->
+<table>
+  <tr>
+    <form id="upload-form" method="post" enctype="multipart/form-data">
+      <td>
+        <label for="inputTag">
+          <i class="fa fa-2x fa-camera"></i>
+          <input type="file" id="inputTag" name="image" accept="image/*">
+        </label>
+      </td>
+      <td><span id="imageName"></span></td>
+    </form>
+  </tr>  
+</table>
+
+<!-- JavaScript to automatically submit the form when a file is selected -->
+<script>
+  // Get the input element and the form
+  const inputTag = document.getElementById("inputTag");
+  const uploadForm = document.getElementById("upload-form");
+  
+  // Listen for changes to the input element
+  inputTag.addEventListener("change", (event) => {
+    // Submit the form when a file is selected
+    uploadForm.submit();
+  });
+</script>
+
+
+<?php
+  // Check if a file was selected for upload
+  if(!empty($_FILES['image']['name'])) {
+    // Upload the image to a temporary location
+    $tempname = $_FILES['image']['name'];
+    $folder = "../img/";
+    $target_file = $folder . basename($tempname);
+    move_uploaded_file($_FILES['image']['tmp_name'], $target_file);
+    $email = $_SESSION['email'];
+    
+    // Store the image file name in the database
+    $sql = "UPDATE users SET dp='$tempname' WHERE email= '".$var."'";
+    $rs=mysqli_query($linkDB, $sql);
+
+    if($rs){
+      echo "<img src='".$folder.$tempname."' alt='dp'>";
+    }
+  } else{
+    // Retrieve the image from the database
+    $folder = "../img/";
+    $result = mysqli_query($linkDB, "SELECT * FROM users WHERE email = '".$var."'");
+    $row = mysqli_fetch_array($result);
+    $filename = $row['dp'];
+    
+    // Check if image exists in database, if not display message to upload profile photo
+    if($filename != null) {
+      // Display the image on the web page
+      echo '<img src="' . $folder . $filename . '" alt ="dp">';
+    } else {
+      echo "Upload a profile photo";
+    }
+  }
+?>
+
+
+
                 <div class="profiledata">
                           
                 <table id="tableprofile">   
@@ -137,7 +202,6 @@
 
                     <div class="button">
                         <a href="coachchangepassword.php"> Change Password </a>
-                        <a href="coachupdateprofilephoto.php">Update Profile Photo</a>
                         <a href="coachuploadcv.php">Upload CV</a>
                     </div>    
 
