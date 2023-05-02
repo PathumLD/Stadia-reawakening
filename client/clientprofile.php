@@ -90,65 +90,6 @@
 
               <div class="left">
 
-                <table id="tableprofile">   
-
-                  <?php
-
-                      $sql = "SELECT * FROM users WHERE email = '".$var."'";
-
-                      $result = mysqli_query($linkDB, $sql);
-
-                      if ($result-> num_rows>0){
-                          while($row = $result->fetch_assoc()){
-
-                              echo "<tr>
-
-                                  <td class='mylabel'>Name:</td>
-                                  <td class='mydata'>".$row['fname']." ".$row['lname']."</td>
-                                  </tr>
-
-                                  <td class='mylabel'>Gender:</td>
-                                  <td class='mydata'>".$row['gender']."</td>
-                                  </tr>
-
-                                  <td class='mylabel'>Phone:</td>
-                                  <td class='mydata'>".$row['phone']."</td>
-                                  </tr>
-
-                                  <td class='mylabel'>Date of Birth:</td>
-                                  <td class='mydata'>".$row['dob']."</td>
-                                  </tr>
-
-                                  <td class='mylabel'>NIC / Guardian NIC:</td>
-                                  <td class='mydata'>".$row['NIC']."</td>
-                                  </tr>
-
-                                  <td class='mylabel'>Emergency Contact Number:</td>
-                                  <td class='mydata'>".$row['emphone']."</td>
-                                  </tr>
-
-                                  <td class='mylabel'>Emergency Contact Name:</td>
-                                  <td class='mydata'>".$row['emname']."</td>
-                                  </tr>";
-                              
-                          }
-                      }
-
-                      ?>
-                </table>
-
-                <div class="details"><h3>Update Your Details</h3></div><br>
-
-                  <button class="btn" onclick="openPopup()">Change Password</button>
-                  <button class="btn" onclick="openPopup1()">Change Phone Number</button>
-                  <button class="btn" onclick="openPopup2()">Change Emergency Contact Number</button>
-                  <button class="btn" onclick="openPopup3()">Change Emergency Contact Name</button>
-
-          
-              </div>
-
-              <div class="right">
-
                 <div class="top">
 
                   <h3>Profile Photo</h3>
@@ -157,18 +98,15 @@
 
                     
                     <!-- HTML form to upload the image -->
-                    <table>
-                      <tr>
-                        <form method="post" enctype="multipart/form-data">
-                          <td><label for="inputTag">
-                            <i class="fa fa-2x fa-camera"></i>
-                            <input type="file" id="inputTag" name="image" accept="image/*">
-                          </label></td>
-                          <td><span id="imageName"></span></td>
-                          <td> <input type="submit" name="submit" value="Update"></td>
-                        </form>
-                      </tr>  
-                    </table>
+                    <form method="post" enctype="multipart/form-data">
+                      <label for="inputTag">
+                        <i class="fa fa-2x fa-camera"></i>
+                        <span>Select Image</span>
+                        <input type="file" id="inputTag" name="image" accept="image/*">
+                      </label>
+                      <span id="imageName"></span>
+                      <input type="submit" name="submit" value="Update">
+                    </form>
 
                     <?php
                           // Check if the form was submitted
@@ -236,7 +174,66 @@
                   
                 </div>
 
-              </div>         
+              </div> 
+              
+              <div class="right">
+
+                <table id="tableprofile">   
+
+                  <?php
+
+                      $sql = "SELECT * FROM users WHERE email = '".$var."'";
+
+                      $result = mysqli_query($linkDB, $sql);
+
+                      if ($result-> num_rows>0){
+                          while($row = $result->fetch_assoc()){
+
+                              echo "<tr>
+
+                                  <td class='mylabel'>Name:</td>
+                                  <td class='mydata'>".$row['fname']." ".$row['lname']."</td>
+                                  </tr>
+
+                                  <td class='mylabel'>Gender:</td>
+                                  <td class='mydata'>".$row['gender']."</td>
+                                  </tr>
+
+                                  <td class='mylabel'>Phone:</td>
+                                  <td class='mydata'>".$row['phone']."</td>
+                                  </tr>
+
+                                  <td class='mylabel'>Date of Birth:</td>
+                                  <td class='mydata'>".$row['dob']."</td>
+                                  </tr>
+
+                                  <td class='mylabel'>NIC / Guardian NIC:</td>
+                                  <td class='mydata'>".$row['NIC']."</td>
+                                  </tr>
+
+                                  <td class='mylabel'>Emergency Contact Number:</td>
+                                  <td class='mydata'>".$row['emphone']."</td>
+                                  </tr>
+
+                                  <td class='mylabel'>Emergency Contact Name:</td>
+                                  <td class='mydata'>".$row['emname']."</td>
+                                  </tr>";
+                              
+                          }
+                      }
+
+                      ?>
+                </table>
+
+                <div class="details"><h3>Update Your Details</h3></div><br>
+
+                  <button class="btn" onclick="openPopup()">Change Password</button>
+                  <button class="btn" onclick="openPopup1()">Change Phone Number</button>
+                  <button class="btn" onclick="openPopup2()">Change Emergency Contact Number</button>
+                  <button class="btn" onclick="openPopup3()">Change Emergency Contact Name</button>
+
+          
+              </div>
                 
           </div>
 
