@@ -46,17 +46,32 @@
 
 
             <h1>First-Aid Records</h1>
+            <div class="first-aid-search">
+              <div class="add-first-aid">
+                <div><a href="manageraddfirstaid.php"><i class="fa fa-plus-circle" id="plus" style="font-size:36px;"></i></a></div>
+              </div>
+              <div>
+                <input type="text" name="search" class ="search" placeholder="Item name...">
+              </div>
+              <div>
+                <input type="submit" name="go" value="search" id = "searchbtn">
+              </div>
+              <div>
+                <input type="submit" name="reset" value="reset" id = "resetbtn">
+              </div>
+            </div>
             
-
-            <a href="manageraddfirstaid.php"><i class="fa fa-plus-circle" id="plus" style="font-size:36px;"></i></a>
-            <table class="ps">
-                <tr><td>    </td></tr>
-               <tr><td> <form method="post">
-                    <input type="text" name="search" class ="search" placeholder="Item name...">
-                    <input type="submit" name="go" value="search" id = "searchbtn">
-                    <input type="submit" name="reset" value="reset" id = "resetbtn">
-                </form></td></tr>
-            </table>
+               <!-- <table class="ps">
+               <tr>
+               <form method="post">
+                    <td class="first-aid-search"><a href="manageraddfirstaid.php"><i class="fa fa-plus-circle" id="plus" style="font-size:36px;"></i></a></td>
+                    <td ><input type="text" name="search" class ="search" placeholder="Item name..."></td>
+                    <td><input type="submit" name="go" value="search" id = "searchbtn"></td>
+                    <td><input type="submit" name="reset" value="reset" id = "resetbtn"></td>
+                </form>
+                </tr>
+            </table> -->
+            
 
 
 
@@ -86,12 +101,12 @@
                         $id=$rows['item_id'];
                     
                     echo "<tr id = 'row_$id'>
-
                                 <td>" . $rows["item_id"]. "</td>
                                 <td>" . $rows["item_name"]. "</td>
                                 <td>" . $rows["quantity"]. "</td>
                                 <td> <button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button> 
-                                <a href='managerupdatefirstaidrecords.php?id=$id; ?>'><i class='fa fa-pencil-square-o' ></i></a> </td>
+                                <button class='update-button' onclick=\"openPopup('" . $rows["item_id"] . "', '" . $rows["item_name"] . "', '" . $rows["quantity"] . "')\">
+                                <i class='fa fa-pencil-square-o'></i></button> 
                                 
                                 
                                 
@@ -180,3 +195,40 @@ function confirmRowData(id) {
 }
 </script>
 
+<!-- Popup to update first aid records -->
+<div id="firstaid-popup" class="popup_u">
+    <div class="popup_u-content">
+        <span class="close_u" onclick="closePopup()">&times;</span>
+        <h2>Update First-Aid Records</h2>
+        <form action="updatefirstaid.php" method="post">
+           
+            <label for="item_id">Item Id:</label>
+            <input type="text" id="item_id" name="item_id">
+            <label for="item_name">Item Name:</label>
+            <input type="text" id="item_name" name="item_name">
+            <label for="quantity">Quantity:</label>
+            <input type="text" id="quantity" name="quantity">
+            <input type="submit" value="Update Complaint" class="btn">
+        </form>
+    </div>
+</div>
+
+<script>
+    function openPopup(item_id, item_name, quantity) {
+        // Set the complaint ID in the hidden input field
+        document.getElementById('item_id').value = item_id;
+
+         // Set the existing subject and details in the input fields
+         document.getElementById('item_id').value = item_id;
+        document.getElementById('item_name').value = item_name;
+        document.getElementById('quantity').value = quantity;
+
+        // Show the popup
+        document.getElementById('firstaid-popup').style.display = 'block';
+    }
+
+    function closePopup() {
+        // Hide the popup
+        document.getElementById('firstaid-popup').style.display = 'none';
+    }
+</script>
