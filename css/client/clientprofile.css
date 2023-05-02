@@ -148,7 +148,6 @@
   margin-bottom: 4%;
   margin-left: 40%;
   box-shadow:inset 2px 2px 2px 0px rgba(214,239,199,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
-
 }
 
 .profilepic input[type="submit"]:hover{
@@ -341,4 +340,26 @@ inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
     text-decoration: none;
     cursor: pointer;
   }
+
+/* success message */
+
+.success-message {
+  background-color: #D6EFC7;
+  color: #6d9976;
+  padding: 10px;
+  margin-bottom: 2%;
+  border-radius: 10px;
+  margin-right: 2rem;
+  margin-left: 2rem;
+}
+
+.notsuccess-message {
+  background-color: #D6EFC7;
+  color: red;
+  padding: 10px;
+  margin-bottom: 2%;
+  border-radius: 10px;
+  margin-right: 2rem;
+  margin-left: 2rem;
+}
   
