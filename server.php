@@ -12,64 +12,59 @@ if (array_key_exists("signUp", $_POST)) {
     //Taking HTML Form Data from User
     
     $email = mysqli_real_escape_string($linkDB, $_POST['email']);
-    $password = mysqli_real_escape_string($linkDB,  $_POST['password']); 
+    $password = mysqli_real_escape_string($linkDB, $_POST['password']);
     $repeatPassword = mysqli_real_escape_string($linkDB,  $_POST['repeatPassword']);
-    $type = mysqli_real_escape_string($linkDB, $_POST['type']);
-    $gender =  mysqli_real_escape_string($linkDB, $_POST['gender']);
     $fname = mysqli_real_escape_string($linkDB, $_POST['fname']);
     $lname = mysqli_real_escape_string($linkDB, $_POST['lname']);
+    $gender = mysqli_real_escape_string($linkDB, $_POST['gender']);
     $NIC = mysqli_real_escape_string($linkDB, $_POST['NIC']);
-    $phone = mysqli_real_escape_string($linkDB, $_POST['phone']);
     $dob = mysqli_real_escape_string($linkDB, $_POST['dob']);
-    $emphone = mysqli_real_escape_string($linkDB, $_POST['emphone']);
+    $phone = mysqli_real_escape_string($linkDB, $_POST['phone']);
     $emname = mysqli_real_escape_string($linkDB, $_POST['emname']);
-     
+    $emphone = mysqli_real_escape_string($linkDB, $_POST['emphone']);
+    $type = mysqli_real_escape_string($linkDB, $_POST['type']);
+
+    // Form validation
+
     if($password!==$repeatPassword){
         $error1 = "<h3> Your Passwords does not match </h3>";
+    } 
+   
+   else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $error1 .= "<h3>Invalid email format. </h3>";
+  }
+  
+  else if (!preg_match("/^[a-zA-Z-' ]*$/",$fname) || !preg_match("/^[a-zA-Z-' ]*$/",$lname) || !preg_match("/^[a-zA-Z-' ]*$/",$emname)) {
+    $error1 .= "<h3>Only letters and white space allowed in name. </h3>";
+  }
+  
+  else if (!preg_match("/^(\d{9}[vVxX]|\d{12})$/", $NIC)) {
+    $error1 .= "<h3>Invalid NIC format.</h3> ";
+}
+  
+  else if ($type !== "client" && $type !== "coach") {
+    $error1 .= "<h3>Invalid user type.</h3> ";
+  }
+  
+  else if ($error1 === "") {
+    $query = "SELECT id FROM users WHERE email='$email' LIMIT 1";
+    $result = mysqli_query($linkDB, $query);
+    $user = mysqli_fetch_assoc($result);
+    
+    if ($user) {
+      $error1 = "<h3>Email already exists.</h3>";
+    } else {
+      $password = md5($password);
+      $query = "INSERT INTO users (email, password, fname, lname, gender, NIC, dob, phone, emname, emphone, type)
+                VALUES ('$email', '$password', '$fname', '$lname', '$gender', '$NIC', '$dob', '$phone', '$emname', '$emphone', '$type')";
+      mysqli_query($linkDB, $query);
+      $_SESSION['email'] = $email;
+      $_SESSION['success'] = "You are now logged in";
+      header('location: login.php');
     }
-    else{
-                 
-        //Check if email is already exist in the Database
- 
-        $query = "SELECT email FROM users WHERE email = '$email'";
-        $result = mysqli_query($linkDB, $query);
-        if (mysqli_num_rows($result) > 0) {
-            $error1 = "<h3> Your email address has already been taken!  </h3>";
-        } else {
- 
-            //Password encryption or Password Hashing
-            $hashedPassword = md5($password); 
-            $query = "INSERT INTO users (email, password, type, gender, fname, lname, NIC, phone, dob, emphone, emname) VALUES ('$email', '$hashedPassword', '$type', '$gender', '$fname', '$lname', '$NIC', '$phone', '$dob', '$emphone', '$emname')";
-             
-            if (!mysqli_query($linkDB, $query)){
-                $error1 = "<h3> Could not sign you up - please try again.  </h3>";
-                } else {
- 
-                    //session variables to keep user logged in
-                $_SESSION['id'] = mysqli_insert_id($linkDB);  
-                $_SESSION['email'] = $email;
- 
-                //Setcookie function to keep user logged in for long time
-                // if ($_POST['stayLoggedIn'] == '1') {
-                // setcookie('id', mysqli_insert_id($linkDB), time() + 60*60*365);
-                // //echo "<p>The cookie id is :". $_COOKIE['id']."</P>";
-                // }
-                  
-                //Redirecting user to home page after successfully logged in 
+  }
+}
 
-                if ($type=='client') {
-                    header("Location: client/clientprofile.php");  
-                }
-
-                else{
-                    header("Location: coach/coachprofile.php");
-                }
-                
-                }
-             
-            }
-        }
-        }  
     
     
       //-------User Login PHP Code ------------

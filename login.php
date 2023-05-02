@@ -55,10 +55,12 @@
       </div>
 
 
+      
+
         <div class="signup-form">
           <div class="title">Signup</div>
           
-        <form method="POST">
+        <form method="POST" >
             <div class="input-boxes">
               
               <div class="input-box">
@@ -80,7 +82,7 @@
               <div class="input-box">
                 <i class="fas fa-envelope"></i>
                 <input type="text" placeholder="Email" name="email" required>
-                <input type="text" name="dob" onfocus="(this.type = 'date')" placeholder="Date of Birth">
+                <input type="text" name="dob" onfocus="(this.type = 'date')" placeholder="Date of Birth" required>
               </div>
 
               <div class="input-box">
@@ -104,6 +106,7 @@
                 <input type="password" name="password" placeholder="Password" required><br>
                 <input type="password" name="repeatPassword" placeholder="Repeat Password" required>
               </div>
+
               <div class="button input-box">
                 <input type="submit" value="Signup" name="signUp">
               </div>
@@ -111,8 +114,10 @@
             </div>
       </form>
     </div>
+
     </div>
     </div>
   </div>
 </body>
 </html>
+
