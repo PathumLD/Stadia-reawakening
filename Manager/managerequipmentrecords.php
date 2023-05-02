@@ -47,15 +47,20 @@
 
             <h1>Equipment Records</h1>
 
-            <a href="manageraddequipment.php"><i class="fa fa-plus-circle" id="plus" style="font-size:36px;" ></i></a>
-            <table class="ps">
-                
-               <tr><td> <form method="post">
-                    <input type="text" name="search" class ="search" placeholder="Item name...">
-                    <input type="submit" name="go" value="search" id = "searchbtn">
-                    <input type="submit" name="reset" value="reset" id = "resetbtn">
-                </form></td></tr>
-            </table>
+            <div class="first-aid-search">
+              <div class="add-first-aid">
+                <div><a href="manageraddfirstaid.php"><i class="fa fa-plus-circle" id="plus" style="font-size:36px;"></i></a></div>
+              </div>
+              <div>
+                <input type="text" name="search" class ="search" placeholder="Item name...">
+              </div>
+              <div>
+                <input type="submit" name="go" value="search" id = "searchbtn">
+              </div>
+              <div>
+                <input type="submit" name="reset" value="reset" id = "resetbtn">
+              </div>
+            </div>
 
             <div class = "scroll">
 
@@ -90,8 +95,8 @@ if($res == TRUE)
                             <td>" . $rows["quantity"]. "</td>
                             <td>" . $rows["price"]. "</td>
                             <td> <button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button> 
-                            <a href='managerupdateequipment.php?id=$id; ?>'><i class='fa fa-pencil-square-o' ></i></a> </td>
-                            
+                            <button class='update-button' onclick=\"openPopup('" . $rows["itemid"] . "', '" . $rows["itemname"] . "', '" . $rows["quantity"] . "', '" . $rows["price"] . "')\">
+                            <i class='fa fa-pencil-square-o'></i></button>
                             
                             
                 </tr>";
@@ -177,4 +182,45 @@ function confirmRowData(id) {
     document.body.removeChild(confirmBox);
   });
 }
+</script>
+
+<!-- Popup to update equipment records -->
+<div id="equipment-popup" class="popup_u">
+    <div class="popup_u-content">
+        <span class="close_u" onclick="closePopup()">&times;</span>
+        <h2>Update Equipment Records</h2>
+        <form action="updateequipment.php" method="post">
+               <label for="itemid">Item Id:</label>
+               <textbox type="text" id="itemid" name="itemid"></textbox>
+               <label for="itemname">Item Name:</label>
+               <textbox type="text" id="itemname" name="itemname"></textbox>
+               <label for="quantity">Quantity:</label>
+               <textbox type="text" id="quantity" name="quantity"></textbox>
+               <label for="price">Price:</label>
+               <textbox type="text" id="price" name="price"></textbox>
+               <input type="submit" value="Update Equipment Records" class="btn">
+        </form>
+
+    </div>
+</div>
+
+<script>
+    function openPopup(itemid, itemname, quantity, price) {
+        // Set the complaint ID in the hidden input field
+        document.getElementById('itemid').value = itemid;
+
+         // Set the existing subject and details in the input fields
+         document.getElementById('itemid').value = itemid;
+        document.getElementById('itemname').value = itemname;
+        document.getElementById('quantity').value = quantity;
+        document.getElementById('price').value = price;
+
+        // Show the popup
+        document.getElementById('equipment-popup').style.display = 'block';
+    }
+
+    function closePopup() {
+        // Hide the popup
+        document.getElementById('equipment-popup').style.display = 'none';
+    }
 </script>
