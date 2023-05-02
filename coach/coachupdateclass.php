@@ -12,7 +12,7 @@
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/coach.css">
+    <link rel="stylesheet" href="../css/coach/coachupdateclass.css">
  
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -61,7 +61,7 @@
                       while($row = mysqli_fetch_assoc($result)){
                         echo "
                         <table class= 'table'>
-                          <th  colspan='6' > Current Situation </th>
+                          <th  colspan='6' > Current Status </th>
                             <tr>
                               <td>" . $row['level']. "</td>
                               <td>" . $row['sport']. "</td>
@@ -107,13 +107,13 @@
 
                 <div class="update">
 
-                  <h3> Total </h3>
+                  <h3> Update </h3>
 
                 </div>
 
                 <div class="delete">
 
-                  <h3> Total </h3>
+                  <h3> Delete </h3>
 
                 </div>
 
