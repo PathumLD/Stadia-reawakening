@@ -45,6 +45,49 @@
 
             <div class="content">
 
+            <?php
+              // Check if a success message is present in the URL
+              if(isset($_GET['msg']) && $_GET['msg'] == 'success') {
+                  echo "<div class='success-message'>Password updated successfully.</div>";
+              }
+              if(isset($_GET['msg']) && $_GET['msg'] == 'notsuccess') {
+                echo "<div class='notsuccess-message'>Could not update password - Please try again.</div>";
+              }
+              if(isset($_GET['msg']) && $_GET['msg'] == 'unsuccess') {
+                echo "<div class='notsuccess-message'>Your Passwords do not match - Please try again.</div>";
+              }
+            ?>
+
+            <?php
+              // Check if a success message is present in the URL
+              if(isset($_GET['msg1']) && $_GET['msg1'] == 'success') {
+                  echo "<div class='success-message'>Phone number updated successfully.</div>";
+              }
+              if(isset($_GET['msg1']) && $_GET['msg1'] == 'notsuccess') {
+                echo "<div class='notsuccess-message'>Could not update Phone number - Please try again.</div>";
+              }
+            ?>
+
+            <?php
+              // Check if a success message is present in the URL
+              if(isset($_GET['msg2']) && $_GET['msg2'] == 'success') {
+                  echo "<div class='success-message'>Emergency contact number updated successfully.</div>";
+              }
+              if(isset($_GET['msg2']) && $_GET['msg2'] == 'notsuccess') {
+                echo "<div class='notsuccess-message'>Could not update emergency contact number - Please try again.</div>";
+              }
+            ?>
+
+            <?php
+              // Check if a success message is present in the URL
+              if(isset($_GET['msg3']) && $_GET['msg3'] == 'success') {
+                  echo "<div class='success-message'>Emergency contact name updated successfully.</div>";
+              }
+              if(isset($_GET['msg3']) && $_GET['msg3'] == 'notsuccess') {
+                echo "<div class='notsuccess-message'>Could not update emergency contact name - Please try again.</div>";
+              }
+            ?>
+
               <div class="left">
 
                 <table id="tableprofile">   
@@ -97,7 +140,6 @@
                 <div class="details"><h3>Update Your Details</h3></div><br>
 
                   <button class="btn" onclick="openPopup()">Change Password</button>
-
                   <button class="btn" onclick="openPopup1()">Change Phone Number</button>
                   <button class="btn" onclick="openPopup2()">Change Emergency Contact Number</button>
                   <button class="btn" onclick="openPopup3()">Change Emergency Contact Name</button>
@@ -113,37 +155,27 @@
 
                   <div class="profilepic">
 
-                    <?php
-
-                        // Retrieve the image from the database
-                        $folder = "../img/";
-                        $result = mysqli_query($linkDB, "SELECT * FROM users WHERE email = '".$var."'");
-                        $row = mysqli_fetch_array($result);
-                        $filename = $row['dp'];
-                        
-                        // Display the image on the web page
-                        echo '<img src="' . $folder . $filename . '" alt ="dp">';
-
-                    ?>
-
+                    
                     <!-- HTML form to upload the image -->
                     <table>
                       <tr>
-                    <form method="post" enctype="multipart/form-data">
-                      <td><label for="inputTag">
-                        <i class="fa fa-2x fa-camera"></i>
-                        <input type="file" id="inputTag" name="image" accept="image/*">
-                      </label></td>
-                      <td><span id="imageName"></span></td>
-                      <td> <input type="submit" name="submit" value="Update"></td>
-                    </form>
-                    </tr>  
-                  </table>
+                        <form method="post" enctype="multipart/form-data">
+                          <td><label for="inputTag">
+                            <i class="fa fa-2x fa-camera"></i>
+                            <input type="file" id="inputTag" name="image" accept="image/*">
+                          </label></td>
+                          <td><span id="imageName"></span></td>
+                          <td> <input type="submit" name="submit" value="Update"></td>
+                        </form>
+                      </tr>  
+                    </table>
 
                     <?php
                           // Check if the form was submitted
                           if(isset($_POST['submit'])) {
                           
+                            // Check if a file was selected for upload
+                            if(!empty($_FILES['image']['name'])) {
                             // Upload the image to a temporary location
                             $tempname = $_FILES['image']['name'];
                             $folder = "../img/";
@@ -160,7 +192,39 @@
                               echo "<script>window.location.href='clientprofile.php'; </script>";
                             
                             }
+                          } else{
+
+                              // Retrieve the image from the database
+                              $folder = "../img/";
+                              $result = mysqli_query($linkDB, "SELECT * FROM users WHERE email = '".$var."'");
+                              $row = mysqli_fetch_array($result);
+                              $filename = $row['dp'];
+
+                              if($filename != null) {
+                                // Display the image on the web page
+                                echo '<img src="' . $folder . $filename . '" alt ="dp">';
+                                } else {
+                                echo "Upload a profile photo";
+                                }
                           }
+                        }
+                        else{
+                        
+                          // Retrieve the image from the database
+                          $folder = "../img/";
+                          $result = mysqli_query($linkDB, "SELECT * FROM users WHERE email = '".$var."'");
+                          $row = mysqli_fetch_array($result);
+                          $filename = $row['dp'];
+                          
+                          // Check if image exists in database, if not display message to upload profile photo
+                          if($filename != null) {
+                            // Display the image on the web page
+                            echo '<img src="' . $folder . $filename . '" alt ="dp">';
+                            } else {
+                            echo "Upload a profile photo";
+                            }
+  
+                        }
                         ?>
                     
                   </div>
@@ -223,10 +287,10 @@ function closePopup1() {
 </script>
 
 <div id="popup1" class="popup1">
-  <div class="popup-content">
+  <div class="popup-content" >
     <span class="close" onclick="closePopup1()">&times;</span>
     <h3>Change Phone Number</h3>
-    <form method="post" >
+    <form method="post" action="update_profile.php" >
     
       <label for='phone'>Update Phone</label>
       <input type='tel' placeholder='Enter phone' name='phone' pattern='[0-9]{10}'required>
@@ -253,7 +317,7 @@ function closePopup2() {
   <div class="popup-content">
     <span class="close" onclick="closePopup2()">&times;</span>
     <h3>Change Emergency Contact Number</h3>
-    <form method="post" >
+    <form method="post" action="update_profile.php" >
     
       <label for='emphone'>Update Contact Number</label>
       <input type='tel' placeholder='Enter number' name='emphone' pattern='[0-9]{10}'required>
@@ -280,7 +344,7 @@ function closePopup3() {
   <div class="popup-content">
     <span class="close" onclick="closePopup3()">&times;</span>
     <h3>Change Emergency Contact Number</h3>
-    <form method="post" >
+    <form method="post" action="update_profile.php" >
 
       <label for='emname'>Update Contact Name</label>
       <input type='text' placeholder='Enter name' name='emname' required>
@@ -290,65 +354,6 @@ function closePopup3() {
     </form>
   </div>
 </div>
-
-<?php
-if(isset($_POST['update1'])) {
-$phone=$_POST['phone'];
-$var = $_SESSION['email'];
-
-$query = "UPDATE users SET phone=$phone WHERE email = '".$var."' ";
-
-$res = mysqli_query($linkDB, $query); 
-
-if($res){
-  echo "<script>window.location.href='clientprofile.php'; </script>";
-
-}
-else{
-  echo "Could not update the profile - please try again.";
-}
-
-}
-?>
-
-<?php
-if(isset($_POST['update2'])) {
-$emphone=$_POST['emphone'];
-$var = $_SESSION['email'];
-
-$query = "UPDATE users SET emphone=$emphone WHERE email = '".$var."' ";
-
-$res = mysqli_query($linkDB, $query) or die(mysqli_error($linkDB)); 
-
-if($res){
-  echo "<script>window.location.href='clientprofile.php'; </script>";
-
-}
-else{
-  echo "Could not update the profile - please try again.";
-}
-}
-?>
-
-<?php
-if(isset($_POST['update3'])) {
-$emname=$_POST['emname'];
-$var = $_SESSION['email'];
-
-$query = "UPDATE users SET emname='$emname' WHERE email = '".$var."' ";
-
-$res = mysqli_query($linkDB, $query) or die(mysqli_error($linkDB)); 
-    
-if($res){
-  echo "<script>window.location.href='clientprofile.php'; </script>";
-
-}
-else{
-  echo "Could not update the profile - please try again.";
-}
-
-}
-?>
 
 <script>
         let input = document.getElementById("inputTag");
@@ -360,26 +365,6 @@ else{
             imageName.innerText = inputImage.name;
         })
 </script>
-
-<div id="popup" class="popup">
-  <div class="popup-content">
-    <span class="close" onclick="closePopup()">&times;</span>
-    <h3>Change Password</h3>
-    <form method="post" >
-    <label for="oldPassword">Old Password</label>
-      <input type="password" id="oldPassword" name="oldPassword" required>
-
-      <label for="newPassword">New Password</label>
-      <input type="password" id="newPassword" name="newPassword" required>
-
-      <label for="confirmPassword">Confirm New Password</label>
-      <input type="password" id="confirmPassword" name="confirmPassword" required>
-
-      <input type="submit" value="Change Password" name="changePassword" class="btn">
-
-    </form>
-  </div>
-</div>
 
 <script>
 // Open the popup
@@ -393,44 +378,22 @@ function closePopup() {
 }
 </script>
 
-<?php
-if(isset($_POST['changePassword'])) {
-    $oldPassword = $_POST['oldPassword'];
-    $newPassword = $_POST['newPassword'];
-    $confirmPassword = $_POST['confirmPassword'];
-    $var = $_SESSION['email'];
-    
-    // Retrieve the current password from the database
-    $sql = "SELECT password FROM users WHERE email = '".$var."'";
-    $result = mysqli_query($linkDB, $sql);
-    
-    if($result && mysqli_num_rows($result) > 0) {
-        $row = mysqli_fetch_assoc($result);
-        $currentPassword = $row['password'];
-        
-        // Verify if the old password matches the current password
-        if(password_verify($oldPassword, $currentPassword)) {
-            // Check if the new password and confirm password match
-            if($newPassword === $confirmPassword) {
-                // Hash the new password
-                $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-                
-                // Update the password in the database
-                $sqlUpdate = "UPDATE users SET password = '".$hashedPassword."' WHERE email = '".$var."'";
-                $resultUpdate = mysqli_query($linkDB, $sqlUpdate);
-                
-                if($resultUpdate) {
-                    echo "Password updated successfully.";
-                } else {
-                    echo "Could not update the password - please try again.";
-                }
-            } else {
-                echo "New password and confirm password do not match.";
-            }
-        } else {
-            echo "Old password is incorrect.";
-        }
-    }
-}
-?>
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup()">&times;</span>
+    <h3>Change Password</h3>
+    <form method="post" action="update_profile.php">
+      <label for="currentpswd">Old Password</label>
+      <input type="password" id="currentpswd" name="currentpswd" required>
 
+      <label for="newpswd">New Password</label>
+      <input type="password" id="newpswd" name="newpswd" required>
+
+      <label for="confirmnewpswd">Confirm New Password</label>
+      <input type="password" id="confirmnewpswd" name="confirmnewpswd" required>
+
+      <input type="submit" value="Change Password" name="save" class="btn">
+
+    </form>
+  </div>
+</div>

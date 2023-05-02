@@ -95,10 +95,9 @@
                                                 <td>" . $rows["subject"]. "</td>
                                                 <td>" . $rows["details"]. "</td>
                                                 <td>" . $rows["datetime"]. "</td>
-                                                <td> <button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'> / </i></button> 
-                                                <button class='update-button' onclick=\"openPopup($id, '" . $rows["subject"] . "', '" . $rows["details"] . "')\">
-                                                <i class='fa fa-pencil-square-o'></i>
-                                            </button>                                              </tr>";
+                                                <td> <button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'> /</i></button> 
+                                                <button class='update-button' onclick=\"openPopup($id, '" . $rows["subject"] . "', '" . $rows["details"] . "')\"><i class='fa fa-pencil-square-o'></i></button>                                              
+                                            </tr>";
                             }
                         } else {
                             echo "0 results";
@@ -115,6 +114,8 @@
                 <div class="top">
 
                     <h3>Submit a new complaint</h3>
+
+                    <h4>Let us know how we can improve!</h4>
 
                     <div class="form" id="submitComplaint">
 
@@ -136,9 +137,7 @@
 
                 </div>
 
-            </div>
-
-            
+            </div> 
 
           </div>
 

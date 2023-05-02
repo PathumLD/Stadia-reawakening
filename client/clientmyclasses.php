@@ -11,7 +11,7 @@
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../css/client.css">
+    <link rel="stylesheet" href="../css/client/clientclasses.css">
  
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -47,40 +47,41 @@
 
             <div class="content">
 
-            <table id="searchtable">
-              <tr>
-                <td>
-                  <form method="post">
-                    <select name="search" class="search" id="disable">
-                      <option value="" disabled selected>Search by Day</option>
-                      <option value="Monday">Monday</option>
-                      <option value="Tuesday">Tuesday</option>
-                      <option value="Wednesday">Wednesday</option>
-                      <option value="Thursday">Thursday</option>
-                      <option value="Friday">Friday</option>
-                      <option value="Saturday">Saturday</option>
-                      <option value="Sunday">Sunday</option>
-                    </select>                  
-                    <input type="submit" name="go" value="Search" id="searchbtn">
-                  </form>
-                </td>
-                <td>
-                  <form method="post">
-                    <select name="sport_search" class="search" id="disable">
-                      <option value="" disabled selected>Search by Court</option>
-                      <option value="Badminton">Badminton</option>
-                      <option value="Basketball">Basketball</option>
-                      <option value="Volleyball">Volleyball</option>
-                      <option value="Tennis">Tennis</option>
-                      <option value="Swimming">Swimming</option>
-                    </select>                  
-                    <input type="submit" name="go2" value="Search" id="searchbtn">
-                    <a href="clientmyclasses.php"><input type="submit" value="reset" id = "resetbtn"></a>
-                  </form>
-                </td>
-              </tr>
-            </table>
+              <table id="searchtable">
+                <tr>
+                  <td>
+                    <form method="post">
+                      <select name="search" class="search" id="disable">
+                        <option value="" disabled selected>Search by Day</option>
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                        <option value="Saturday">Saturday</option>
+                        <option value="Sunday">Sunday</option>
+                      </select>                  
+                      <input type="submit" name="go" value="Search" id="searchbtn">
+                    </form>
+                  </td>
+                  <td>
+                    <form method="post">
+                      <select name="sport_search" class="search" id="disable">
+                        <option value="" disabled selected>Search by Court</option>
+                        <option value="Badminton">Badminton</option>
+                        <option value="Basketball">Basketball</option>
+                        <option value="Volleyball">Volleyball</option>
+                        <option value="Tennis">Tennis</option>
+                        <option value="Swimming">Swimming</option>
+                      </select>                  
+                      <input type="submit" name="go2" value="Search" id="searchbtn">
+                      <a href="clientmyclasses.php"><input type="submit" value="reset" id = "resetbtn"></a>
+                    </form>
+                  </td>
+                </tr>
+              </table>
 
+              <div class="left">
               <table class="table">
 
                   <tr>
@@ -157,9 +158,9 @@
                             }
                         } 
                         else{
-                          $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, users.fname, coach_classes.date, coach_classes.time, client_classes.payment_details 
+                          $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.date, coach_classes.time, client_classes.payment_details 
                                     FROM coach_classes INNER JOIN client_classes ON coach_classes.class_id = client_classes.class_id 
-                                    WHERE status=1 AND client_classes.email = '".$var."'";
+                                    WHERE client_classes.status=1 AND client_classes.email = '".$var."'";
                           $res = mysqli_query($linkDB, $query); 
                             if($res == TRUE) 
                             {
@@ -187,6 +188,33 @@
                   ?>
 
             </table>
+
+            </div>
+
+            <div class="right">
+
+              <div class="top">
+
+                <h3>Payments to be done</h3>    
+
+              </div>
+
+              <div class="bottom">
+
+                <h3>Enroll for classes</h3>
+
+                <h4><b>Enroll with the classes we provide!</b><br>
+                Whether you're looking to learn a new skill, develop a new hobby, or advance your career, taking classes can help you achieve your goals.</h4>
+
+                <a href="clientcoachbadminton.php"><button class="enroll">Badminton</button></a>
+                <a href="clientcoachbasketball.php"><button class="enroll">Basketball</button></a><br>
+                <a href="clientcoachvolleyball.php"><button class="enroll">Volleyball</button></a>
+                <a href="clientcoachtennis.php"><button class="enroll">Tennis</button></a><br>
+                <a href="clientcoachswimming.php"><button class="enroll sw">Swimming</button></a>     
+
+              </div>
+
+            </div>
 
           </div>
 

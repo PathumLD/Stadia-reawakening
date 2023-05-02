@@ -103,39 +103,36 @@ if(isset($_POST['save'])){
 $currentpswd = $_POST['currentpswd'];
 $newpswd = $_POST['newpswd'];
 $confirmnewpswd = $_POST['confirmnewpswd'];
-$email = $_SESSION['email'];
 
 if($newpswd!==$confirmnewpswd){
         echo "<h3> Your Passwords does not match </h3>";
     }
-    else{
-
-$query = "SELECT * FROM users WHERE email = '$email' ";
-    $result = mysqli_query($linkDB, $query);
-            
-            $verify = md5($currentpswd);
-            $encrypt = md5($newpswd);
-            if (count($row)) {
-                
-                if ($verify==$row['password']) {
-
-                  $sql = "UPDATE users SET password = '$encrypt' WHERE email = '{$_SESSION['email']}' ";
-                }
-
-$rs= mysqli_query($linkDB,$sql);
-
-if($rs){
-  echo "Password Updated";
-  echo "<script>window.location.href='clientprofile.php'; </script>";
-}
 else{
-    echo "<p>Could not update password - please try again.</p>";
-}
-}
-else{
-  echo "<p>Could not update password - please try again.</p>";
-}
-}
+
+  $query = "SELECT * FROM users WHERE email= '".$var."' ";
+      $result = mysqli_query($linkDB, $query);
+      $row = mysqli_fetch_array($result);
+      $verify = md5($currentpswd);
+      $encrypt = md5($newpswd);
+      if (count($row)) {
+                  
+        if ($verify==$row['password']) {
+
+          $sql = "UPDATE users SET password = '$encrypt' WHERE email = '{$_SESSION['email']}' ";
+          $rs= mysqli_query($linkDB,$sql);
+                  
+          if($rs){
+            echo "Password Updated";
+            echo "<script>window.location.href='clientprofile.php'; </script>";
+          } else{
+              echo "<p>Could not update password - please try again.</p>";
+            }
+        } else{
+          echo "<p>Could not update password - please try again.</p>";
+        }
+
+    }
+  } 
 }
 
 ?>
