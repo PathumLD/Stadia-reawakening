@@ -3,7 +3,6 @@
     </div>
     <div class="nav-links">
         <a href="managerdashboard.php"><i class="fa fa-th-large" ></i><span class="links_name">Dashboard</span></a>
-        <a href="managerreports.php"><i class="fa fa-line-chart" aria-hidden="true"></i><span class="links_name">Reports</span></a>
         <button class="dropdown-btn"><i class="fa fa-credit-card" aria-hidden="true"></i><span class="links_name">Payments</span>
             <i class="fa fa-caret-down"></i>
         </button>
@@ -53,7 +52,7 @@
         <a href="managerequipmentrecords.php"><i class="fa fa-futbol-o" aria-hidden="true"></i><span class="links_name">Equipment</span></a>
         <a href="managerfirstaidrecords.php"><i class="fa fa-medkit" aria-hidden="true"></i><span class="links_name">First Aid Records</span></a>
         <div class="log-out">
-            <a href="../administrationlogin.php"><i class="fa fa-sign-out" ></i><span class="links_name">Log out</span></a>
+            <a href="../logout.php"><i class="fa fa-sign-out" ></i><span class="links_name">Log out</span></a>
         </div>
         
     </div>
