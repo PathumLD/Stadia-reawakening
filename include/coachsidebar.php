@@ -8,7 +8,7 @@
         <a href="coachclasses.php"><i class="fa fa-list-ul" ></i><span class="links_name">My Classes</span></a>
         <a href="coachmystudents.php"><i class="fa fa-users" ></i><span class="links_name">My Students</span></a>
         <a href="coachequipments.php"><i class="fa fa-stack-exchange" ></i><span class="links_name">Equipment</span></a>
-        <!-- <a href="coachslots.php"><i class="fa fa-calendar" ></i><span class="links_name">Time Slots</span></a> -->
+        <a href="coachcomplaints.php"><i class="fa fa-comment" ></i><span class="links_name">Complaints</span></a>
         <button class="dropdown-btn"><i class="fa fa-calendar" ></i><span class="links_name">Time Slots</span>
             <i class="fa fa-caret-down"></i>
         </button>
@@ -21,32 +21,6 @@
             <a href="coachslotsswimming.php">Swimming</a>
           
         </div>
-        
-
-       
-
-        <!-- <button class="dropdown-btn"> <i class="fa fa-users"></i><span class="links_name">Coaches</span>
-            <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-container">
-          
-            <a href="coachbadminton.php">Badminton</a>
-            <a href="coachbasketball.php">Basketball</a>
-            <a href="coachvolleyball.php">Volleyball</a>
-            <a href="coachtennis.php">Tennis</a>
-            <a href="coachswimming.php">Swimming</a>
-          
-        </div> -->
-
-        <!-- <button class="dropdown-btn"><i class="fa fa-coffee"></i><span class="links_name">Facilities</span> 
-            <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-container">
-          
-            <a href="coachrefreshments.php">Refreshments</a>
-            <a href="coachequipment.php">Equipment</a>
-          
-        </div> -->
 
         <div class="log-out">
             <a href="../logout.php"><i class="fa fa-sign-out" ></i><span class="links_name">Log out</span></a>
