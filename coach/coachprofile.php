@@ -215,83 +215,64 @@
 
                 <div class="cv">
 
+                    <div class="cv-form">
 
-                <form method="post" enctype="multipart/form-data">
-                  <div class="pdfname">
-                    <div class="form-group">
-                    <input type="text" class="form-control" name="name"
-                        placeholder="Enter your name" required>
-                    </div>                                 
-                    <div class="form-group">
-                    <input type="file" name="pdf_file"
-                        class="form-control" accept=".pdf"
-                        title="Upload CV"/>
-                    </div>
-                    <div class="form-group">
-                    <input type="submit" class="btnRegister"
-                        name="submit" value="Submit">
-                    </div>
-                  </div>
-                </form>
+                      <form method="post" enctype="multipart/form-data">
+                        <div class="pdfname">
+                          <div class="form-group">
+                          <input type="text" class="form-control" name="name"
+                              placeholder="Enter your name" required>
+                          </div>                                 
+                          <div class="form-group">
+                          <input type="file" name="pdf_file"
+                              class="form-control" accept=".pdf"
+                              title="Upload CV"/>
+                          </div>
+                          <div class="form-group">
+                          <input type="submit" class="btnRegister"
+                              name="submit" value="Submit">
+                          </div>
+                        </div>
+                      </form>
 
-                <?php
-                  if (isset($_POST['submit'])) {
+                      <?php
+                          if (isset($_POST['submit'])) {
+                            $name = $_POST['name'];
+                            $email = $_SESSION['email'];
 
-                    $name = $_POST['name'];
-                    $email = $_SESSION['email'];
+                            if (isset($_FILES['pdf_file']['name'])) {
+                              $file_name = $_FILES['pdf_file']['name'];
+                              $file_tmp = $_FILES['pdf_file']['tmp_name'];
 
-                    if (isset($_FILES['pdf_file']['name']))
-                    {
-                    $file_name = $_FILES['pdf_file']['name'];
-                    $file_tmp = $_FILES['pdf_file']['tmp_name'];
+                              move_uploaded_file($file_tmp, "../pdf/".$file_name);
 
-                    move_uploaded_file($file_tmp,"../pdf/".$file_name);
+                              $query = "INSERT INTO pdf_data(username, filename, email) VALUES('$name', '$file_name', '$email')";
+                              $res = mysqli_query($linkDB, $query);
+                            } else {
+                          ?>
+                              <div class="alert alert-danger alert-dismissible fade show text-center">
+                                <a class="close" data-dismiss="alert" aria-label="close">×</a>
+                                <strong>Failed!</strong>
+                                File must be uploaded in PDF format!
+                              </div>
+                          <?php
+                            }
+                          }
 
-                    $query ="INSERT INTO pdf_data(username,filename,email) VALUES('$name','$file_name', '$email')";
-                    $res = mysqli_query($linkDB, $query);
-                    }
-                    else
-                    {
-                    ?>
-                      <div class=
-                      "alert alert-danger alert-dismissible
-                      fade show text-center">
-                      <a class="close" data-dismiss="alert"
-                        aria-label="close">×</a>
-                      <strong>Failed!</strong>
-                        File must be uploaded in PDF format!
-                      </div>
-                    <?php
-                    }
-                  }
-                ?>
+                          // Retrieve the pdf from the database
+                          $folder = "../pdf/";
+                          $sql = "SELECT * FROM pdf_data WHERE email = '".$var."' ";
+                          $result = mysqli_query($linkDB, $sql);
+                          $row = mysqli_fetch_array($result);
+                          if ($row) {
+                            $filename = $row['filename'];
+                            // code to display the pdf
+                            echo '<embed src="'.$folder.$filename.'" type="application/pdf" width="100%" height="590px"/>';
+                          } else {
+                            echo "CV not found for the given email.";
+                          }
+                          ?>
 
-                <button id="view-cv-btn">View CV</button>
-
-                    <?php
-
-                            // Retrieve the pdf from the database
-                            $folder = "../pdf/";
-                            $sql = "SELECT * FROM pdf_data WHERE email = '".$var."' ";
-                            $result = mysqli_query($linkDB, $sql);
-                            $row = mysqli_fetch_array($result);
-                            if($row){
-                                $filename = $row['filename'];
-                                // code to display the pdf
-                                } else {
-                                echo "CV not found for the given email.";
-                                }
-          
-                    ?>    
-
-                    <script>
-                          const viewCvBtn = document.getElementById('view-cv-btn');
-                          
-                          viewCvBtn.addEventListener('click', () => {
-                              const url = "<?php echo $folder . $filename; ?>";
-                              window.open(url);
-                          });
-                      </script>  
 
                 </div>
 
