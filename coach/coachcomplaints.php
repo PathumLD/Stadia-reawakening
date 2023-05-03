@@ -45,25 +45,59 @@
             
             <div class="content">
 
+
+
             <?php
-              // Check if a success message is present in the URL
-              if(isset($_GET['msg']) && $_GET['msg'] == 'success') {
-                  echo "<div class='success-message'>Complaint updated successfully.</div>";
-              }
-              if(isset($_GET['msg']) && $_GET['msg'] == 'notsuccess') {
-                echo "<div class='notsuccess-message'>Could not update complaint - Please try again.</div>";
-            }
+                if(isset($_GET['msg']) && $_GET['msg'] == 'success') {
+                  echo "<div class='success-message' id='success-message'>Complaint updated successfully.</div>";
+                } 
+                if(isset($_GET['msg']) && $_GET['msg'] == 'notsuccess') {
+                  echo "<div class='notsuccess-message' id='notsuccess-message'>Could not update complaint - Please try again.</div>";
+                }
             ?>
 
-<?php
-              // Check if a success message is present in the URL
+            <script>
+              // Get the message elements
+              var successMessage = document.getElementById("success-message");
+              var notsuccessMessage = document.getElementById("notsuccess-message");
+
+              // Remove the message elements after 3 seconds
+              setTimeout(function() {
+                if (successMessage) {
+                  successMessage.remove();
+                }
+                if (notsuccessMessage) {
+                  notsuccessMessage.remove();
+                }
+              }, 3000);
+            </script>
+
+            
+
+            <?php
               if(isset($_GET['mesg']) && $_GET['mesg'] == 'success') {
-                  echo "<div class='success-message'>Complaint submitted successfully.</div>";
-              }
+                echo "<div class='success-message' id='success-message'>Complaint submitted successfully.</div>";
+              } 
               if(isset($_GET['mesg']) && $_GET['mesg'] == 'notsuccess') {
-                echo "<div class='notsuccess-message'>Could not submit complaint - Please try again.</div>";
-            }
+                echo "<div class='notsuccess-message' id='notsuccess-message'>Could not submit complaint - Please try again.</div>";
+              }
             ?>
+
+            <script>
+                  // Get the message elements
+                  var successMessage = document.getElementById("success-message");
+                  var notsuccessMessage = document.getElementById("notsuccess-message");
+
+                  // Remove the message elements after 3 seconds
+                  setTimeout(function() {
+                    if (successMessage) {
+                      successMessage.remove();
+                    }
+                    if (notsuccessMessage) {
+                      notsuccessMessage.remove();
+                    }
+                  }, 3000);
+            </script>
 
             <div class="left">
 
@@ -238,7 +272,7 @@ else{
     <div class="popup-content">
         <span class="close" onclick="closePopup()">&times;</span>
         <h2>Update Complaint</h2>
-        <form action="update_complaint.php" method="post">
+        <form action="coachupdatecomplaints.php" method="post">
             <input type="hidden" id="complaint-id" name="complaint_id">
             <label for="complaint-subject">Subject:</label>
             <input type="text" id="complaint-subject" name="complaint_subject">
