@@ -48,7 +48,7 @@
             <table class="ps">
                 <tr><td>    </td></tr>
                <tr><td> <form method="post">
-                    <input type="text" name="search" class ="search" placeholder="Complaint...">
+                    <input type="text" name="search" class ="search" placeholder="Coach...">
                     <input type="submit" name="go" value="search" id = "searchbtn">
                     <input type="submit" name="reset" value="reset" id = "resetbtn">
                 </form></td></tr>
@@ -58,13 +58,53 @@
 
                 <tr>
 
-                <th>Coach Id</th>
+                <th>Name</th>
                 <th>Date</th>
                 <th>Time</th>
                 <th>Age Group</th>
                 <th>No. of Students</th>
 
                 </tr>
+
+                <?php
+                    $query = "SELECT coach, date, time, age_group, no_of_students
+                    FROM coach_classes WHERE sport = 'basketball' ";
+
+                    
+                    $res = mysqli_query($linkDB, $query); 
+                            if($res == TRUE) 
+                            {
+                                $count = mysqli_num_rows($res); //calculate number of rows
+                                if($count>0)
+                                {
+                                    while($rows=mysqli_fetch_assoc($res))
+                                    {
+                                        $coach=$rows['coach'];
+                                        $date=$rows['date'];
+                                        $time=$rows['time'];
+                                        $age_group=$rows['age_group'];
+                                        $no_of_students=$rows['no_of_students'];
+                                        
+                                        
+                                    ?>
+                                    <tr>
+                                                <td><?php echo $coach; ?> </td>
+                                                <td><?php echo $date; ?> </td>
+                                                <td><?php echo $time; ?></td>
+                                                <td><?php echo $age_group; ?></td>
+                                                <td><?php echo $no_of_students; ?></td>
+                                                
+                                                
+                                                
+                                            </tr>
+                                            <?php
+                                    }
+                                }    
+
+                            }  
+                    ?>
+
+
                 
 
             </table>
