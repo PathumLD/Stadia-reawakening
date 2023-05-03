@@ -48,43 +48,43 @@
             <?php
               // Check if a success message is present in the URL
               if(isset($_GET['msg']) && $_GET['msg'] == 'success') {
-                  echo "<div class='success-message'>Password updated successfully.</div>";
+                  echo "<div id='success-message' class='success-message'>Password updated successfully.</div>";
               }
               if(isset($_GET['msg']) && $_GET['msg'] == 'notsuccess') {
-                echo "<div class='notsuccess-message'>Could not update password - Please try again.</div>";
+                echo "<div id='notsuccess-message' class='notsuccess-message'>Could not update password - Please try again.</div>";
               }
               if(isset($_GET['msg']) && $_GET['msg'] == 'unsuccess') {
-                echo "<div class='notsuccess-message'>Your Passwords do not match - Please try again.</div>";
+                echo "<div id='unsuccess-message' class='notsuccess-message'>Your Passwords do not match - Please try again.</div>";
               }
             ?>
 
             <?php
               // Check if a success message is present in the URL
               if(isset($_GET['msg1']) && $_GET['msg1'] == 'success') {
-                  echo "<div class='success-message'>Phone number updated successfully.</div>";
+                  echo "<div id='success-msg1' class='success-message'>Phone number updated successfully.</div>";
               }
               if(isset($_GET['msg1']) && $_GET['msg1'] == 'notsuccess') {
-                echo "<div class='notsuccess-message'>Could not update Phone number - Please try again.</div>";
+                echo "<div id='notsuccess-msg1' class='notsuccess-message'>Could not update Phone number - Please try again.</div>";
               }
             ?>
 
             <?php
               // Check if a success message is present in the URL
               if(isset($_GET['msg2']) && $_GET['msg2'] == 'success') {
-                  echo "<div class='success-message'>Emergency contact number updated successfully.</div>";
+                  echo "<div id='success-msg2' class='success-message'>Emergency contact number updated successfully.</div>";
               }
               if(isset($_GET['msg2']) && $_GET['msg2'] == 'notsuccess') {
-                echo "<div class='notsuccess-message'>Could not update emergency contact number - Please try again.</div>";
+                echo "<div id='notsuccess-msg2' class='notsuccess-message'>Could not update emergency contact number - Please try again.</div>";
               }
             ?>
 
             <?php
               // Check if a success message is present in the URL
               if(isset($_GET['msg3']) && $_GET['msg3'] == 'success') {
-                  echo "<div class='success-message'>Emergency contact name updated successfully.</div>";
+                  echo "<div id='success-msg3' class='success-message'>Emergency contact name updated successfully.</div>";
               }
               if(isset($_GET['msg3']) && $_GET['msg3'] == 'notsuccess') {
-                echo "<div class='notsuccess-message'>Could not update emergency contact name - Please try again.</div>";
+                echo "<div id='notsuccess-msg3' class='notsuccess-message'>Could not update emergency contact name - Please try again.</div>";
               }
             ?>
 
@@ -394,3 +394,67 @@ function closePopup() {
     </form>
   </div>
 </div>
+
+<script>
+// Remove the success message after 3 seconds
+setTimeout(function() {
+    var successMessage = document.getElementById('success-message');
+    var notsuccessMessage = document.getElementById('notsuccess-message');
+    var unsuccessMessage = document.getElementById('unsuccess-message');
+
+    if (successMessage) {
+        successMessage.style.display = 'none';
+    }
+    if (notsuccessMessage) {
+        notsuccessMessage.style.display = 'none';
+    }
+    if (unsuccessMessage) {
+        unsuccessMessage.style.display = 'none';
+    }
+}, 3000);
+</script>
+
+<script>
+// Remove the success message after 3 seconds
+setTimeout(function() {
+    var successMessage = document.getElementById('success-msg1');
+    var notsuccessMessage = document.getElementById('notsuccess-msg1');
+
+    if (successMessage) {
+        successMessage.style.display = 'none';
+    }
+    if (notsuccessMessage) {
+        notsuccessMessage.style.display = 'none';
+    }
+}, 3000);
+</script>
+
+<script>
+// Remove the success message after 3 seconds
+setTimeout(function() {
+    var successMessage = document.getElementById('success-msg2');
+    var notsuccessMessage = document.getElementById('notsuccess-msg2');
+
+    if (successMessage) {
+        successMessage.style.display = 'none';
+    }
+    if (notsuccessMessage) {
+        notsuccessMessage.style.display = 'none';
+    }
+}, 3000);
+</script>
+
+<script>
+// Remove the success message after 3 seconds
+setTimeout(function() {
+    var successMessage = document.getElementById('success-msg3');
+    var notsuccessMessage = document.getElementById('notsuccess-msg3');
+
+    if (successMessage) {
+        successMessage.style.display = 'none';
+    }
+    if (notsuccessMessage) {
+        notsuccessMessage.style.display = 'none';
+    }
+}, 3000);
+</script>

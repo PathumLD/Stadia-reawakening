@@ -48,20 +48,20 @@
             <?php
               // Check if a success message is present in the URL
               if(isset($_GET['msg']) && $_GET['msg'] == 'success') {
-                  echo "<div class='success-message'>Complaint updated successfully.</div>";
+                  echo "<div id='success-message' class='success-message'>Complaint updated successfully.</div>";
               }
               if(isset($_GET['msg']) && $_GET['msg'] == 'notsuccess') {
-                echo "<div class='notsuccess-message'>Could not update complaint - Please try again.</div>";
+                echo "<div id='notsuccess-message' class='notsuccess-message'>Could not update complaint - Please try again.</div>";
             }
             ?>
 
 <?php
               // Check if a success message is present in the URL
               if(isset($_GET['mesg']) && $_GET['mesg'] == 'success') {
-                  echo "<div class='success-message'>Complaint submitted successfully.</div>";
+                  echo "<div id='success-mesg' class='success-message'>Complaint submitted successfully.</div>";
               }
               if(isset($_GET['mesg']) && $_GET['mesg'] == 'notsuccess') {
-                echo "<div class='notsuccess-message'>Could not submit complaint - Please try again.</div>";
+                echo "<div id='notsuccess-mesg' class='notsuccess-message'>Could not submit complaint - Please try again.</div>";
             }
             ?>
 
@@ -95,7 +95,7 @@
                                                 <td>" . $rows["subject"]. "</td>
                                                 <td>" . $rows["details"]. "</td>
                                                 <td>" . $rows["datetime"]. "</td>
-                                                <td> <button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'> /</i></button> 
+                                                <td> <button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button> 
                                                 <button class='update-button' onclick=\"openPopup($id, '" . $rows["subject"] . "', '" . $rows["details"] . "')\"><i class='fa fa-pencil-square-o'></i></button>                                              
                                             </tr>";
                             }
@@ -268,3 +268,30 @@ else{
     }
 </script>
 
+<script>
+// Remove the success message after 3 seconds
+setTimeout(function() {
+    var successMessage = document.getElementById('success-message');
+    var notsuccessMessage = document.getElementById('notsuccess-message');
+    if (successMessage) {
+        successMessage.style.display = 'none';
+    }
+    if (notsuccessMessage) {
+        notsuccessMessage.style.display = 'none';
+    }
+}, 3000);
+</script>
+
+<script>
+// Remove the success message after 3 seconds
+setTimeout(function() {
+    var successMessage = document.getElementById('success-mesg');
+    var notsuccessMessage = document.getElementById('notsuccess-mesg');
+    if (successMessage) {
+        successMessage.style.display = 'none';
+    }
+    if (notsuccessMessage) {
+        notsuccessMessage.style.display = 'none';
+    }
+}, 3000);
+</script>

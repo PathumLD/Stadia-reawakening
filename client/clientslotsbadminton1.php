@@ -53,6 +53,13 @@
     selectHelper:true,
     select: function(start, end, allDay)
     {
+      var today = moment().startOf('day');
+  var now = moment();
+  if (start < today || start < now) {
+    alert("Cannot add event for past or current time slots.");
+    return;
+      }
+      
       var title = prompt("Enter Event Title");
       if(title)
       {
