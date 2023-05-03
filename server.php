@@ -59,7 +59,7 @@ if (array_key_exists("signUp", $_POST)) {
                 VALUES ('$email', '$password', '$fname', '$lname', '$gender', '$NIC', '$dob', '$phone', '$emname', '$emphone', '$type')";
       mysqli_query($linkDB, $query);
       $_SESSION['email'] = $email;
-      $_SESSION['success'] = "You are now logged in";
+      $error1 .= "<h3>Successfully Registered!</h3>";
       header('location: login.php');
     }
   }
@@ -78,43 +78,49 @@ if (array_key_exists("logIn", $_POST)) {
     $email = mysqli_real_escape_string($linkDB, $_POST['email']);
     $password = mysqli_real_escape_string($linkDB,  $_POST['password']); 
 
-    $query = "SELECT email FROM users WHERE email = '$email'";
-        $result = mysqli_query($linkDB, $query);
-        if (mysqli_num_rows($result) == 0) {
-            $error2 = "<h3> You haven't signed up using this email! </h3>";
-        } else {
-    
-    //matching email and password
-    
-    $query = "SELECT * FROM users WHERE email='$email'";
-    $result = mysqli_query($linkDB, $query);
-            $row = mysqli_fetch_array($result);
-            $verify= md5($password);
-            if (count($row)) {
-                
-                if ($verify==$row['password']) {
-                    
-                    //session variables to keep user logged in
-                    $_SESSION['email'] = $row['email'];  
-                    
-                    // //Logged in for long time until user didn't log out
-                    // if ($_POST['stayLoggedIn'] == '1') {
-                    //     setcookie('email', $row['email'], time() + 60*60*24); //Logged in permanently
-                    // }
-                    if ($row['type']=='client') {
-                        header("Location: client/clientdashboard.php");
-                    }
-                    else{
-                        header("Location: coach/coachdashboard.php");
-                    }
+    // Check if email and password fields are not empty
+    if(empty($email) || empty($password)){
+      $error2 = "<h3>Please enter both email and password</h3>";
+    } else {
 
-                } else {
-                    $error2 = "<h3>Combination of email/password does not match! </h3>";
-                     }
-   
-                     } else {
-                        $error2 = "<h3>Combination of email/password does not match! </h3>";
-                 }
-                 
-        }
+        $query = "SELECT email FROM users WHERE email = '$email'";
+            $result = mysqli_query($linkDB, $query);
+            if (mysqli_num_rows($result) == 0) {
+                $error2 = "<h3> You haven't signed up using this email! </h3>";
+            } else {
+        
+                //matching email and password
+                
+                $query = "SELECT * FROM users WHERE email='$email'";
+                $result = mysqli_query($linkDB, $query);
+                        $row = mysqli_fetch_array($result);
+                        $verify= md5($password);
+                        if (count($row)) {
+                            
+                            if ($verify==$row['password']) {
+                                
+                                //session variables to keep user logged in
+                                $_SESSION['email'] = $row['email'];  
+                                
+                                // //Logged in for long time until user didn't log out
+                                // if ($_POST['stayLoggedIn'] == '1') {
+                                //     setcookie('email', $row['email'], time() + 60*60*24); //Logged in permanently
+                                // }
+                                if ($row['type']=='client') {
+                                    header("Location: client/clientdashboard.php");
+                                }
+                                else{
+                                    header("Location: coach/coachdashboard.php");
+                                }
+
+                            } else {
+                                $error2 = "<h3>Combination of email/password does not match! </h3>";
+                              }
+              
+                        } else {
+                              $error2 = "<h3>Combination of email/password does not match! </h3>";
+                        }
+                            
+              }
+      }
     }

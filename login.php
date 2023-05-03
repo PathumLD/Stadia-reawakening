@@ -16,8 +16,8 @@
   
 
   <div class="container">
-  <?php echo "$error2"; ?>
-  <?php echo "$error1"; ?>
+  <?php if (!empty($error2)) echo "<div class='error'>$error2</div>"; ?>
+  <?php if (!empty($error1)) echo "<div class='error'>$error1</div>"; ?>
     <input type="checkbox" id="flip">
     <div class="cover">
       <div class="front">
