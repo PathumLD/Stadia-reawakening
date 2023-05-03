@@ -2,12 +2,12 @@
 
  .content .profiledata{
     background-color: #ffffff;
-    width: 40rem;
-    height: 25rem;
+    width: 42rem;
+    height: 27rem;
     border-radius: 20px;
     float: left;
-    margin-left: 4rem;
-    margin-top: 16rem;
+    margin-left: -25rem;
+    margin-top: 2.5rem;
     top: 0;
     box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2);
     overflow-y: auto;
@@ -16,11 +16,11 @@
 .content .cv{
     background-color: #ffffff;
     width: 45rem;
-    height: 43rem;
+    height: 42rem;
     float: right;
     border-radius: 20px;
-    margin-right: 4rem;
-    margin-top: -2rem;
+    margin-left: 6rem;
+    margin-top: -1.5rem;
     box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2); 
     overflow-y: auto;
   }
@@ -34,14 +34,15 @@
 
 #tableprofile{
     width: 100%;
-    margin: 3% auto;
-    max-width: 1000px;
+    margin: 3% 0 0 10%;
+    max-width: 500px;
 }
 
 #tableprofile .mylabel{
     padding: 10px;
     font-size: 18px;
     font-weight: 600;
+    margin-left: 2rem;
     color: #000;
     text-align: left;
     border-radius: 20px;
@@ -51,7 +52,8 @@
     padding: 10px;
     font-size: 18px;
     font-weight: 600;
-    background: #6d9976;
+    margin-top: 2rem;
+    /* background: #6d9976; */
     color: #000;
     text-align: center;
     border-radius: 20px;
@@ -62,71 +64,189 @@
     font-size: 20px;
 }
 
-                              /* profile update button popup css */
-
-.form-popup {
-  display: none;
-  position: fixed;
-  z-index: 9;
-  width: 18rem;
-  height: 15rem;
-  margin-left: -35rem;
-  margin-top: -10rem;
-  background-color: #ffffff;
-  border-radius: 20px;
-  box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2); 
+.pdfname{
+  width : 50%;
 }
 
-.form-container {
-  max-width: 18rem;
-  padding: 10px;
-  background-color: white;
-}
-
-.form-container label{
-  font-size: 1.2rem;
-}
-
-.form-container input[type=tel], .form-container input[type=text]{
-  width: 100%;
-  padding: 15px;
-  margin: 25px 0 22px 0;
-  border: none;
-  background: #f1f1f1;
-}
-
-.form-container input[type=tel]:focus, .form-container input[type=text]:focus{
-  background-color: #ddd;
-  outline: none;
-}
-
-.form-container #update-btn{
-  background-color: #3B6E51;
-  border: none;
-  color: #fff;
-  margin-top: 4 rem;
-  padding: 10px 20px;
-  font-size: 1rem;
-  border-radius: 20px;
-}
-
-.form-container #cancel-btn{
-  background-color: red;
-  border: none;
-  color: #fff;
-  margin-top: 4 rem;
-  padding: 10px 20px;
-  font-size: 1rem;
-  border-radius: 20px;
+.form-control{
   float: right;
 }
 
-.form-container button{
-  background:none;
-  border: 0;
-  margin-left: 10%;
+
+                              /* Profile picture */     
+
+.content img{
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin-left: 16rem;
+  margin-top: -12rem;
+  object-fit: cover;
+  float: left;
 }
 
-.form-container .btn:hover, .open-button:hover {
+.content .profilepic input[type="file"] {
+  display: none;
+  margin-bottom: 2%;
+}
+
+.content input[type="submit"]:hover{
+    box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+    -4px -4px 6px 0 rgba(116, 125, 136, .5), 
+inset -4px -4px 6px 0 rgba(255,255,255,.2),
+inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+}
+
+.content label {
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+  color: #3B6E51;
+  margin-left: 24rem;
+  margin-top: 10rem;
+  display: block;
+}
+
+
+.content #imageName{
+  color: #3B6E51;
+}
+
+.main-content .content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.main-content .content .profiledata .btn{
+  background: #264838;
+  background: linear-gradient(0deg, #264838 0%, #3B6E51 100%);
+  border: none;
+  width: 100px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  outline: none;
+  
+  margin-bottom: 2%;
+  margin-left: 15px;
+  margin-right: 10px;
+  box-shadow: inset 2px 2px 2px 0px rgba(214,239,199,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
+}
+
+
+                              /* Popup container */
+
+
+.popup , .popup1, .popup2, .popup3 {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+                              /* Popup content */
+
+.popup-content {
+  background-color: #fefefe;
+  margin: 10% auto; /* 10% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 30%; /* Could be more or less, depending on screen size */
+}
+
+input[type=password], input[type=tel],input[type=text]{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.popup-content h3{
+  text-align: center;
+  text-justify: inter-word;
+  margin-bottom: 10px;
+  margin-top: 0;
+}
+
+.popup-content .btn{
+  background: #264838;
+  background: linear-gradient(0deg, #264838 0%, #3B6E51 100%);
+  border: none;
+  width: 200px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  outline: none;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  margin-left: 10%;
+  box-shadow:inset 2px 2px 2px 0px rgba(214,239,199,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
+}
+
+.popup-content .btn::before{
+  height: 0%;
+  width: 2px;
+}
+
+.popup-content .btn:hover {
+  box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+              -4px -4px 6px 0 rgba(116, 125, 136, .5), 
+    inset -4px -4px 6px 0 rgba(255,255,255,.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+}
+
+                                  /* Close button */
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover, .close:focus {
+  color: red;
+  text-decoration: none;
   cursor: pointer;
 }
+
+                                    /* success message */ 
+
+.success-message {
+background-color: #D6EFC7;
+color: #6d9976;
+padding: 10px;
+margin-bottom: 2%;
+border-radius: 10px;
+margin-right: 2rem;
+margin-left: 2rem;
+}
+
+.notsuccess-message {
+background-color: #D6EFC7;
+color: red;
+padding: 10px;
+margin-bottom: 2%;
+border-radius: 10px;
+margin-right: 2rem;
+margin-left: 2rem;
+}
+
