@@ -27,181 +27,222 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
 
     <script>
-   
-   $(document).ready(function() {
-  var calendar = $('#calendar').fullCalendar({
-    editable:true,
-    header:{
-      left:'prev,next today',
-      center:'title',
-      right:'agendaWeek,month'
-    },
-    defaultView: 'agendaWeek',
-    events: 'slotsbadminton1load.php',
-    views: {
-      month: {
-        selectable: false
-      },
-      agenda: {
-        slotDuration: '01:00:00',
-        slotLabelInterval: '01:00:00',
-        minTime: '07:00:00',
-        maxTime: '22:00:00'
-      }
-    },
-    selectable:true,
-    selectHelper:true,
-    select: function(start, end, allDay)
-    {
-      var today = moment().startOf('day');
-  var now = moment();
-  if (start < today || start < now) {
-    alert("Cannot add event for past or current time slots.");
-    return;
-      }
-      
-      var title = prompt("Enter Event Title");
-      if(title)
-      {
-        var startDate = moment(start).startOf('hour');
-        var endDate = moment(start).startOf('hour').add(1, 'hour');
+      $(document).ready(function() {
+          var calendar = $('#calendar').fullCalendar({
+            editable:true,
+            header:{
+                left:'prev,next today',
+                center:'title',
+                right:'agendaWeek,month'
+            },
+            defaultView: 'agendaWeek',
+            events: 'slotsbadminton1load.php',
+            views: {
+                month: {
+                  selectable: false
+                },
+                agenda: {
+                  slotDuration: '01:00:00',
+                  slotLabelInterval: '01:00:00',
+                  minTime: '07:00:00',
+                  maxTime: '22:00:00'
+                }
+            },
+            selectable:true,
+            selectHelper:true,
+            select: function(start, end, allDay)
+            {
+                var today = moment().startOf('day');
+                var now = moment();
 
-        var start = $.fullCalendar.formatDate(startDate, "Y-MM-DD HH:mm:ss");
-        var end = $.fullCalendar.formatDate(endDate, "Y-MM-DD HH:mm:ss");
+                // check if the selected start time is before the current time + 30 minutes
+                var threshold = moment().add(30, 'minutes');
+                if (start < threshold) {
+                  alert("Cannot add event for past or current time slots.");
+                  return;
+                }
 
-        $.ajax({
-          url:"slotsbadminton1insert.php",
-          type:"POST",
-          data:{title:title, start:start, end:end},
-          success:function()
-          {
-            calendar.fullCalendar('refetchEvents');
-            alert("Added Successfully");
-          }
-        })
-      }
-    },
-    editable:true,
-    eventResize:function(event)
-    {
-     var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
-     var end = $.fullCalendar.formatDate(event.start.add(1, 'hour'), "Y-MM-DD HH:mm:ss");
-     var title = event.title;
-     var id = event.id;
-     $.ajax({
-      url:"slotsbadminton1update.php",
-      type:"POST",
-      data:{title:title, start:start, end:end, id:id},
-      success:function(){
-       calendar.fullCalendar('refetchEvents');
-       alert('Event Update');
-      }
-     })
-    },
+                // check if the selected start time is within the next 3 months
+                var maxDate = moment().add(3, 'months');
+                if (start > maxDate) {
+                  alert("Cannot add event more than 3 months in advance.");
+                  return;
+                }
+                
+                var title = prompt("Enter Event Title");
+                if(title)
+                {
+                  var startDate = moment(start).startOf('hour');
+                  var endDate = moment(start).startOf('hour').add(1, 'hour');
 
-    eventDrop:function(event)
-    {
-     var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
-     var end = $.fullCalendar.formatDate(event.start.add(1, 'hour'), "Y-MM-DD HH:mm:ss");
-     var title = event.title;
-     var id = event.id;
-     $.ajax({
-      url:"slotsbadminton1update.php",
-      type:"POST",
-      data:{title:title, start:start, end:end, id:id},
-      success:function()
-      {
-       calendar.fullCalendar('refetchEvents');
-       alert("Event Updated");
-      }
-     });
-    },
+                  var start = $.fullCalendar.formatDate(startDate, "Y-MM-DD HH:mm:ss");
+                  var end = $.fullCalendar.formatDate(endDate, "Y-MM-DD HH:mm:ss");
 
-    eventClick:function(event)
-    {
-     if(confirm("Are you sure you want to remove it?"))
-     {
-      var id = event.id;
-      $.ajax({
-       url:"slotsbadminton1delete.php",
-       type:"POST",
-       data:{id:id},
-       success:function()
-       {
-        calendar.fullCalendar('refetchEvents');
-        alert("Event Removed");
-       }
-      })
-     }
-    },
+                  $.ajax({
+                      url:"slotsbadminton1insert.php",
+                      type:"POST",
+                      data:{title:title, start:start, end:end},
+                      success:function()
+                      {
+                        calendar.fullCalendar('refetchEvents');
+                        alert("Added Successfully");
+                      }
+                  })
+                }
+            },
+            editable:true,
+            eventResize:function(event)
+            {
+                var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+                var end = $.fullCalendar.formatDate(event.start.add(1, 'hour'), "Y-MM-DD HH:mm:ss");
+                var title = event.title;
+                var id = event.id;
 
-  });
-});
+                // check if the new start time is before the current time + 30 minutes
+                var threshold = moment().add(30, 'minutes');
+                if (event.start < threshold) {
+                  alert("Cannot update event for past or current time slots.");
+                  calendar.fullCalendar('refetchEvents');
+                  return;
+                }
 
-  </script>
+                // check if the new start time is within the next 3 months
+                var maxDate = moment().add(3, 'months');
+                if (event.start > maxDate) {
+                  alert("Cannot update event more than 3 months in advance.");
+                  calendar.fullCalendar('refetchEvents');
+                  return;
+                }
+
+                $.ajax({
+                  url:"slotsbadminton1update.php",
+                  type:"POST",
+                  data:{title:title, start:start, end:end, id:id},
+                  success:function(){
+                      calendar.fullCalendar('refetchEvents');
+                      alert('Event Update');
+                  }
+                })
+            },
+
+            eventDrop:function(event)
+            {
+                var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
+                var end = $.fullCalendar.formatDate(event.start.add(1, 'hour'), "Y-MM-DD HH:mm:ss");
+                var title = event.title;
+                var id = event.id;
+
+                // check if the new start time is before the current time + 30 minutes
+                var threshold = moment().add(30, 'minutes');
+                if (event.start < threshold) {
+                  alert("Cannot move event to past or current time slots.");
+                  calendar.fullCalendar('refetchEvents');
+                  return;
+                }
+
+                // check if the new start time is within the next 3 months
+                var maxDate = moment().add(3, 'months');
+                if (event.start > maxDate) {
+                  alert("Cannot move event more than 3 months in advance.");
+                  calendar.fullCalendar('refetchEvents');
+                  return;
+                }
+
+                $.ajax({
+                  url:"slotsbadminton1update.php",
+                  type:"POST",
+                  data:{title:title, start:start, end:end, id:id},
+                  success:function(){
+                      calendar.fullCalendar('refetchEvents');
+                      alert('Event Moved');
+                  }
+                })
+            },
+
+            eventClick:function(event)
+            {
+                if(confirm("Are you sure you want to remove it?"))
+                {
+                    var id = event.id;
+                    $.ajax({
+                        url:"slotsbadminton1delete.php",
+                        type:"POST",
+                        data:{id:id},
+                        success:function()
+                        {
+                            calendar.fullCalendar('refetchEvents');
+                            alert("Event Removed");
+                        }
+                    })
+                }
+            },
+
+          });
+      });
+    </script>
 
 
    </head>
-<body onload="initClock()">
+      <body onload="initClock()">
 
-<div class="sidebar">
+      <div class="sidebar">
 
-    <?php include('../include/clientsidebar.php'); ?>
+          <?php include('../include/clientsidebar.php'); ?>
 
-</div>
+      </div>
 
-<section class="home-section">
+      <section class="home-section">
 
-    <nav>
+          <nav>
 
-        <?php include('../include/navbar.php'); ?>
+              <?php include('../include/navbar.php'); ?>
 
-    </nav>
+          </nav>
 
-    <div class="home-content">
+          <div class="home-content">
 
-        <div class="main-content">
+              <div class="main-content">
 
-            <?php $var = $_SESSION['email']; ?>
+                  <?php $var = $_SESSION['email']; ?>
 
-            <h1>Slots - Badminton Court 1</h1>
+                  <h1>Slots - Badminton Court 1</h1>
 
-            <div class="content">
+                  <div class="content">
 
-              <div class="segmented-control">
-        
-                <input type="radio" name="radio2" value="1" id="tab-1" checked/>
-                <label for="tab-1" class= "segmented-control__1">
-                  <p><a href="clientslotsbadminton1.php">Court 1</a></p>
-                </label>
-                                
-                <input type="radio" name="radio2" value="2" id="tab-2" />
-                <label for="tab-2" class= "segmented-control__2">
-                  <p><a href="clientslotsbadminton2.php">Court 2</a></p>
-                </label>
-                
-                <div class="segmented-control__color"></div>
+                    <div class="segmented-control">
+              
+                      <input type="radio" name="radio2" value="1" id="tab-1" checked/>
+                      <label for="tab-1" class= "segmented-control__1">
+                        <p><a href="clientslotsbadminton1.php">Court 1</a></p>
+                      </label>
+                                      
+                      <input type="radio" name="radio2" value="2" id="tab-2" />
+                      <label for="tab-2" class= "segmented-control__2">
+                        <p><a href="clientslotsbadminton2.php">Court 2</a></p>
+                      </label>
+                      
+                      <div class="segmented-control__color"></div>
+                    </div>
+
+                  <div class="container">
+                    <div id="calendar"></div>
+                  </div>
+
+                </div>
+
               </div>
-
-            <div class="container">
-              <div id="calendar"></div>
-            </div>
 
           </div>
 
-        </div>
+          <footer>
+              <div class="foot">
+                <?php include("../include/footer.php"); ?>
+              </div>
+          </footer> 
 
-    </div>
+      </section>
 
-    <footer>
-        <div class="foot">
-          <?php include("../include/footer.php"); ?>
-        </div>
-    </footer> 
-
-</section>
-
-</body>
+      </body>
 </html>
 
 <script>
