@@ -41,7 +41,7 @@
 #tableprofile .mylabel{
     padding: 10px;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: bold;
     margin-left: 2rem;
     color: #000;
     text-align: left;
@@ -53,16 +53,15 @@
     font-size: 18px;
     font-weight: 600;
     margin-top: 2rem;
-    /* background: #6d9976; */
     color: #000;
     text-align: center;
     border-radius: 20px;
 }
 
-#tableprofile tr td:nth-child(1){
+/* #tableprofile tr td:nth-child(1){
     width: 35%;
     font-size: 20px;
-}
+} */
 
 .pdfname{
   width : 50%;
@@ -71,6 +70,33 @@
 .form-control{
   float: right;
 }
+
+                             /* upload cv */
+
+.form-control {
+  width: 50px;
+  height: 10px;
+  display: inline-block;
+}
+
+.pdfname .form-group input[type="file"] {
+  width: 150px;
+  height: 40px;
+}
+
+.pdfname .form-group input[name="name"] {
+  margin-left: 3rem;
+}
+
+.form-control{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
 
 
                               /* Profile picture */     
@@ -116,27 +142,6 @@ inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-}
-
-.main-content .content .profiledata .btn{
-  background: #264838;
-  background: linear-gradient(0deg, #264838 0%, #3B6E51 100%);
-  border: none;
-  width: 100px;
-  height: 40px;
-  color: #fff;
-  border-radius: 5px;
-  padding: 10px 25px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  outline: none;
-  
-  margin-bottom: 2%;
-  margin-left: 15px;
-  margin-right: 10px;
-  box-shadow: inset 2px 2px 2px 0px rgba(214,239,199,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
 }
 
 
@@ -213,7 +218,7 @@ input[type=password], input[type=tel],input[type=text]{
     inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
 }
 
-                                  /* Close button */
+                                  /*  button */
 
 .close {
   color: #aaa;
@@ -226,6 +231,55 @@ input[type=password], input[type=tel],input[type=text]{
   color: red;
   text-decoration: none;
   cursor: pointer;
+}
+
+.btnRegister{
+  background: #264838;
+  background: linear-gradient(0deg, #264838 0%, #3B6E51 100%);
+  border: none;
+  width: 200px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  outline: none;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  float: right;
+  box-shadow:inset 2px 2px 2px 0px rgba(214,239,199,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
+}
+
+.main-content .content .profiledata .btn{
+  background: #264838;
+  background: linear-gradient(0deg, #264838 0%, #3B6E51 100%);
+  background-position-x: 2%; /* Modified value */
+  border: none;
+  width: 100px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  outline: none;
+  box-shadow: inset 2px 2px 2px 0px rgba(214,239,199,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
+}
+
+.main-content .content .profiledata .btn:hover {
+  box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+              -4px -4px 6px 0 rgba(116, 125, 136, .5), 
+    inset -4px -4px 6px 0 rgba(255,255,255,.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+}
+
+#profilebtn{
+  margin-left: 5rem;
 }
 
                                     /* success message */ 
