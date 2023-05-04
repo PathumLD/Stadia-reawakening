@@ -202,10 +202,11 @@
                     
                     <div class="details"><h3>Update Your Details</h3></div><br>
 
-                      <button class="btn" onclick="openPopup()">Change Password</button>
-                      <button class="btn" onclick="openPopup1()">Change Phone Number</button>
-                      <button class="btn" onclick="openPopup2()">Change Emergency Contact Number</button>
-                      <button class="btn" onclick="openPopup3()">Change Emergency Contact Name</button>
+                    <d
+                      <button class="btn" id ="profilebtn" onclick="openPopup()">Change Password</button>
+                      <button class="btn" id ="profilebtn" onclick="openPopup1()">Change Phone Number</button>
+                      <button class="btn" id ="profilebtn" onclick="openPopup2()">Change Emergency Contact Number</button>
+                      <button class="btn" id ="profilebtn" onclick="openPopup3()">Change Emergency Contact Name</button>
 
               </div>
                 </div>
@@ -236,42 +237,62 @@
                       </form>
 
                       <?php
-                          if (isset($_POST['submit'])) {
-                            $name = $_POST['name'];
-                            $email = $_SESSION['email'];
+if (isset($_POST['submit'])) {
+    $name = $_POST['name'];
+    $email = $_SESSION['email'];
 
-                            if (isset($_FILES['pdf_file']['name'])) {
-                              $file_name = $_FILES['pdf_file']['name'];
-                              $file_tmp = $_FILES['pdf_file']['tmp_name'];
+    if (isset($_FILES['pdf_file']['name'])) {
+        $file_name = $_FILES['pdf_file']['name'];
+        $file_tmp = $_FILES['pdf_file']['tmp_name'];
 
-                              move_uploaded_file($file_tmp, "../pdf/".$file_name);
+        // Check if a CV already exists for the user
+        $sql = "SELECT * FROM pdf_data WHERE email = '$email'";
+        $result = mysqli_query($linkDB, $sql);
+        $row = mysqli_fetch_array($result);
 
-                              $query = "INSERT INTO pdf_data(username, filename, email) VALUES('$name', '$file_name', '$email')";
-                              $res = mysqli_query($linkDB, $query);
-                            } else {
-                          ?>
-                              <div class="alert alert-danger alert-dismissible fade show text-center">
-                                <a class="close" data-dismiss="alert" aria-label="close">×</a>
-                                <strong>Failed!</strong>
-                                File must be uploaded in PDF format!
-                              </div>
-                          <?php
-                            }
-                          }
+        if ($row) {
+            // Delete the old CV file from the server
+            $old_file = $row['filename'];
+            $old_file_path = "../pdf/".$old_file;
+            if (file_exists($old_file_path)) {
+                unlink($old_file_path);
+            }
 
-                          // Retrieve the pdf from the database
-                          $folder = "../pdf/";
-                          $sql = "SELECT * FROM pdf_data WHERE email = '".$var."' ";
-                          $result = mysqli_query($linkDB, $sql);
-                          $row = mysqli_fetch_array($result);
-                          if ($row) {
-                            $filename = $row['filename'];
-                            // code to display the pdf
-                            echo '<embed src="'.$folder.$filename.'" type="application/pdf" width="100%" height="590px"/>';
-                          } else {
-                            echo "CV not found for the given email.";
-                          }
-                          ?>
+            // Update the filename in the database
+            $query = "UPDATE pdf_data SET filename = '$file_name' WHERE email = '$email'";
+        } else {
+            // Insert a new row in the database
+            $query = "INSERT INTO pdf_data(username, filename, email) VALUES('$name', '$file_name', '$email')";
+        }
+
+        // Upload the new CV file to the server
+        move_uploaded_file($file_tmp, "../pdf/".$file_name);
+        $res = mysqli_query($linkDB, $query);
+    } else {
+?>
+        <div class="alert alert-danger alert-dismissible fade show text-center">
+            <a class="close" data-dismiss="alert" aria-label="close">×</a>
+            <strong>Failed!</strong>
+            File must be uploaded in PDF format!
+        </div>
+<?php
+    }
+}
+
+// Retrieve the pdf from the database
+$folder = "../pdf/";
+$sql = "SELECT * FROM pdf_data WHERE email = '".$var."' ";
+$result = mysqli_query($linkDB, $sql);
+$row = mysqli_fetch_array($result);
+if ($row) {
+    $filename = $row['filename'];
+    // code to display the pdf
+    echo '<embed src="'.$folder.$filename.'" type="application/pdf" width="100%" height="590px"/>';
+} else {
+    echo "CV not found for the given email.";
+}
+?>
+
 
 
                 </div>
