@@ -160,23 +160,29 @@
             },
 
             eventClick:function(event)
-            {
-                if(confirm("Are you sure you want to remove it?"))
-                {
-                    var id = event.id;
-                    $.ajax({
-                        url:"slotsbadminton1delete.php",
-                        type:"POST",
-                        data:{id:id},
-                        success:function()
-                        {
-                            calendar.fullCalendar('refetchEvents');
-                            alert("Event Removed");
-                        }
-                    })
-                }
-            },
+              {
+                  // check if the event start time is before the current time
+                  var threshold = moment();
+                  if (event.start < threshold) {
+                      alert("Cannot remove events from past time slots.");
+                      return;
+                  }
 
+                  if(confirm("Are you sure you want to remove it?"))
+                  {
+                      var id = event.id;
+                      $.ajax({
+                          url:"slotsbadminton1delete.php",
+                          type:"POST",
+                          data:{id:id},
+                          success:function()
+                          {
+                              calendar.fullCalendar('refetchEvents');
+                              alert("Event Removed");
+                          }
+                      })
+                  }
+              },
           });
       });
     </script>
