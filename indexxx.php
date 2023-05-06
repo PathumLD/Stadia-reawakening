@@ -60,8 +60,16 @@
     </div>
     <div class="right">
       
-      <p>Stadia is an online stadium booking system that comprises two badminton courts, a volleyball court, a basketball court, a tennis court, and a swimming pool. The clients can easily reserve a time slot with or without coaches and pay on-site using the system's built-in payment gateway by following a few easy steps to check whether the courts, swimming pool, and other facilities they need—such as renting sports equipment and refreshments are available according to their preferences.
-        Coaches can arrange classes to suit their schedules and easily manage student information. Additionally, they can rent out equipment based on their needs through our stadia system.</p>
+       <p>
+            <?php
+            include("linkDB.php");
+            $query = "SELECT details FROM adminabout LIMIT 1"; // assuming you only have one row in the table
+            $result = mysqli_query($linkDB, $query);
+            $row = mysqli_fetch_assoc($result);
+            $details = $row['details'];
+            echo $details;
+            ?>
+          </p>
       <div class="button">
         <button onclick="location.href='login.php'">Register With Us!</button>
       </div>
