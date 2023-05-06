@@ -180,10 +180,11 @@ section .title span{
   width: 400px;
   object-fit: cover;
   border-radius: 12px;
+  margin-top: -133px;
 }
 .about-details .right{
   width: 55%;
-}
+  margin-top: -38px;
 section  .topic{
   color: #3B6E51;
   font-size: 25px;
