@@ -28,6 +28,7 @@
 
     <script>
       $(document).ready(function() {
+          var loggedInUserEmail = "<?php echo $_SESSION['email']; ?>";
           var calendar = $('#calendar').fullCalendar({
             editable:true,
             header:{
@@ -69,7 +70,7 @@
                   return;
                 }
                 
-                var title = prompt("Enter Event Title");
+                var title = prompt("Enter Your Name");
                 if(title)
                 {
                   var startDate = moment(start).startOf('hour');
@@ -85,7 +86,7 @@
                       success:function()
                       {
                         calendar.fullCalendar('refetchEvents');
-                        alert("Added Successfully");
+                        alert("Slot Booked Successfully");
                       }
                   })
                 }
@@ -93,6 +94,11 @@
             editable:true,
             eventResize:function(event)
             {
+              if (event.email !== loggedInUserEmail) {
+                alert("You are not authorized to edit this event.");
+                calendar.fullCalendar('refetchEvents');
+                return;
+              }
                 var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
                 var end = $.fullCalendar.formatDate(event.start.add(1, 'hour'), "Y-MM-DD HH:mm:ss");
                 var title = event.title;
@@ -127,6 +133,11 @@
 
             eventDrop:function(event)
             {
+              if (event.email !== loggedInUserEmail) {
+                alert("You are not authorized to edit this event.");
+                calendar.fullCalendar('refetchEvents');
+                return;
+              }
                 var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
                 var end = $.fullCalendar.formatDate(event.start.add(1, 'hour'), "Y-MM-DD HH:mm:ss");
                 var title = event.title;
@@ -161,6 +172,10 @@
 
             eventClick:function(event)
               {
+                if (event.email !== loggedInUserEmail) {
+                  alert("You are not authorized to delete this event.");
+                  return;
+                }
                   // check if the event start time is before the current time
                   var threshold = moment();
                   if (event.start < threshold) {
