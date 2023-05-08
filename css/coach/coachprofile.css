@@ -22,7 +22,7 @@
     margin-left: 6rem;
     margin-top: -1.5rem;
     box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2); 
-    overflow-y: auto;
+    overflow-y:hidden;
   }
 
 
@@ -67,35 +67,28 @@
   width : 50%;
 }
 
-.form-control{
-  float: right;
-}
-
                              /* upload cv */
 
-.form-control {
-  width: 50px;
-  height: 10px;
-  display: inline-block;
-}
 
 .pdfname .form-group input[type="file"] {
-  width: 150px;
+  width: 230px;
   height: 40px;
+  margin-left: 11rem;
 }
 
 .pdfname .form-group input[name="name"] {
-  margin-left: 3rem;
+  margin-left: 11rem;
 }
 
 .form-control{
   width: 100%;
   padding: 12px 20px;
-  margin: 8px 0;
+  margin: 6px 0;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
 }
+
 
 
 
@@ -233,11 +226,11 @@ input[type=password], input[type=tel],input[type=text]{
   cursor: pointer;
 }
 
-.btnRegister{
+#btnRegister{
   background: #264838;
   background: linear-gradient(0deg, #264838 0%, #3B6E51 100%);
   border: none;
-  width: 200px;
+  width: 100px;
   height: 40px;
   color: #fff;
   border-radius: 5px;
@@ -245,11 +238,10 @@ input[type=password], input[type=tel],input[type=text]{
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
-  position: relative;
+  position: absolute;
+  margin-top: -48px;
   outline: none;
-  margin-top: 2%;
-  margin-bottom: 2%;
-  float: right;
+  margin-left: 27rem;
   box-shadow:inset 2px 2px 2px 0px rgba(214,239,199,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
 }
 
@@ -279,7 +271,22 @@ input[type=password], input[type=tel],input[type=text]{
 }
 
 #profilebtn{
-  margin-left: 5rem;
+  background: #264838;
+  background: linear-gradient(0deg, #264838 0%, #3B6E51 100%);
+  background-position-x: 2%; /* Modified value */
+  border: none;
+  width: 210px;
+  height: 45px;
+  color: #fff;
+  border-radius: 5px;
+  font-weight: 500;
+  margin-left: 5.2rem;
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  outline: none;
+  box-shadow: inset 2px 2px 2px 0px rgba(214,239,199,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
 }
 
                                     /* success message */ 
