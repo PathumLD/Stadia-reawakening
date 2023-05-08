@@ -17,11 +17,11 @@
         </button>
         <div class="dropdown-container">
             
-            <a href="managerslotsbadminton.php">Badminton</a>
-            <a href="managerslotsbasketball.php">Basketball</a>
-            <a href="managerslotsvolleyball.php">Volleyball</a>
-            <a href="managerslotstennis.php">Tennis</a>
-            <a href="managerslotsswimming.php">Swimming</a>
+            <a href="managerbookingsbadminton1.php">Badminton</a>
+            <a href="managerbookingsbasketball.php">Basketball</a>
+            <a href="managerbookingsvolleyball.php">Volleyball</a>
+            <a href="managerbookingstennis.php">Tennis</a>
+            <a href="managerbookingsswimming.php">Swimming</a>
           
         </div>
 
