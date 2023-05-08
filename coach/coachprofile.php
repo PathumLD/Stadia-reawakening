@@ -200,13 +200,13 @@
 
                     </table>
                     
-                    <div class="details"><h3>Update Your Details</h3></div><br>
+                    <br><div class="details"><h3>Update Your Details</h3></div><br>
 
-                    <d
-                      <button class="btn" id ="profilebtn" onclick="openPopup()">Change Password</button>
-                      <button class="btn" id ="profilebtn" onclick="openPopup1()">Change Phone Number</button>
-                      <button class="btn" id ="profilebtn" onclick="openPopup2()">Change Emergency Contact Number</button>
-                      <button class="btn" id ="profilebtn" onclick="openPopup3()">Change Emergency Contact Name</button>
+                    
+                      <button  id ="profilebtn" onclick="openPopup()">Change Password</button>
+                      <button  id ="profilebtn" onclick="openPopup1()">Change Phone Number</button><br>
+                      <button  id ="profilebtn" onclick="openPopup2()">Change Emergency Contact Number</button>
+                      <button  id ="profilebtn" onclick="openPopup3()">Change Emergency Contact Name</button>
 
               </div>
                 </div>
@@ -227,11 +227,11 @@
                           <div class="form-group">
                           <input type="file" name="pdf_file"
                               class="form-control" accept=".pdf"
-                              title="Upload CV"/>
+                              title="Upload CV"/><input type="submit" id="btnRegister"
+                              name="submit" value="Submit">
                           </div>
                           <div class="form-group">
-                          <input type="submit" class="btnRegister"
-                              name="submit" value="Submit">
+                          
                           </div>
                         </div>
                       </form>
