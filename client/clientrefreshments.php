@@ -55,39 +55,27 @@
 
                 <h3>Drinks</h3>
 
-                <table class="table">
-
-                    <tr>
-                        <th>Item Name</th>
-                        <th>Price</th> 
-                        <th>Quantity</th>  
-                        <th></th>
-                    </tr>
-
-                    <?php
-                        $query = "SELECT * FROM refreshments_drinks ";
-                        $res = mysqli_query($linkDB, $query); 
-                                if($res == TRUE) 
-                                {
-                                    $count = mysqli_num_rows($res); //calculate number of rows
-                                    if($count>0)
-                                    {
-                                        while($rows=mysqli_fetch_assoc($res))
-                                        {
-                                            echo "<tr>
-                                                    <td>" . $rows["itemname"]. "</td>
-                                                    <td>" . $rows["price"]. "</td>
-                                                    <td><input type='number' name='quantity' id='qty_" . $rows["id"] . "'></td>
-                                                    <td><button type='button' name='add-to-cart' onclick='addToCart(" . $rows["id"] . ", document.getElementById(\"qty_" . $rows["id"] . "\").value)'><i class='fa fa-cart-plus'></i></button></td>      </tr>";
-                                            }
-                                        } else {
-                                            echo "0 results";
-                                        }
-                                    }    
-                            ?>
-
-                </table>
-
+                    <form method="post" action="clientcart.php">
+                        <?php
+                            // Assume you have established a database connection with $conn
+                            $query = "SELECT * FROM refreshments_drinks";
+                            $result = mysqli_query($linkDB, $query);
+                            while ($row = mysqli_fetch_assoc($result)) {
+                            $productId = $row['id'];
+                        ?>
+                            <div>
+                            <input type="hidden" name="product_id_<?= $productId ?>" value="<?= $row['id'] ?>">
+                            <input type="hidden" name="product_name_<?= $productId ?>" value="<?= $row['itemname'] ?>">
+                            <input type="hidden" name="product_price_<?= $productId ?>" value="<?= $row['price'] ?>">
+                            <label><?= $row['itemname'] ?></label>
+                            <label><?= $row['price'] ?></label>
+                            <input type="number" name="quantity_<?= $productId ?>" value="1" min="1">
+                            <button type="submit" name="add_to_cart_<?= $productId ?>">Add to Cart</button>
+                            </div>
+                        <?php
+                            }
+                        ?>
+                    </form>
 
             </div>
 

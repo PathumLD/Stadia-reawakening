@@ -198,6 +198,11 @@
                       })
                   }
               },
+              eventRender: function(event, element, view) {
+                if (event.email === loggedInUserEmail) {
+                  $(element).css('background-color', '#3B6E51');
+                }
+              }
           });
       });
     </script>
