@@ -1,5 +1,5 @@
 
-              /* 1. form boarder */
+              /*  form boarder */
 
 
 
@@ -19,13 +19,12 @@
 
 .form input{
     width: 35%;
-    padding: 1rem;
+    padding: 0.5rem;
     font-size: 1rem;
     max-width: 20rem;
     font-weight: 400;
     border: 2px solid #6d9976;
     border-radius: 1.3rem;
-    margin-bottom: 1rem;
 }
                             /* Submit Button */      
 
@@ -50,10 +49,11 @@
                             /* Dropdown */
 
 .drop{
-    width: 20%;
-    max-width: 10rem;
-    height: 2rem;
-    margin: 0 0 0 5rem;
+    width: 35%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    max-width: 20rem;
+    font-weight: 400;
     border: 2px solid #6d9976;
-    border-radius: 0.7rem;
+    border-radius: 1.3rem;
 }

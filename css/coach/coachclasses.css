@@ -28,7 +28,6 @@
 }
 
 .text:hover{
-    text-decoration: underline;
     color: #000;
 }
 
@@ -59,7 +58,7 @@
     overflow-y: auto;
 }
 
-.content .pendingclasses{
+.content .acceptanceclasses{
     background-color: #ffffff;
     width: 37rem;
     height: 18rem;
@@ -71,7 +70,7 @@
     overflow-y: auto;
   }
   
-  .content .paidclasses{
+  .content .cancellationclasses{
     background-color: #ffffff;
     width: 37rem;
     height: 18rem;
@@ -80,9 +79,10 @@
     margin-right: -37rem;
     margin-top: 21rem;
     box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
     }
 
-.activeclasses h3, .pendingclasses h3, .paidclasses h3{
+.activeclasses h3, .acceptanceclasses h3, .cancellationclasses h3{
     text-align: center;
 }
 
@@ -126,17 +126,7 @@
 }
 
 .table td a:hover, .table td a i:hover{
-    text-decoration: underline;
-}
-
-.frame1{
-    background-color: #ffffff;
-    width: 60rem;
-    height: 100%;
-    border-radius: 20px;
-    margin-left: 2rem;
-    margin-top: 2rem;
-    box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
 }
 
 .content .datatable{
@@ -146,7 +136,7 @@
                 /* table2 */
 
 .table2 {
-    width: 34rem;
+    width: 34.3rem;
     margin: 1% 3%;
     border: 2px solid #6d9976;
     border-radius: 20px;
@@ -159,7 +149,7 @@
     font-size: 18px;
     font-weight: 600;
     background: #6d9976;
-    color: #fff;
+    color: #000000;
     text-align: center;
     border-right: solid 1px #ffffff;
 }
@@ -167,7 +157,6 @@
 .table2 td {
     padding: 10px;
     font-size: 18px;
-    font-weight: 600;
     color: #000;
     text-align: center;
     border-right: solid 1px #ffffff;
@@ -185,6 +174,11 @@
 .table2 td a:hover,
 .table2 td a i:hover {
     text-decoration: underline;
+    font-weight: bold;
+}
+
+#status{
+    font-weight: bold;
 }
 
                                         /*  button */
