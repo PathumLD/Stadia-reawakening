@@ -56,25 +56,39 @@
                 <h3>Drinks</h3>
 
                     <form method="post" action="clientcart.php">
-                        <?php
-                            // Assume you have established a database connection with $conn
-                            $query = "SELECT * FROM refreshments_drinks";
-                            $result = mysqli_query($linkDB, $query);
-                            while ($row = mysqli_fetch_assoc($result)) {
-                            $productId = $row['id'];
-                        ?>
-                            <div>
-                            <input type="hidden" name="product_id_<?= $productId ?>" value="<?= $row['id'] ?>">
-                            <input type="hidden" name="product_name_<?= $productId ?>" value="<?= $row['itemname'] ?>">
-                            <input type="hidden" name="product_price_<?= $productId ?>" value="<?= $row['price'] ?>">
-                            <label><?= $row['itemname'] ?></label>
-                            <label><?= $row['price'] ?></label>
-                            <input type="number" name="quantity_<?= $productId ?>" value="1" min="1">
-                            <button type="submit" name="add_to_cart_<?= $productId ?>">Add to Cart</button>
-                            </div>
-                        <?php
-                            }
-                        ?>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Item Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Date and Time</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <?php
+                                // Assume you have established a database connection with $conn
+                                $query = "SELECT * FROM refreshments_drinks";
+                                $result = mysqli_query($linkDB, $query);
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                $productId = $row['id'];
+                            ?>
+                                <div>
+                                <input type="hidden" name="product_id_<?= $productId ?>" value="<?= $row['id'] ?>">
+                                <input type="hidden" name="product_name_<?= $productId ?>" value="<?= $row['itemname'] ?>">
+                                <input type="hidden" name="product_price_<?= $productId ?>" value="<?= $row['price'] ?>">
+                                <tr>
+                                <td><label><?= $row['itemname'] ?></label></td>
+                                <td><label><?= $row['price'] ?></label></td>
+                                <td><input type="datetime-local" name="datetime_<?= $productId ?>"></td>
+                                <td><input type="number" name="quantity_<?= $productId ?>" value="1" min="1"></td>
+                                <td><button type="submit" name="add_to_cart_<?= $productId ?>"><i class='fa fa-cart-plus'></i></button></td>
+                                </tr>
+                                </div>
+                            <?php
+                                }
+                            ?>
+                        </table>
                     </form>
 
             </div>
