@@ -84,52 +84,62 @@
                                 <th> Sport </th>
                                 <th> Time</th>
                                 <th> Age Group </th>
+                                <th> Level </th>
                                 <th> No. of Students </th>
                                 <th> Student Details </th>
                                 <th> Action </th>
 
                             </tr>
 
-                                        <?php
+                            <?php
 
-                                            if(isset($_POST['go'])) {
-                                                $search = $_POST['search'];
-                                            } else {
-                                                $search = null;
+                                if(isset($_POST['go'])) {
+                                    $search = $_POST['search'];
+                                } else {
+                                    $search = null;
+                                }
+
+                                // Check if the user is logged in
+                                if(isset($_SESSION['email'])) {
+                                    // Retrieve the logged-in email address
+                                    $email = $_SESSION['email'];
+                                    
+                                    if($search == 'all') {
+                                        $query = "SELECT * FROM coach_classes WHERE email='$email'";
+                                    } else {
+                                        $query = "SELECT * FROM coach_classes WHERE date LIKE '%$search%' AND email='$email' AND status = '1' OR status = '2'";
+                                    }
+
+                                    $res = mysqli_query($linkDB, $query);
+
+                                    if($res == TRUE) {
+                                        $count = mysqli_num_rows($res);
+
+                                        if($count > 0) {
+                                            while($rows = mysqli_fetch_assoc($res)) {
+                                                $id = $rows['id'];
+
+                                                echo "<tr id='row_$id'>  
+                                                    <td>" . $rows["date"]. "</td>
+                                                    <td>" . $rows["sport"]. "</td>
+                                                    <td>" . $rows["time"]. "</td>
+                                                    <td>" . $rows["age_group"]. "</td>
+                                                    <td>" . $rows["level"]. "</td>
+                                                    <td>" . $rows["no_of_students"]. "</td>
+                                                    <td><a href='coachstudentdetails.php?id=$id;'>View</a> </td>
+                                                    <td><a href='coachupdateclass.php?id=$id;'><i class='fa fa-edit' id='edit' style='font-size:24px'></i></a>
+                                                    
+                                                </tr>";
                                             }
+                                        } else {
+                                            echo "0 results";
+                                        }
+                                    }
 
-                                            if($search == 'all') {
-                                                $query = "SELECT * FROM coach_classes";
-                                            } else {
-                                                $query = "SELECT * FROM coach_classes WHERE date LIKE '%$search%' && status = '1'";
-                                            }
 
-                                            $res = mysqli_query($linkDB, $query);
 
-                                            if($res == TRUE) {
-                                                $count = mysqli_num_rows($res);
+                            ?>
 
-                                                if($count > 0) {
-                                                    while($rows = mysqli_fetch_assoc($res)) {
-                                                        $id = $rows['id'];
-
-                                                        echo "<tr id='row_$id'>  
-                                                            <td>" . $rows["date"]. "</td>
-                                                            <td>" . $rows["sport"]. "</td>
-                                                            <td>" . $rows["time"]. "</td>
-                                                            <td>" . $rows["age_group"]. "</td>
-                                                            <td>" . $rows["no_of_students"]. "</td>
-                                                            <td><a href='coachstudentdetails.php?id=$id;'>View</a> </td>
-                                                            <td><a href='coachupdateclass.php?id=$id;'><i class='fa fa-edit' id='edit' style='font-size:24px'></i></a>
-                                                            
-                                                        </tr>";
-                                                    }
-                                                } else {
-                                                    echo "0 results";
-                                                }
-                                            }
-                                            
-                                        ?>
 
                         </table>
                     
@@ -137,52 +147,123 @@
 
                 </div>
 
-                <div class="pendingclasses">
+                <div class="acceptanceclasses">
 
-                    <h3> Pending Classes </h3>
+                    <h3> Pending Acceptances Classes </h3>
 
                     <div class = "frame2">
 
                         <table class="table2">
                             <tr>
-                                <th> Name </th>
+                                <th> Day </th>
                                 <th> Sport </th>
-                                <th> Time </th>
+                                <th> Time</th>
+                                <th> Age Group </th>
+                                <th> Status </th>
                             </tr>
-                            <tr>
-                                <td> John Doe </td>
-                                <td> Basketball </td>
-                                <td> 10:00 </td>
-                            </tr>
-                            <tr>
-                                <td> Jane Doe </td>
-                                <td> Volleyball </td>
-                                <td> 11:00 </td>
-                            </tr>
-                            <tr>
-                                <td> Jane Doe </td>
-                                <td> Volleyball </td>
-                                <td> 11:00 </td>
-                            </tr>
-                            <tr>
-                                <td> Jane Doe </td>
-                                <td> Volleyball </td>
-                                <td> 11:00 </td>
-                            </tr>
-                            <tr>
-                                <td> Jane Doe </td>
-                                <td> Volleyball </td>
-                                <td> 11:00 </td>
-                            </tr>
+
+                            <?php
+
+                                // Retrieve the logged-in email address
+                                $email = $_SESSION['email'];
+
+                                // Build the query to retrieve data from the database
+                                $query = "SELECT * FROM coach_classes WHERE email='$email' AND status=0";
+
+                                // Execute the query
+                                $res = mysqli_query($linkDB, $query);
+
+                                // Check if any results were returned
+                                if($res == TRUE) {
+                                    $count = mysqli_num_rows($res);
+
+                                    if($count > 0) {
+                                        // Loop through the results and display each row in the table
+                                        while($rows = mysqli_fetch_assoc($res)) {
+                                            $id = $rows['id'];
+
+                                            if ($rows["status"] == 0) {
+                                                echo "<tr id='row_$id'>  
+                                                    <td>" . $rows["date"]. "</td>
+                                                    <td>" . $rows["sport"]. "</td>
+                                                    <td>" . $rows["time"]. "</td>
+                                                    <td>" . $rows["age_group"]. "</td>
+                                                    <td> Pending </td>
+                                                </tr>";
+                                            }
+                                        }
+                                    } else {
+                                        echo "<tr><td colspan='7'>0 results</td></tr>";
+                                    }
+                                }
+
+                            ?>
                         </table>
 
                     </div>
 
                 </div>
                     
-                <div class="paidclasses">
+                <div class="cancellationclasses">
 
-                    <h3> Paid </h3>
+                    <h3> Pending Cancellation Classes </h3>
+
+                    <div class = "frame2">
+
+                        <table class="table2">
+                            <tr>
+                                <th> Day </th>
+                                <th> Sport </th>
+                                <th> Time</th>
+                                <th> Age Group </th>
+                                <th> Status </th>
+                            </tr>
+
+                            <?php
+
+                                // Retrieve the logged-in email address
+                                $email = $_SESSION['email'];
+
+                                // Build the query to retrieve data from the database
+                                $query = "SELECT * FROM coach_classes WHERE email='$email' AND status = '2'";
+
+                                // Execute the query
+                                $res = mysqli_query($linkDB, $query);
+
+                                // Check if any results were returned
+                                if($res == TRUE) {
+                                    $count = mysqli_num_rows($res);
+
+                                    if($count > 0) {
+                                        // Loop through the results and display each row in the table
+                                        while($rows = mysqli_fetch_assoc($res)) {
+                                            $id = $rows['id'];
+
+                                            if ($rows["status"] == 2) {
+                                                echo "<tr id='row_$id'>  
+                                                    <td>" . $rows["date"]. "</td>
+                                                    <td>" . $rows["sport"]. "</td>
+                                                    <td>" . $rows["time"]. "</td>
+                                                    <td>" . $rows["age_group"]. "</td>
+                                                    <td> Pending </td>
+                                                </tr>";
+                                            }
+                                        }
+                                    } else {
+                                        echo "<tr><td colspan='7'>0 results</td></tr>";
+                                    }
+                                }
+
+                                // Close the database connection
+                                mysqli_close($linkDB);
+                            } else {
+                                // Redirect the user to the login page if they're not logged in
+                                header("Location: login.php");
+                            }
+                            ?>
+                        </table>
+
+                    </div>
 
                 </div>
 

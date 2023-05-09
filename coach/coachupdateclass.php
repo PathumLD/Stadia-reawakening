@@ -63,12 +63,12 @@
                         <table class= 'table'>
                           <th  colspan='6' > Current Status </th>
                             <tr>
-                              <td>" . $row['level']. "</td>
-                              <td>" . $row['sport']. "</td>
-                              <td>" . $row['date']. "</td>
-                              <td>" . $row['time']. "</td>
-                              <td>" . $row['age_group']. "</td>
-                              <td>" . $row['no_of_students']. "</td>
+                              <td>" . $row["date"]. "</td>
+                              <td>" . $row["sport"]. "</td>
+                              <td>" . $row["time"]. "</td>
+                              <td>" . $row["age_group"]. "</td>
+                              <td>" . $row["level"]. "</td>
+                              <td>" . $row["no_of_students"]. "</td>
                             </tr> </table>";
 
                       }
