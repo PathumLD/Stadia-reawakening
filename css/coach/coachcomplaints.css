@@ -54,6 +54,7 @@
     border-collapse: collapse;
     text-align: center;
     max-width: 94%;
+    border: #6d9976 2px solid;
 }
   
 .home-content .main-content .content .table th{
@@ -80,11 +81,11 @@
 }
 
 .home-content .main-content .content tr:nth-child(odd) {
-    background-color: #D6EFC7;
+    background-color: #f0f0f0;
   }
     
   .home-content .main-content .content tr:nth-child(even) {
-    background-color: #c4d4cc;
+    background-color: #ffffff;
   }
 
 .home-content .main-content .content .table a, .submit-button{

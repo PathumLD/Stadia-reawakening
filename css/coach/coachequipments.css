@@ -101,3 +101,9 @@
     cursor: pointer;
     font-weight: bold;
 }
+
+.fa-cart-plus{
+    color: #6d9976;
+    font-size: 2rem;
+    border: none;
+}
