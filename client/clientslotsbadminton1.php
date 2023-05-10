@@ -131,44 +131,60 @@
                 })
             },
 
-            eventDrop:function(event)
-            {
-              if (event.email !== loggedInUserEmail) {
-                alert("You are not authorized to edit this event.");
-                calendar.fullCalendar('refetchEvents');
-                return;
-              }
-                var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD HH:mm:ss");
-                var end = $.fullCalendar.formatDate(event.start.add(1, 'hour'), "Y-MM-DD HH:mm:ss");
-                var title = event.title;
-                var id = event.id;
-
-                // check if the new start time is before the current time + 30 minutes
-                var threshold = moment().add(30, 'minutes');
-                if (event.start < threshold) {
-                  alert("Cannot move event to past or current time slots.");
-                  calendar.fullCalendar('refetchEvents');
+            eventDrop:function(event, delta, revertFunc)
+              {
+                if (event.email !== loggedInUserEmail) {
+                  alert("You are not authorized to edit this event.");
+                  revertFunc();
                   return;
                 }
-
-                // check if the new start time is within the next 3 months
-                var maxDate = moment().add(3, 'months');
-                if (event.start > maxDate) {
-                  alert("Cannot move event more than 3 months in advance.");
-                  calendar.fullCalendar('refetchEvents');
-                  return;
-                }
-
-                $.ajax({
-                  url:"slotsbadminton1update.php",
-                  type:"POST",
-                  data:{title:title, start:start, end:end, id:id},
-                  success:function(){
-                      calendar.fullCalendar('refetchEvents');
-                      alert('Event Moved');
+                  var start = event.start.format("Y-MM-DD HH:mm:ss");
+                  var end = event.end.format("Y-MM-DD HH:mm:ss");
+                  var title = event.title;
+                  var id = event.id;
+                  
+                  // check if the new start time is before the current time + 30 minutes
+                  var threshold = moment().add(30, 'minutes');
+                  if (event.start < threshold) {
+                    alert("Cannot move event to past or current time slots.");
+                    revertFunc();
+                    return;
                   }
-                })
-            },
+
+                  // check if the new start time is within the next 3 months
+                  var maxDate = moment().add(3, 'months');
+                  if (event.start > maxDate) {
+                    alert("Cannot move event more than 3 months in advance.");
+                    revertFunc();
+                    return;
+                  }
+
+                  // check if the new slot is available
+                  var newEventOverlap = false;
+                  calendar.fullCalendar('clientEvents', function(existingEvent) {
+                    if (existingEvent.id !== event.id && existingEvent.start < event.end && existingEvent.end > event.start) {
+                      newEventOverlap = true;
+                      return false;
+                    }
+                  });
+
+                  if (newEventOverlap) {
+                    alert("This slot is already booked. Please select another slot.");
+                    revertFunc();
+                    return;
+                  }
+
+                  // if the new slot is available, update the event's start and end time
+                  $.ajax({
+                    url:"slotsbadminton1update.php",
+                    type:"POST",
+                    data:{title:title, start:start, end:end, id:id},
+                    success:function(){
+                        calendar.fullCalendar('refetchEvents');
+                        alert('Event Moved');
+                    }
+                  });
+              },
 
             eventClick:function(event)
               {

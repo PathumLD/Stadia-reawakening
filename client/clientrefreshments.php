@@ -67,29 +67,28 @@
                                 </tr>
                             </thead>
                             <?php
-                                // Assume you have established a database connection with $conn
-                                $query = "SELECT * FROM refreshments_drinks";
-                                $result = mysqli_query($linkDB, $query);
-                                while ($row = mysqli_fetch_assoc($result)) {
-                                $productId = $row['id'];
+
+                                $query_drinks = "SELECT * FROM refreshments_drinks";
+                                $result_drinks = mysqli_query($linkDB, $query_drinks);
+                                while ($row_drinks = mysqli_fetch_assoc($result_drinks)) {
+                                    $productId = $row_drinks['itemid'];
                             ?>
                                 <div>
-                                <input type="hidden" name="product_id_<?= $productId ?>" value="<?= $row['id'] ?>">
-                                <input type="hidden" name="product_name_<?= $productId ?>" value="<?= $row['itemname'] ?>">
-                                <input type="hidden" name="product_price_<?= $productId ?>" value="<?= $row['price'] ?>">
-                                <tr>
-                                <td><label><?= $row['itemname'] ?></label></td>
-                                <td><label><?= $row['price'] ?></label></td>
-                                <td><input type="datetime-local" name="datetime_<?= $productId ?>"></td>
-                                <td><input type="number" name="quantity_<?= $productId ?>" value="1" min="1"></td>
-                                <td><button type="submit" name="add_to_cart_<?= $productId ?>"><i class='fa fa-cart-plus'></i></button></td>
-                                </tr>
+                                    <input type="hidden" name="product_id_<?= $productId ?>" value="<?= $row_drinks['itemid'] ?>">
+                                    <input type="hidden" name="product_name_<?= $productId ?>" value="<?= $row_drinks['itemname'] ?>">
+                                    <input type="hidden" name="product_price_<?= $productId ?>" value="<?= $row_drinks['price'] ?>">
+                                    <tr>
+                                        <td><label><?= $row_drinks['itemname'] ?></label></td>
+                                        <td><label><?= $row_drinks['price'] ?></label></td>
+                                        <td><input type="datetime-local" name="datetime_<?= $productId ?>" min="<?= date('Y-m-d\TH:i', strtotime('now')) ?>" max="<?= date('Y-m-d\TH:i', strtotime('+3 months')) ?>"></td>
+                                        <td><input type="number" name="quantity_<?= $productId ?>" value="1" min="1"></td>
+                                        <td><button type="submit" name="add_to_cart_<?= $productId ?>"><i class='fa fa-cart-plus'></i></button></td>
+                                    </tr>
                                 </div>
-                            <?php
-                                }
-                            ?>
-                        </table>
-                    </form>
+                                <?php
+                                    }
+                                ?>
+                        </table> 
 
             </div>
 
@@ -97,40 +96,40 @@
 
                 <h3>Snacks</h3>
 
-                <table class="table">
+                <table>
+                            <thead>
+                                <tr>
+                                    <th>Item Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Date and Time</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <?php
 
-                    <tr>
-                        <th>Item Name</th>
-                        <th>Price</th> 
-                        <th>Quantity</th>  
-                        <th></th>
-                    </tr>
-
-                    <?php
-                        $query = "SELECT * FROM refreshments_snacks ";
-                        $res = mysqli_query($linkDB, $query); 
-                        if($res == TRUE) {
-                            $count = mysqli_num_rows($res); //calculate number of rows
-                            if($count>0) {
-                                while($rows=mysqli_fetch_assoc($res)) {
-                                    $id=$rows['id'];
-                                    echo "<tr id='row__$id'>
-                                        <td>" . $rows["itemname"]. "</td>
-                                        <td>" . $rows["price"]. "</td>
-                                        <td><input type='number' name='quantity'></td>
-                                        <td>
-                                            <button type='button' class='add-to-cart-btn' data-item-id='$id'><i class='fa fa-cart-plus'></i></button>
-                                            <a href='clientaddtocart.php?id=$id; ?>'><i class='fa fa-pencil-square-o' ></i> </a>
-                                        </td>
-                                    </tr>";
-                                }
-                            } else {
-                                echo "0 results";
-                            }
-                        }    
+                                    $query_snacks = "SELECT * FROM refreshments_snacks";
+                                    $result_snacks = mysqli_query($linkDB, $query_snacks);
+                                    while ($row_snacks = mysqli_fetch_assoc($result_snacks)) {
+                                        $productId = $row_snacks['itemid'];
                             ?>
-
-                </table>
+                                    <div>
+                                        <input type="hidden" name="product_id_<?= $productId ?>" value="<?= $row_snacks['itemid'] ?>">
+                                        <input type="hidden" name="product_name_<?= $productId ?>" value="<?= $row_snacks['itemname'] ?>">
+                                        <input type="hidden" name="product_price_<?= $productId ?>" value="<?= $row_snacks['price'] ?>">
+                                        <tr>
+                                            <td><label><?= $row_snacks['itemname'] ?></label></td>
+                                            <td><label><?= $row_snacks['price'] ?></label></td>
+                                            <td><input type="datetime-local" name="datetime_<?= $productId ?>" min="<?= date('Y-m-d\TH:i', strtotime('now')) ?>" max="<?= date('Y-m-d\TH:i', strtotime('+3 months')) ?>" ></td>
+                                            <td><input type="number" name="quantity_<?= $productId ?>" value="1" min="1"></td>
+                                            <td><button type="submit" name="add_to_cart_<?= $productId ?>"><i class='fa fa-cart-plus'></i></button></td>
+                                        </tr>
+                                    </div>
+                                <?php
+                                    }
+                                ?>
+                        </table>
+                    </form>
 
             </div>
 

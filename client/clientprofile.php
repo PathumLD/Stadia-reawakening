@@ -114,14 +114,15 @@
                           
                             // Check if a file was selected for upload
                             if(!empty($_FILES['image']['name'])) {
+
                             // Upload the image to a temporary location
-                            $tempname = $_FILES['image']['name'];
+                            $tempname = uniqid() . '_' . $_FILES['image']['name'];
                             $folder = "../img/";
                             $target_file = $folder . basename($tempname);
                             move_uploaded_file($_FILES['image']['tmp_name'], $target_file);
                             $email = $_SESSION['email'];
                             
-                            // Store the image file name in the database
+                            // Store the generated image file name in the database
                             $sql = "UPDATE users SET dp='$tempname' WHERE email= '".$var."'";
                             $rs=mysqli_query($linkDB, $sql);
 
@@ -132,14 +133,14 @@
                             }
                           } else{
 
-                              // Retrieve the image from the database
+                              // Retrieve the image from the database using the generated name
                               $folder = "../img/";
                               $result = mysqli_query($linkDB, "SELECT * FROM users WHERE email = '".$var."'");
                               $row = mysqli_fetch_array($result);
                               $filename = $row['dp'];
 
                               if($filename != null) {
-                                // Display the image on the web page
+                                // Check if image exists in database, if not display message to upload profile photo
                                 echo '<img src="' . $folder . $filename . '" alt ="dp">';
                                 } else {
                                 echo "Upload a profile photo";
@@ -148,7 +149,7 @@
                         }
                         else{
                         
-                          // Retrieve the image from the database
+                          // Retrieve the image from the database using the generated name
                           $folder = "../img/";
                           $result = mysqli_query($linkDB, "SELECT * FROM users WHERE email = '".$var."'");
                           $row = mysqli_fetch_array($result);
