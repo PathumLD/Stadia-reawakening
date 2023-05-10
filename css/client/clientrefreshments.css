@@ -54,7 +54,7 @@
     display: none;
   }
   
-  .home-content .main-content .content .table{
+  /* .home-content .main-content .content .table{
       width: 94%;
       margin: 3% ;
       border-collapse: collapse;
@@ -91,7 +91,7 @@
       
     .home-content .main-content .content .table tr:nth-child(even) {
       background-color: #c4d4cc;
-    }
+    } */
   
   .home-content .main-content .content h3{
       padding: 8px;
@@ -135,7 +135,7 @@
   font-weight: bold;
 }
 
-.content form table{
+.content table{
   width: 94%;
   margin: 3% ;
   border-collapse: collapse;
