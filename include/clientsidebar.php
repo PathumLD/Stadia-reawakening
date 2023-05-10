@@ -5,8 +5,8 @@
     <div class="nav-links">
         <a href="clientdashboard.php"><i class="fa fa-th-large" ></i><span class="links_name">Dashboard</span></a>
         <a href="clientprofile.php"><i class="fa fa-user" ></i><span class="links_name">Profile</span></a>
-        <a href="clientbookings.php"><i class="fa fa-list-ul" ></i><span class="links_name">Bookings</span></a>
         <a href="clientmyclasses.php"><i class="fa fa-calendar" ></i><span class="links_name">Classes</span></a>
+        <a href="clientbookings.php"><i class="fa fa-list-ul" ></i><span class="links_name">Bookings</span></a>
         <a href="clientcomplaints.php"><i class="fa fa-comments" ></i><span class="links_name">Complaints</span></a>
         <a href="clientmyfacilities.php"><i class="fa fa-stack-exchange" ></i><span class="links_name">Ordered Facilities</span></a>
 
@@ -15,7 +15,7 @@
         </button>
         <div class="dropdown-container">
             
-            <a href="clientslotsbadminton.php">Badminton</a>
+            <a href="clientslotsbadminton1.php">Badminton</a>
             <a href="clientslotsbasketball.php">Basketball</a>
             <a href="clientslotsvolleyball.php">Volleyball</a>
             <a href="clientslotstennis.php">Tennis</a>

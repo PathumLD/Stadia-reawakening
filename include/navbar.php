@@ -43,11 +43,29 @@
 
           </div>
     </div>
+
+    
         
     <div class="profile-details">
 
-        <a href='clientmycart.php'><i style='color:white;' class='fa fa-shopping-cart' ></i></a>
+        <a href='clientcart.php'><i style='color:white;' class='fa fa-shopping-cart' ></i></a>
         <a href='clientnotifications.php'><i style='color:white;' class='fa fa-bell'></i></a>
-        <img src="../images/profile.jpg" alt="">
+        
+        <?php 
+    
+    // Retrieve the image from the database
+    $folder = "../img/";
+    $result = mysqli_query($linkDB, "SELECT * FROM users WHERE email = '".$var."'");
+    $row = mysqli_fetch_array($result);
+    $filename = $row['dp'];
+
+    if($filename != null) {
+      // Display the image on the web page
+      echo '<img src="' . $folder . $filename . '" alt ="dp">';
+      } else {
+      echo '<img src="../images/profile.jpg"> ' ;
+      }
+    
+    ?>
         
       </div>
