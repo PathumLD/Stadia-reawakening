@@ -20,6 +20,7 @@ if (array_key_exists("signUp", $_POST)) {
     $NIC = mysqli_real_escape_string($linkDB, $_POST['NIC']);
     $dob = mysqli_real_escape_string($linkDB, $_POST['dob']);
     $phone = mysqli_real_escape_string($linkDB, $_POST['phone']);
+    $address = mysqli_real_escape_string($linkDB, $_POST['address']);
     $emname = mysqli_real_escape_string($linkDB, $_POST['emname']);
     $emphone = mysqli_real_escape_string($linkDB, $_POST['emphone']);
     $type = mysqli_real_escape_string($linkDB, $_POST['type']);
@@ -41,6 +42,10 @@ if (array_key_exists("signUp", $_POST)) {
   else if (!preg_match("/^(\d{9}[vVxX]|\d{12})$/", $NIC)) {
     $error1 .= "<h3>Invalid NIC format.</h3> ";
 }
+
+else if (!preg_match("/^[0-9]{10}$/", $phone) || !preg_match("/^[0-9]{10}$/", $emphone) ) {
+  $error1 .= "<h3>Invalid phone number format.</h3> ";
+}
   
   else if ($type !== "client" && $type !== "coach") {
     $error1 .= "<h3>Invalid user type.</h3> ";
@@ -55,8 +60,8 @@ if (array_key_exists("signUp", $_POST)) {
       $error1 = "<h3>Email already exists.</h3>";
     } else {
       $password = md5($password);
-      $query = "INSERT INTO users (email, password, fname, lname, gender, NIC, dob, phone, emname, emphone, type)
-                VALUES ('$email', '$password', '$fname', '$lname', '$gender', '$NIC', '$dob', '$phone', '$emname', '$emphone', '$type')";
+      $query = "INSERT INTO users (email, password, fname, lname, gender, NIC, dob, phone, address, emname, emphone, type)
+                VALUES ('$email', '$password', '$fname', '$lname', '$gender', '$NIC', '$dob', '$phone', '$address', '$emname', '$emphone', '$type')";
       mysqli_query($linkDB, $query);
       $_SESSION['email'] = $email;
       $error1 .= "<h3>Successfully Registered!</h3>";

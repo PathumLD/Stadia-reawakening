@@ -96,6 +96,12 @@
 
               <div class="input-box">
                 
+                <i class="fa fa-home"></i>
+                <input type="text" name="address" placeholder="Address" required>
+              </div>
+
+              <div class="input-box">
+                
                 <p><br>Emergency Contact Details:<br></p>
                 <input type="tel" name="emphone" placeholder="Phone" pattern="[0-9]{10}" required>
                 <input type="text" name="emname" placeholder="Name" required>
