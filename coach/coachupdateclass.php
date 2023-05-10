@@ -44,7 +44,7 @@
 
             <?php $var = $_SESSION['email']; ?>
 
-            <h1> Edit Classes </h1>
+            <h1> Actions </h1>
 
 
             <?php $id = $_GET['id']; ?>
@@ -63,7 +63,7 @@
                         <table class= 'table'>
                           <th  colspan='6' > Current Status </th>
                             <tr>
-                              <td>" . $row["date"]. "</td>
+                              <td>" . $row["day"]. "</td>
                               <td>" . $row["sport"]. "</td>
                               <td>" . $row["time"]. "</td>
                               <td>" . $row["age_group"]. "</td>
@@ -76,30 +76,6 @@
                   } 
 
               ?>
-  
-                  
-
-        <?php 
-            $id = $_GET['id'];
-
-            if(isset($_POST['update'])) {
-                $level = $_POST['level'];
-                $sport = $_POST['sport'];
-                $date = $_POST['date'];
-                $time = $_POST['time'];
-                $age_group = $_POST['age_group'];
-                $no_of_students = $_POST['no_of_students'];
-                
-                // Query the database to update the information for the class
-                $sql = "UPDATE coach_classes SET level = '$level', sport = '$sport', date = '$date', time = '$time', age_group = '$age_group', no_of_students = '$no_of_students' WHERE class_id = $id";
-                
-                if(mysqli_query($linkDB, $sql)){
-                    echo "Records were updated successfully.";
-                } else{
-                    echo "ERROR: Could not able to execute $sql. " . mysqli_error($linkDB);
-                }
-            }
-        ?>
 
                 
 
@@ -109,11 +85,81 @@
 
                   <h3> Update </h3>
 
+                  <form method="post">
+                    <div><br><br>
+                      <select name="day" class="drop" required>
+                        <option value="" disabled selected>Day</option>
+                        <option value="Monday">Monday</option>
+                        <option value="Tuesday">Tuesday</option>
+                        <option value="Wednesday">Wednesday</option>
+                        <option value="Thursday">Thursday</option>
+                        <option value="Friday">Friday</option>
+                        <option value="Saturday">Saturday</option>
+                        <option value="Sunday">Sunday</option>
+                      </select> <br><br>
+
+                      <select name="time" class="drop" required>
+                        <option value="" disabled selected>Time Slot</option>
+                        <option value="6.00 - 7.00">6.00 - 7.00</option>
+                        <option value="7.00 - 8.00">7.00 - 8.00</option>
+                        <option value="8.00 - 9.00">8.00 - 9.00</option>
+                        <option value="9.00 - 10.00">9.00 - 10.00</option>
+                        <option value="10.00 - 11.00">10.00 - 11.00</option>
+                        <option value="11.00 - 12.00">11.00 - 12.00</option>
+                        <option value="12.00 - 13.00">12.00 - 13.00</option>
+                        <option value="13.00 - 14.00">13.00 - 14.00</option>
+                        <option value="14.00 - 15.00">14.00 - 15.00</option>
+                        <option value="15.00 - 16.00">15.00 - 16.00</option>
+                        <option value="16.00 - 17.00">16.00 - 17.00</option>
+                        <option value="17.00 - 18.00">17.00 - 18.00</option>
+                        <option value="18.00 - 19.00">18.00 - 19.00</option>
+                        <option value="19.00 - 20.00">19.00 - 20.00</option>
+                        <option value="20.00 - 21.00">20.00 - 21.00</option>
+                        <option value="21.00 - 22.00">21.00 - 22.00</option>
+                      </select> <br><br>
+
+                      <input type="text" class = "input" name="no_of_students" placeholder="No of Students" required> <br><br>
+
+
+                      <input type="submit" name="submit" value="Update" class="btn">
+                    </div>
+                  </form>
+                  </div>
+
+
+                  <?php
+                      // Check if form is submitted
+                      if(isset($_POST['submit'])){
+
+                          // Get form data
+                          $day = $_POST['day'];
+                          $time = $_POST['time'];
+                          $no_of_students = $_POST['no_of_students'];
+
+                          // Prepare SQL statement to update the table
+                          $sql = "UPDATE coach_classes SET day = '$day', time = '$time', no_of_students = '$no_of_students' WHERE id = '$id'";
+
+                          // Execute SQL statement
+                          if (mysqli_query($linkDB, $sql)) {
+                              echo "Record updated successfully";
+                          } else {
+                              echo "Error updating record: " . mysqli_error($linkDB);
+                          }
+                      }
+                  ?>
+
+
                 </div>
 
                 <div class="delete">
 
                   <h3> Delete </h3>
+
+                </div>
+
+                <div class="request">
+
+                  <h3> Request </h3>
 
                 </div>
 

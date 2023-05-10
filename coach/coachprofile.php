@@ -82,7 +82,7 @@
                       // Check if a file was selected for upload
                       if(!empty($_FILES['image']['name'])) {
                         // Upload the image to a temporary location
-                        $tempname = $_FILES['image']['name'];
+                        $tempname = uniqid() . '_' . $_FILES['image']['name'];
                         $folder = "../img/";
                         $target_file = $folder . basename($tempname);
                         move_uploaded_file($_FILES['image']['tmp_name'], $target_file);

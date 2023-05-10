@@ -54,65 +54,55 @@
             <table class="table">
 
                 <tr>
-
-                    
                     <th> Name</th>
                     <th> Date of Birth </th>
                     <th> Gender </th>
                     <th> NIC </th>
                     <th> Contact No. </th>
                     <th> Address </th>
-
+                    <th> Emergency Contact No. </th>
+                    <th> Emergency Contact Name </th>
                 </tr>
 
-                <?php
+                <?php  
 
-                        
+                
 
-                        if (isset($_POST['go'])) {
-                            $search = $_POST['search'];
-                        } else {
-                            $search = null;
-                        }
-
-                        if ($search) {
-                            $query = "SELECT * FROM coach_students WHERE name LIKE '%$search%'";
-                        } elseif ($search) {
-                            $query = "SELECT * FROM coach_students WHERE gender LIKE '%$search%'";
-                        } else {
-                            $query = "SELECT * FROM coach_students";
-                        }
-
-                        $res = mysqli_query($linkDB, $query);
-
-                        if ($res == TRUE) {
-                            $count = mysqli_num_rows($res);
-
-                            if ($count > 0) {
-                                while ($rows = mysqli_fetch_assoc($res)) {
-                                    echo "<tr>
-                                            
-                                            <td>" . $rows["name"]. "</td>
-                                            <td>" . $rows["dob"]. "</td>
-                                            <td>" . $rows["gender"]. "</td>
-                                            <td>" . $rows["NIC"]. "</td>
-                                            <td>" . $rows["phoneNo"]. "</td>
-                                            <td>" . $rows["address"]. "</td>
-                                        </tr>";
-                                }
-                            } else {
-                                echo "0 results";
+                    $query = "SELECT * from users 
+                                WHERE email = (SELECT client_classes.email FROM client_classes INNER JOIN coach_classes 
+                                                ON coach_classes.class_id = client_classes.class_id 
+                                                WHERE coach_classes.email = '$var') ";
+                                                
+                    $res = mysqli_query($linkDB,$query);
+                    if($res == TRUE)
+                    {
+                        $count = mysqli_num_rows($res);
+                        if($count > 0)
+                        {
+                            while($rows=mysqli_fetch_assoc($res))
+                            {
+                                $id=$rows['id'];
+                                echo "<tr id='row_id'>
+                                <td>" . $rows["fname"]. "</td>
+                                <td>" . $rows["dob"]. "</td>
+                                <td>" . $rows["gender"]. "</td>
+                                <td>" . $rows["NIC"]. "</td>
+                                <td>" . $rows["phone"]. "</td>
+                                <td>" . $rows["address"]. "</td>
+                                <td>" . $rows["emphone"]. "</td>
+                                <td>" . $rows["emname"]. "</td>
+                            </tr>"; 
                             }
                         }
+                    }
+                
+                
+                ?>
 
-                        mysqli_close($linkDB);
-
-                        ?>
-          
      
             </table>
 
-            </div>
+        </div>
 
     </div>
 

@@ -82,7 +82,7 @@
                                                     <td>" . $rows["itemname"]. "</td>
                                                     <td>" . $rows["price"]. "</td>
                                                     <td>" . $rows["quantity"]. "</td>
-                                                    <td><input type='number' name='quantity'></td>
+                                                    <td><input type='number' name='quantity' required min= '0'></td>
                                                     <td><button type='submit' name='add-to-cart'><i class='fa fa-cart-plus'></i></button></td>
                                                 </tr>";
                                         }
@@ -106,7 +106,7 @@
                                                     <td>" . $rows["itemname"]. "</td>
                                                     <td>" . $rows["price"]. "</td>
                                                     <td>" . $rows["quantity"]. "</td>
-                                                    <td><input type='number' name='quantity'></td>
+                                                    <td><input type='number' name='quantity' required min= '0'></td>
                                                     <td><button type='submit' name='add-to-cart'><i class='fa fa-cart-plus'></i></button></td>
                                                 </tr>";
                                         }

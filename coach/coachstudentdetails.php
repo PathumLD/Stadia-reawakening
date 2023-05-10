@@ -60,7 +60,7 @@
                     // Output the headline with the database values
                     $row = mysqli_fetch_assoc($result);
                     $sport = $row['sport'];
-                    $day = $row["date"];
+                    $day = $row["day"];
                     $timeSlot = $row["time"];
                     $ageGroup = $row["age_group"];
                     echo "<h2>$sport | $day | $timeSlot | Age : $ageGroup</h2>";
@@ -77,6 +77,7 @@
                <tr><td> <form method="post">
                     <input type="text" name="search" class ="search" placeholder="Student Name...">
                     <input type="submit" name="go" value="search" id = "searchbtn">
+                    <a href="coachstudentdetails.php"><input type="submit" name="reset" value="reset" id = "resetbtn"></a>
                 </form></td></tr>
             </table>
 
@@ -84,99 +85,75 @@
             <table class="table">
 
                 <tr>
-
-                    <th> </th>
                     <th> Name</th>
                     <th> Date of Birth </th>
                     <th> Gender </th>
                     <th> NIC </th>
                     <th> Contact No. </th>
+                    <th> Address </th>
                     <th> Emergency Number </th>
                     <th> Emergency Name </th>
-
                 </tr>
 
                 <?php
-
                     if(isset($_POST['go'])){
-                    
                         $search = $_POST['search'];
 
-                        $query = "SELECT * FROM coach_students WHERE name LIKE '%$search%' ";
+                        $query = "SELECT * FROM users 
+                            WHERE email IN (SELECT client_classes.email FROM client_classes INNER JOIN coach_classes 
+                                ON coach_classes.class_id = client_classes.class_id 
+                                WHERE coach_classes.id = '$id')
+                            AND fname LIKE '%$search%' ";
                         $res = mysqli_query($linkDB, $query); 
-                            if($res == TRUE) 
-                            {
-                                $count = mysqli_num_rows($res); //calculate number of rows
-                                if($count>0)
-                                {
-                                    while($rows=mysqli_fetch_assoc($res))
-                                    {
-                                        echo "<tr>
-                                            <td> </td>
-                                            <td>" . $rows["name"]. "</td>
-                                            <td>" . $rows["dob"]. "</td>
-                                            <td>" . $rows["gender"]. "</td>
-                                            <td>" . $rows["NIC"]. "</td>
-                                            <td>" . $rows["phoneNo"]. "</td>
-                                            
-                                        </tr>";
-                                    }
-                                } elseif($search=='all') {
-                                    $query = "SELECT * FROM coach_classes ";
-                                    $res = mysqli_query($linkDB, $query); 
-                                            if($res == TRUE) 
-                                            {
-                                                $count = mysqli_num_rows($res); //calculate number of rows
-                                                if($count>0)
-                                                {
-                                                    while($rows=mysqli_fetch_assoc($res))
-                                                    {
-                                                        echo "<tr>
-                                                            <td> </td>
-                                                            <td>" . $rows["name"]. "</td>
-                                                            <td>" . $rows["dob"]. "</td>
-                                                            <td>" . $rows["gender"]. "</td>
-                                                            <td>" . $rows["NIC"]. "</td>
-                                                            <td>" . $rows["phoneNo"]. "</td>
 
-                                                            </tr>";
-                                                    }
-                                                } else {
-                                                    echo "0 results";
-                                                }
-                                            }
-                                    // echo "0 results";
+                        if($res == TRUE) {
+                            $count = mysqli_num_rows($res);
+                            if($count > 0) {
+                                while($rows = mysqli_fetch_assoc($res)) {
+                                    echo "<tr>
+                                        <td>" . $rows["fname"]. "</td>
+                                        <td>" . $rows["dob"]. "</td>
+                                        <td>" . $rows["gender"]. "</td>
+                                        <td>" . $rows["NIC"]. "</td>
+                                        <td>" . $rows["phone"]. "</td>
+                                        <td>" . $rows["address"]. "</td>
+                                        <td>" . $rows["emphone"]. "</td>
+                                        <td>" . $rows["emname"]. "</td>
+                                    </tr>";
                                 }
+                            } else {
+                                echo "0 results";
                             }
-                    }
-                    else{
-                    $query = "SELECT * FROM users INNER JOIN client_classes ON users.email=client_classes.email where client_classes.class_id = $id ";
-                    $res = mysqli_query($linkDB, $query); 
-                            if($res == TRUE) 
-                            {
-                                $count = mysqli_num_rows($res); //calculate number of rows
-                                if($count>0)
-                                {
-                                    while($rows=mysqli_fetch_assoc($res))
-                                    {
-                                        echo "<tr>
-                                                <td> </td>
-                                                <td>" . $rows["fname"]. " " . $rows["lname"].  "</td>
-                                                <td>" . $rows["dob"]. "</td>
-                                                <td>" . $rows["gender"]. "</td>
-                                                <td>" . $rows["NIC"]. "</td>
-                                                <td>" . $rows["phone"]. "</td>
-                                                <td>" . $rows["emphone"]. "</td>
-                                                <td>" . $rows["emname"]. "</td>
-                                                
-                                            </tr>";
-                                    }
-                                } else {
-                                    echo "0 results";
+                        }
+                    } else {
+                        $query = "SELECT * FROM users 
+                            WHERE email IN (SELECT client_classes.email FROM client_classes INNER JOIN coach_classes 
+                                ON coach_classes.class_id = client_classes.class_id 
+                                WHERE coach_classes.id = '$id')";
+                        $res = mysqli_query($linkDB, $query); 
+
+                        if($res == TRUE) {
+                            $count = mysqli_num_rows($res);
+                            if($count > 0) {
+                                while($rows = mysqli_fetch_assoc($res)) {
+                                    echo "<tr>
+                                        <td>" . $rows["fname"]. "</td>
+                                        <td>" . $rows["dob"]. "</td>
+                                        <td>" . $rows["gender"]. "</td>
+                                        <td>" . $rows["NIC"]. "</td>
+                                        <td>" . $rows["phone"]. "</td>
+                                        <td>" . $rows["address"]. "</td>
+                                        <td>" . $rows["emphone"]. "</td>
+                                        <td>" . $rows["emname"]. "</td>
+                                    </tr>";
                                 }
-                            }    
-                        }      
-                    ?>
+                            } else {
+                                echo "0 results";
+                            }
+                        }    
+                    }      
+                ?>
+
      
             </table>
 

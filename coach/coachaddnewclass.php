@@ -70,8 +70,8 @@
                           <option value="swimming">Swimming</option>
                       </select> <br><br>
 
-                      <select name="date" class="drop" required>
-                          <option value="" disabled selected>Date</option>
+                      <select name="day" class="drop" required>
+                          <option value="" disabled selected>Day</option>
                           <option value="monday">Monday</option>
                           <option value="tuesday">Tuesday</option>
                           <option value="wednesday">Wednesday</option>
@@ -108,8 +108,11 @@
                           <option value="Above 21">Above 21</option>
                       </select> <br><br>
 
-                          <input type="text" name="no_of_students" placeholder="No of Students" required> <br><br>
-                          <input type="submit" name= "submit" value="Save" class="btn">
+                      <input type="number" name="months" placeholder="Months" required min="1" max="3"> <br><br>
+
+
+                      <input type="text" name="no_of_students" placeholder="No of Students" required> <br><br>
+                      <input type="submit" name= "submit" value="Save" class="btn">
 
                   </form>
                 
@@ -136,9 +139,10 @@
 
         $level = $_POST['level'];
         $sport = $_POST['sport'];
-        $date = $_POST['date'];
+        $day = $_POST['day'];
         $time = $_POST['time'];
         $age_group = $_POST['age_group'];
+        $months = $_POST['months'];
         $no_of_students = $_POST['no_of_students'];
         $email = $_SESSION['email'];
 
@@ -149,14 +153,17 @@
         $coach = $row['coach_name'];
 
 
-       
-        $sql = "INSERT INTO coach_classes (level, sport, date, time, age_group, no_of_students, email, coach) VALUES ('$level', '$sport', '$date', '$time', '$age_group', '$no_of_students', '$email', '$coach')";
-        if(mysqli_query($linkDB, $sql)){
-          echo "<script>window.location.href='coachclasses.php'; </script>";
+        // Validate the input for months
+        if($months >= 1 && $months <= 3) {
+            $sql = "INSERT INTO coach_classes (level, sport, day, time, age_group, months, no_of_students, email, coach) VALUES ('$level', '$sport', '$day', '$time', '$age_group', '$months', '$no_of_students', '$email', '$coach')";
+            if(mysqli_query($linkDB, $sql)){
+                echo "<script>window.location.href='coachclasses.php'; </script>";
+            } else {
+                echo "Error: " . $sql . "<br>" . mysqli_error($linkDB);
+            }
         } else {
-            echo "Error: " . $sql . "<br>" . mysqli_error($linkDB);
+            echo "Months count should be between 1 and 3";
         }
-
     }
 
 ?>

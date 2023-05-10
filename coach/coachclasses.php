@@ -86,6 +86,7 @@
                                 <th> Age Group </th>
                                 <th> Level </th>
                                 <th> No. of Students </th>
+                                <th> Months </th>
                                 <th> Student Details </th>
                                 <th> Action </th>
 
@@ -107,7 +108,7 @@
                                     if($search == 'all') {
                                         $query = "SELECT * FROM coach_classes WHERE email='$email'";
                                     } else {
-                                        $query = "SELECT * FROM coach_classes WHERE date LIKE '%$search%' AND email='$email' AND status = '1' OR status = '2'";
+                                        $query = "SELECT * FROM coach_classes WHERE day LIKE '%$search%' AND email='$email' AND status = '1' OR status = '2'";
                                     }
 
                                     $res = mysqli_query($linkDB, $query);
@@ -120,12 +121,13 @@
                                                 $id = $rows['id'];
 
                                                 echo "<tr id='row_$id'>  
-                                                    <td>" . $rows["date"]. "</td>
+                                                    <td>" . $rows["day"]. "</td>
                                                     <td>" . $rows["sport"]. "</td>
                                                     <td>" . $rows["time"]. "</td>
                                                     <td>" . $rows["age_group"]. "</td>
                                                     <td>" . $rows["level"]. "</td>
                                                     <td>" . $rows["no_of_students"]. "</td>
+                                                    <td>" . $rows["months"]. "</td>
                                                     <td><a href='coachstudentdetails.php?id=$id;'>View</a> </td>
                                                     <td><a href='coachupdateclass.php?id=$id;'><i class='fa fa-edit' id='edit' style='font-size:24px'></i></a>
                                                     
@@ -159,6 +161,7 @@
                                 <th> Sport </th>
                                 <th> Time</th>
                                 <th> Age Group </th>
+                                <th> Months </th>
                                 <th> Status </th>
                             </tr>
 
@@ -184,10 +187,11 @@
 
                                             if ($rows["status"] == 0) {
                                                 echo "<tr id='row_$id'>  
-                                                    <td>" . $rows["date"]. "</td>
+                                                    <td>" . $rows["day"]. "</td>
                                                     <td>" . $rows["sport"]. "</td>
                                                     <td>" . $rows["time"]. "</td>
                                                     <td>" . $rows["age_group"]. "</td>
+                                                    <td>" . $rows["months"]. "</td>
                                                     <td> Pending </td>
                                                 </tr>";
                                             }
@@ -241,7 +245,7 @@
 
                                             if ($rows["status"] == 2) {
                                                 echo "<tr id='row_$id'>  
-                                                    <td>" . $rows["date"]. "</td>
+                                                    <td>" . $rows["day"]. "</td>
                                                     <td>" . $rows["sport"]. "</td>
                                                     <td>" . $rows["time"]. "</td>
                                                     <td>" . $rows["age_group"]. "</td>
