@@ -53,44 +53,54 @@
             selectHelper:true,
             select: function(start, end, allDay)
             {
-                var today = moment().startOf('day');
-                var now = moment();
+      var today = moment().startOf('day');
+      var now = moment();
 
-                // check if the selected start time is before the current time + 30 minutes
-                var threshold = moment().add(30, 'minutes');
-                if (start < threshold) {
-                  alert("Cannot add event for past or current time slots.");
-                  return;
-                }
+      // check if the selected start time is before the current time + 30 minutes
+      var threshold = moment().add(30, 'minutes');
+      if (start < threshold) {
+        alert("Cannot add event for past or current time slots.");
+        return;
+      }
 
-                // check if the selected start time is within the next 3 months
-                var maxDate = moment().add(3, 'months');
-                if (start > maxDate) {
-                  alert("Cannot add event more than 3 months in advance.");
-                  return;
-                }
-                
-                var title = prompt("Enter Your Name");
-                if(title)
-                {
-                  var startDate = moment(start).startOf('hour');
-                  var endDate = moment(start).startOf('hour').add(1, 'hour');
+      // check if the selected start time is within the next 3 months
+      var maxDate = moment().add(3, 'months');
+      if (start > maxDate) {
+        alert("Cannot add event more than 3 months in advance.");
+        return;
+      }
 
-                  var start = $.fullCalendar.formatDate(startDate, "Y-MM-DD HH:mm:ss");
-                  var end = $.fullCalendar.formatDate(endDate, "Y-MM-DD HH:mm:ss");
+      var numSlots = parseInt(prompt("Enter the number of consecutive slots you want to book:"));
+      if (isNaN(numSlots) || numSlots <= 0) {
+        alert("Please enter a valid number of slots.");
+        return;
+      }
 
-                  $.ajax({
-                      url:"slotsbadminton1insert.php",
-                      type:"POST",
-                      data:{title:title, start:start, end:end},
-                      success:function()
-                      {
-                        calendar.fullCalendar('refetchEvents');
-                        alert("Slot Booked Successfully");
-                      }
-                  })
-                }
-            },
+      var title = prompt("Enter Your Name");
+      if (!title) {
+        return;
+      }
+
+      for (var i = 0; i < numSlots; i++) {
+        var slotStart = moment(start).add(i, 'hours').startOf('hour');
+        var slotEnd = moment(slotStart).add(1, 'hour');
+
+        var slotTitle = title + ' - Slot ' + (i + 1) + ' of ' + numSlots;
+        var slotStartDate = $.fullCalendar.formatDate(slotStart, "Y-MM-DD HH:mm:ss");
+        var slotEndDate = $.fullCalendar.formatDate(slotEnd, "Y-MM-DD HH:mm:ss");
+
+        $.ajax({
+          url:"slotsbadminton1insert.php",
+          type:"POST",
+          data:{title:slotTitle, start:slotStartDate, end:slotEndDate},
+          success:function() {
+            calendar.fullCalendar('refetchEvents');
+          }
+        });
+      }
+
+      alert("Slots booked successfully.");
+    },
             editable:true,
             eventResize:function(event)
             {
