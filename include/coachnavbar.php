@@ -1,6 +1,6 @@
 <div class="sidebar-button">
 
-        <i class="fa fa-bars sidebarBtn" ></i>
+        <button onclick="toggleSidebar()"><i class="fa fa-bars sidebarBtn" ></i></button>
         <span class="hello">
 
 <?php

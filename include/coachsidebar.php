@@ -14,7 +14,7 @@
         </button>
         <div class="dropdown-container">
             
-            <a href="coachslotsbadminton.php">Badminton</a>
+            <a href="coachslotsbadminton1.php">Badminton</a>
             <a href="coachslotsbasketball.php">Basketball</a>
             <a href="coachslotsvolleyball.php">Volleyball</a>
             <a href="coachslotstennis.php">Tennis</a>
@@ -27,3 +27,14 @@
         </div>
         
     </div>
+
+<script>
+    function toggleSidebar() {
+  var sidebar = document.querySelector(".sidebar");
+  if (sidebar.style.width === "240px") {
+    sidebar.style.width = "0";
+  } else {
+    sidebar.style.width = "240px";
+  }
+}
+</script>
