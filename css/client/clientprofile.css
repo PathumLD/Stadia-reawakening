@@ -24,26 +24,6 @@
     border-radius: 20px;
     width: 50%;
 }
-  
-.home-content .main-content .content .table a{
-  color: rgb(0, 0, 0);
-  text-decoration: none;
-  font-weight: bold;
-}
-  
-.home-content .main-content .content .table a:hover{
-  color: rgb(0, 0, 0);
-  font-weight: bolder;
-  padding: 0px;
-  /* font-size: 1.1rem; */
-}
-
-.home-content .main-content .content #tableprofile .open-button{
-  background:none;
-  border: 0;
-  font-size: 25px;
-  margin-left: 10px;
-}
  
  /* profile update button popup css */
 
@@ -114,137 +94,6 @@
   cursor: pointer;
 }
 
-/* Profile picture */
-
-.profilepic {
-  position: relative;
-  display: inline-block;
-}
-
-.profilepic img{
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  margin-top: 0.5rem;
-  margin-left: 6rem;
-  object-fit: cover;
-}
-
-.profilepic form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  /* position: absolute; */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  /* opacity: 0; */
-  z-index: -1;
-}
-
-.profilepic form label {
-  cursor: pointer;
-  color: #3B6E51;
-  margin-left: -40%;
-  margin-top: 2%;
-}
-
-.profilepic form #imageName {
-  color: #3B6E51;
-}
-
-.profilepic input[type="file"] {
-  display: none;
-}
-
-.profilepic input[type="submit"] {
-  background: #264838;
-  background: linear-gradient(0deg, #264838 0%, #3B6E51 100%);
-  border: none;
-  color: #fff;
-  border-radius: 5px;
-  padding: 5px 10px 5px 10px;
-  font-weight: 400;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  outline: none;
-  margin-top: 0.5rem;
-  box-shadow: inset 2px 2px 2px 0px rgba(214, 239, 199, .5), 7px 7px 20px 0px rgba(0, 0, 0, .1), 4px 4px 5px 0px rgba(0, 0, 0, .1);
-}
-
-.profilepic input[type="submit"]:hover {
-  box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, .5),
-    -4px -4px 6px 0 rgba(116, 125, 136, .5),
-    inset -4px -4px 6px 0 rgba(255, 255, 255, .2),
-    inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
-}
-
-.profilepic form input[type="submit"] {
-  position: absolute;
-  /* bottom: -2rem; */
-  left: 103%;
-  transform: translateX(-50%);
-}
-
-/* .profilepic input[type="file"]:focus + span {
-  outline: 1px dotted #000;
-}
-
-.profilepic input[type="file"]:hover + span {
-  text-decoration: underline;
-}
-
-.profilepic input[type="file"]:focus + span,
-.profilepic input[type="file"]:hover + span {
-  color: #264838;
-} */
-
-/* .profilepic table td{
-  width: 30%;
-}
-
-.profilepic input[type="file"] {
-  display: none;
-  margin-bottom: 2%;
-}
-
-.profilepic input[type="submit"] {
-  position: fixed;
-  background: #264838;
-  background: linear-gradient(0deg, #264838 0%, #3B6E51 100%);
-  border: none;
-  color: #fff;
-  border-radius: 5px;
-  padding: 5px 10px 5px 10px;
-  font-weight: 400;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  outline: none;
-  margin-bottom: 4%;
-  margin-left: 200px;
-  box-shadow:inset 2px 2px 2px 0px rgba(214,239,199,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
-}
-
-.profilepic input[type="submit"]:hover{
-    box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
-    -4px -4px 6px 0 rgba(116, 125, 136, .5), 
-inset -4px -4px 6px 0 rgba(255,255,255,.2),
-inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
-}
-
-.profilepic label{
-  cursor: pointer;
-  color: #3B6E51;
-  margin-left: 3rem;
-}
-
-.profilepic #imageName{
-  color: #3B6E51;
-} */
-
       /* DIV boxes  */
 
 .content .left {
@@ -252,7 +101,7 @@ inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
   flex-direction: column;
   background-color: #ffffff;
   width: 40%;
-  height: 40rem;
+  height: 38rem;
   border-radius: 20px;
   margin-left: 3rem;
   margin-top: 2rem;
@@ -263,9 +112,9 @@ inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
   flex-direction: column;
   float: right;
   width: 50%;
-  height: 40rem;
+  height: 38rem;
   margin-right: 2rem;
-  margin-top: -40rem;
+  margin-top: -38rem;
   margin-bottom: 2rem;
   border-radius: 20px;
   box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2); 
@@ -294,19 +143,14 @@ inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
   padding: 8px;
 }
 
-.content .right .details h3{
+.content .left .details h3{
   text-align: center;
   color: #6d9976;
   width: 80%;
   margin-left: 10%;
 }
 
-.content .left .top h4, .content .left .bottom h4{
-  text-align: center;
-  font-weight: normal;
-}
-
-.content .right .btn {
+.content .left .btn {
   background: #264838;
   background: linear-gradient(0deg, #264838 0%, #3B6E51 100%);
   border: none;
@@ -321,16 +165,16 @@ inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
   position: relative;
   outline: none;
   margin-bottom: 2%;
-  margin-left: 15%;
+  margin-left: 20%;
   box-shadow:inset 2px 2px 2px 0px rgba(214,239,199,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
 }
 
-.content .right .btn:before {
+.content .left .btn:before {
   height: 0%;
   width: 2px;
 }
 
-.content .right .btn:hover {
+.content .left .btn:hover {
   box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
               -4px -4px 6px 0 rgba(116, 125, 136, .5), 
     inset -4px -4px 6px 0 rgba(255,255,255,.2),
@@ -339,87 +183,87 @@ inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
 
 /* Popup container */
 .popup , .popup1, .popup2, .popup3 {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   }
   
-  /* Popup content */
-  .popup-content {
-    background-color: #fefefe;
-    margin: 10% auto; /* 10% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 30%; /* Could be more or less, depending on screen size */
-  }
+/* Popup content */
+.popup-content {
+  background-color: #fefefe;
+  margin: 10% auto; /* 10% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 30%; /* Could be more or less, depending on screen size */
+}
 
-  input[type=password], input[type=tel],input[type=text]{
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-  }
+input[type=password], input[type=tel],input[type=text]{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
 
-  .popup-content h3{
-    text-align: center;
-    text-justify: inter-word;
-    margin-bottom: 10px;
-    margin-top: 0;
-  }
+.popup-content h3{
+  text-align: center;
+  text-justify: inter-word;
+  margin-bottom: 10px;
+  margin-top: 0;
+}
 
-  .popup-content .btn{
-    background: #264838;
-    background: linear-gradient(0deg, #264838 0%, #3B6E51 100%);
-    border: none;
-    width: 200px;
-    height: 40px;
-    color: #fff;
-    border-radius: 5px;
-    padding: 10px 25px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    outline: none;
-    margin-top: 2%;
-    margin-bottom: 2%;
-    margin-left: 25%;
-    box-shadow:inset 2px 2px 2px 0px rgba(214,239,199,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
-  }
+.popup-content .btn{
+  background: #264838;
+  background: linear-gradient(0deg, #264838 0%, #3B6E51 100%);
+  border: none;
+  width: 200px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  outline: none;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  margin-left: 25%;
+  box-shadow:inset 2px 2px 2px 0px rgba(214,239,199,.5), 7px 7px 20px 0px rgba(0,0,0,.1), 4px 4px 5px 0px rgba(0,0,0,.1);
+}
 
-  .popup-content .btn::before{
-    height: 0%;
-    width: 2px;
-  }
+.popup-content .btn::before{
+  height: 0%;
+  width: 2px;
+}
 
-  .popup-content .btn:hover {
-    box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
-                -4px -4px 6px 0 rgba(116, 125, 136, .5), 
-      inset -4px -4px 6px 0 rgba(255,255,255,.2),
-      inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
-  }
-  
-  /* Close button */
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  
-  .close:hover, .close:focus {
-    color: red;
-    text-decoration: none;
-    cursor: pointer;
-  }
+.popup-content .btn:hover {
+  box-shadow:  4px 4px 6px 0 rgba(255,255,255,.5),
+              -4px -4px 6px 0 rgba(116, 125, 136, .5), 
+    inset -4px -4px 6px 0 rgba(255,255,255,.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
+}
+
+/* Close button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover, .close:focus {
+  color: red;
+  text-decoration: none;
+  cursor: pointer;
+}
 
 /* success message */
 
@@ -442,4 +286,30 @@ inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
   margin-right: 2rem;
   margin-left: 2rem;
 }
-  
+ 
+/* Profile picture */     
+
+.profilepic img{
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin-left: 70%;
+  object-fit: cover;
+  margin-top: 10%;
+}
+
+.content .profilepic input[type="file"] {
+  display: none;
+  margin-bottom: 2%;
+}
+
+.profilepic table td label i{
+  font-size: 2rem;
+  color: #3B6E51;
+  padding-top: 150px;
+  padding-left: 100px;
+}
+
+.profilepic label i:hover{
+  color: #264838
+}
