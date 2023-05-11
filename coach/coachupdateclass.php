@@ -151,15 +151,90 @@
 
                 </div>
 
+                <div class="request">
+
+                  <h3> Leave Request </h3>
+
+                  <p>Enter the date that you are going to take leave</p>
+
+                      <br><br>
+                      <form method="post">
+                        <?php
+                          // Get the classid from the database
+                          $sql = "SELECT class_id FROM coach_classes WHERE id = '$id'";
+                          $result = mysqli_query($linkDB, $sql);
+                          $row = mysqli_fetch_assoc($result);
+                          $classid = $row['class_id'];
+
+                          // Show the classid as a label in the form
+                          // echo "<label for='classid'>Class ID: </label><input type='text' name='classid' id='classid' value='$classid' readonly>";
+                        ?>
+                        <br>
+                        <!-- <label for="date">Date:</label> -->
+                        <input type="date" name="date" id="date" class="input2"> <br><br>
+                        <input type="submit" name="submit2" value="Send" class="btn">
+                      </form>
+
+                      <?php
+                        if(isset($_POST['submit2'])){  
+                          // $id = $_POST["id"]; // Assuming the row id is passed through the form
+                          $date = $_POST['date'];
+
+                          // Retrieve the classid from the coach_classes table based on the row id
+                          $query = "SELECT class_id FROM coach_classes WHERE id = '$id'";
+                          $result = mysqli_query($linkDB, $query);
+                          $row = mysqli_fetch_assoc($result);
+                          $classid = $row['class_id'];
+
+                          // Insert the data into the request table
+                          $sql = "INSERT INTO request (classid, date) VALUES ('$classid', '$date')";
+                          $rs= mysqli_query($linkDB,$sql);
+
+                        }
+                      ?>
+
+                </div>
+
+
                 <div class="delete">
 
                   <h3> Delete </h3>
 
-                </div>
+                  <br><br>
+                      <form method="post">
+                        <?php
+                          // Get the classid from the database
+                          $sql = "SELECT class_id FROM coach_classes WHERE id = '$id'";
+                          $result = mysqli_query($linkDB, $sql);
+                          $row = mysqli_fetch_assoc($result);
+                          $classid = $row['class_id'];
 
-                <div class="request">
+                        ?>
 
-                  <h3> Request </h3>
+                          <!-- Show t"he classid as a label in the form -->
+                          <span id ="classid"><?php echo " Class ID : $classid";?></span> <br><br>
+
+                        <br>
+                        <input type="submit" name="submit2" value="Send" class="btn">
+                      </form>
+
+                      <?php
+                        if(isset($_POST['submit2'])){  
+                          // $id = $_POST["id"]; // Assuming the row id is passed through the form
+                          $date = $_POST['date'];
+
+                          // Retrieve the classid from the coach_classes table based on the row id
+                          $query = "SELECT class_id FROM coach_classes WHERE id = '$id'";
+                          $result = mysqli_query($linkDB, $query);
+                          $row = mysqli_fetch_assoc($result);
+                          $classid = $row['class_id'];
+
+                          // Insert the data into the request table
+                          $sql = "INSERT INTO request (classid, date) VALUES ('$classid', '$date')";
+                          $rs= mysqli_query($linkDB,$sql);
+
+                        }
+                      ?>
 
                 </div>
 
@@ -200,22 +275,7 @@
         }
 </script>
 
-<script>
-function openForm() {
-  document.getElementById("myForm").style.display = "block";
-}
 
-function closeForm() {
-  document.getElementById("myForm").style.display = "none";
-}
-</script>
 
-<script>
-function openForm2() {
-  document.getElementById("myForm2").style.display = "block";
-}
 
-function closeForm2() {
-  document.getElementById("myForm2").style.display = "none";
-}
-</script>
+
