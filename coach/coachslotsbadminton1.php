@@ -37,7 +37,7 @@
                 right:'agendaWeek,month'
             },
             defaultView: 'agendaWeek',
-            events: 'slotsbadminton2load.php',
+            events: 'slotsbadminton1load.php',
             views: {
                 month: {
                   selectable: false
@@ -104,7 +104,7 @@
                 var slotEndDate = $.fullCalendar.formatDate(moment(slotStart).add(1, 'hour'), "Y-MM-DD HH:mm:ss");
 
                 $.ajax({
-                  url:"slotsbadminton2insert.php",
+                  url:"slotsbadminton1insert.php",
                   type:"POST",
                   data:{title:slotTitle, start:slotStartDate, end:slotEndDate},
                   success:function() {
@@ -148,7 +148,7 @@
                 }
 
                 $.ajax({
-                  url:"slotsbadminton2update.php",
+                  url:"slotsbadminton1update.php",
                   type:"POST",
                   data:{title:title, start:start, end:end, id:id},
                   success:function(){
@@ -203,7 +203,7 @@
 
                   // if the new slot is available, update the event's start and end time
                   $.ajax({
-                    url:"slotsbadminton2update.php",
+                    url:"slotsbadminton1update.php",
                     type:"POST",
                     data:{title:title, start:start, end:end, id:id},
                     success:function(){
@@ -230,7 +230,7 @@
                   {
                       var id = event.id;
                       $.ajax({
-                          url:"slotsbadminton2delete.php",
+                          url:"slotsbadminton1delete.php",
                           type:"POST",
                           data:{id:id},
                           success:function()
@@ -252,66 +252,66 @@
 
 
    </head>
-<body onload="initClock()">
+      <body onload="initClock()">
 
-<div class="sidebar">
+      <div class="sidebar">
 
-    <?php include('../include/coachsidebar.php'); ?>
+          <?php include('../include/coachsidebar.php'); ?>
 
-</div>
+      </div>
 
-<section class="home-section">
+      <section class="home-section">
 
-    <nav>
+          <nav>
 
-        <?php include('../include/coachnavbar.php'); ?>
+              <?php include('../include/coachnavbar.php'); ?>
 
-    </nav>
+          </nav>
 
-    <div class="home-content">
+          <div class="home-content">
 
-        <div class="main-content">
+              <div class="main-content">
 
-            <?php $var = $_SESSION['email']; ?>
+                  <?php $var = $_SESSION['email']; ?>
 
-            <h1>Slots - Badminton Court 2</h1>
+                  <h1>Slots - Badminton Court 1</h1>
 
-            <div class="content">
+                  <div class="content">
 
-              <div class="segmented-control">
-        
-                <input type="radio" name="radio2" value="1" id="tab-1" />
-                <label for="tab-1" class= "segmented-control__1">
-                  <p><a href="coachslotsbadminton2.php">Court 1</a></p>
-                </label>
-                                
-                <input type="radio" name="radio2" value="2" id="tab-2" checked/>
-                <label for="tab-2" class= "segmented-control__2">
-                  <p><a href="coachslotsbadminton2.php">Court 2</a></p>
-                </label>
-                
-                <div class="segmented-control__color"></div>
+                    <div class="segmented-control">
+              
+                      <input type="radio" name="radio2" value="1" id="tab-1" checked/>
+                      <label for="tab-1" class= "segmented-control__1">
+                        <p><a href="coachslotsbadminton1.php">Court 1</a></p>
+                      </label>
+                                      
+                      <input type="radio" name="radio2" value="2" id="tab-2" />
+                      <label for="tab-2" class= "segmented-control__2">
+                        <p><a href="coachslotsbadminton2.php">Court 2</a></p>
+                      </label>
+                      
+                      <div class="segmented-control__color"></div>
+                    </div>
+
+                  <div class="container">
+                    <div id="calendar"></div>
+                  </div>
+
+                </div>
+
               </div>
-
-            <div class="container">
-              <div id="calendar"></div>
-            </div>
 
           </div>
 
-        </div>
+          <footer>
+              <div class="foot">
+                <?php include("../include/footer.php"); ?>
+              </div>
+          </footer> 
 
-    </div>
+      </section>
 
-    <footer>
-        <div class="foot">
-          <?php include("../include/footer.php"); ?>
-        </div>
-    </footer> 
-
-</section>
-
-</body>
+      </body>
 </html>
 
 <script>
