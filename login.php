@@ -82,7 +82,7 @@
               <div class="input-box">
                 <i class="fas fa-envelope"></i>
                 <input type="text" placeholder="Email" name="email" required>
-                <input type="text" name="dob" onfocus="(this.type = 'date')" placeholder="Date of Birth" required>
+                <input type="text" name="dob" onfocus="(this.type = 'date')" placeholder="Date of Birth" max="<?php echo date('Y-m-d'); ?>" required>
               </div>
 
               <div class="input-box">
