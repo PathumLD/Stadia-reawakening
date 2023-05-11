@@ -60,9 +60,10 @@
                             <thead>
                                 <tr>
                                     <th>Item Name</th>
-                                    <th>Price</th>
+                                    <th>Price (Rs.)</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
                                     <th>Quantity</th>
-                                    <th>Date and Time</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -80,7 +81,8 @@
                                     <tr>
                                         <td><label><?= $row_drinks['itemname'] ?></label></td>
                                         <td><label><?= $row_drinks['price'] ?></label></td>
-                                        <td><input type="datetime-local" name="datetime_<?= $productId ?>" min="<?= date('Y-m-d\TH:i', strtotime('now')) ?>" max="<?= date('Y-m-d\TH:i', strtotime('+3 months')) ?>"></td>
+                                        <td><input type="date" name="date_<?= $productId ?>" min="<?= date('Y-m-d', strtotime('now')) ?>" max="<?= date('Y-m-d', strtotime('+3 months')) ?>"></td>
+                                        <td><input type="time" name="time_<?= $productId ?>" value="12:00" step="900" min="07:00" max="22:00"></td>                                        
                                         <td><input type="number" name="quantity_<?= $productId ?>" value="1" min="1"></td>
                                         <td><button type="submit" name="add_to_cart_<?= $productId ?>"><i class='fa fa-cart-plus'></i></button></td>
                                     </tr>
@@ -100,9 +102,10 @@
                             <thead>
                                 <tr>
                                     <th>Item Name</th>
-                                    <th>Price</th>
+                                    <th>Price (Rs.)</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
                                     <th>Quantity</th>
-                                    <th>Date and Time</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -120,7 +123,8 @@
                                         <tr>
                                             <td><label><?= $row_snacks['itemname'] ?></label></td>
                                             <td><label><?= $row_snacks['price'] ?></label></td>
-                                            <td><input type="datetime-local" name="datetime_<?= $productId ?>" min="<?= date('Y-m-d\TH:i', strtotime('now')) ?>" max="<?= date('Y-m-d\TH:i', strtotime('+3 months')) ?>" ></td>
+                                            <td><input type="date" name="date_<?= $productId ?>" min="<?= date('Y-m-d', strtotime('now')) ?>" max="<?= date('Y-m-d', strtotime('+3 months')) ?>"></td>
+                                            <td><input type="time" name="time_<?= $productId ?>" value="12:00" step="900" min="07:00" max="22:00"></td>
                                             <td><input type="number" name="quantity_<?= $productId ?>" value="1" min="1"></td>
                                             <td><button type="submit" name="add_to_cart_<?= $productId ?>"><i class='fa fa-cart-plus'></i></button></td>
                                         </tr>

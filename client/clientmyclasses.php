@@ -89,7 +89,6 @@
                     <th>Coach</th>
                     <th>Date</th>
                     <th>Time</th>
-                    <th>Payment Details</th>
                     <th>Action</th>
                   </tr>
 
@@ -115,8 +114,7 @@
                                               <td>" . $rows["sport"]. "</td>
                                               <td>" . $rows["coach"]. "</td>
                                               <td>" . $rows["date"]. "</td>
-                                              <td>" . $rows["time"]. "</td>
-                                              <td>" .$rows["payment_details"]. "</td>
+                                              <td>" . $rows["time"]. "</td> 
                                               <td><button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button></td>
                                             </tr>";
                                   }
@@ -148,7 +146,6 @@
                                                 <td>" . $rows["coach"]. "</td>
                                                 <td>" . $rows["date"]. "</td>
                                                 <td>" . $rows["time"]. "</td>
-                                                <td>" .$rows["payment_details"]. "</td>
                                                 <td><button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button></td>
                                               </tr>";
                                     }
@@ -175,7 +172,6 @@
                                                 <td>" . $rows["coach"]. "</td>
                                                 <td>" . $rows["date"]. "</td>
                                                 <td>" . $rows["time"]. "</td>
-                                                <td>" .$rows["payment_details"]. "</td>
                                                 <td><button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button></td>
                                               </tr>";
                                     }
@@ -192,12 +188,6 @@
             </div>
 
             <div class="right">
-
-              <div class="top">
-
-                <h3>Payments to be done</h3>    
-
-              </div>
 
               <div class="bottom">
 

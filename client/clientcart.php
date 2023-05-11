@@ -53,8 +53,12 @@
                   $product_id = $_POST['product_id_'.$productId];
                   $product_name = $_POST['product_name_'.$productId];
                   $product_price = $_POST['product_price_'.$productId];
-                  $datetime = $_POST['datetime_'.$productId];
+                  $date = $_POST['date_'.$productId];
+                  $time = $_POST['time_'.$productId];
                   $quantity = $_POST['quantity_'.$productId];
+
+                  // Combine date and time into a datetime format
+                  $datetime = $date . ' ' . $time;
 
                   // Validate datetime input
                   $now = new DateTime();
@@ -71,7 +75,8 @@
                     'id' => $product_id,
                     'name' => $product_name,
                     'price' => $product_price,
-                    'datetime' => $datetime,
+                    'date' => $date,
+                    'time' => $time,
                     'quantity' => $quantity
                   );
 
@@ -94,7 +99,8 @@
                   <tr>
                     <th>Product Name</th>
                     <th>Price</th>
-                    <th>Date and Time</th>
+                    <th>Date</th>
+                    <th>Time</th>
                     <th>Quantity</th>
                     <th>Total</th>
                   </tr>
@@ -106,7 +112,8 @@
                       foreach($_SESSION['cart'] as $cart_item) {
                         $product_name = $cart_item['name'];
                         $product_price = $cart_item['price'];
-                        $datetime = $cart_item['datetime'];
+                        $date = $cart_item['date'];
+                        $time = $cart_item['time'];
                         $quantity = $cart_item['quantity'];
                         $product_total = $product_price * $quantity;
                         $total += $product_total;
@@ -114,7 +121,8 @@
                     <tr>
                       <td><?php echo $product_name ?></td>
                       <td><?php echo $product_price ?></td>
-                      <td><?php echo $datetime ?></td>
+                      <td><?php echo $date ?></td>
+                      <td><?php echo $time ?></td>
                       <td><?php echo $quantity ?></td>
                       <td><?php echo $product_total ?></td>
                     </tr>
@@ -125,7 +133,7 @@
                 </tbody>
                 <tfoot>
                   <tr id="total">
-                    <td colspan="4"><b>Total</b></td>
+                    <td colspan="5"><b>Total</b></td>
                     <td><b><?php echo $total ?></b></td>
                   </tr>
                 </tfoot>
@@ -153,9 +161,10 @@
                       $email = $_SESSION['email'];
                       $product_id = $cart_item['id'];
                       $quantity = $cart_item['quantity'];
-                      $datetime = $cart_item['datetime'];
+                      $date = $cart_item['date'];
+                      $time = $cart_item['time'];
 
-                      $query = "INSERT INTO orders (email, product_id, quantity, datetime) VALUES ('$email', '$product_id', '$quantity', '$datetime')";
+                      $query = "INSERT INTO orders (email, product_id, quantity, date, time) VALUES ('$email', '$product_id', '$quantity', '$date', '$time')";
                       $result = mysqli_query($linkDB, $query);
                       if(!$result) {
                         echo "Error inserting product to database: " . mysqli_error($linkDB);
