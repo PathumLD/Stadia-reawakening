@@ -53,59 +53,76 @@
             selectHelper:true,
             select: function(start, end, allDay)
             {
-      var today = moment().startOf('day');
-      var now = moment();
+              var today = moment().startOf('day');
+              var now = moment();
 
-      // check if the selected start time is before the current time + 30 minutes
-      var threshold = moment().add(30, 'minutes');
-      if (start < threshold) {
-        alert("Cannot add event for past or current time slots.");
-        return;
-      }
+              // check if the selected start time is before the current time + 30 minutes
+              var threshold = moment().add(30, 'minutes');
+              if (start < threshold) {
+                alert("Cannot add booking for past or current time slots.");
+                return;
+              }
 
-      // check if the selected start time is within the next 3 months
-      var maxDate = moment().add(3, 'months');
-      if (start > maxDate) {
-        alert("Cannot add event more than 3 months in advance.");
-        return;
-      }
+              // check if the selected start time is within the next 3 months
+              var maxDate = moment().add(3, 'months');
+              if (start > maxDate) {
+                alert("Cannot add booking more than 3 months in advance.");
+                return;
+              }
 
-      var numSlots = parseInt(prompt("Enter the number of consecutive slots you want to book:"));
-      if (isNaN(numSlots) || numSlots <= 0) {
-        alert("Please enter a valid number of slots.");
-        return;
-      }
+              var numSlots = parseInt(prompt("Enter the number of consecutive slots you want to book:"));
+              if (isNaN(numSlots) || numSlots <= 0) {
+                alert("Please enter a valid number of slots.");
+                return;
+              }
 
-      var title = prompt("Enter Your Name");
-      if (!title) {
-        return;
-      }
+              var title = prompt("Enter Your Name");
+              if (!title) {
+                return;
+              }
 
-      for (var i = 0; i < numSlots; i++) {
-        var slotStart = moment(start).add(i, 'hours').startOf('hour');
-        var slotEnd = moment(slotStart).add(1, 'hour');
+              var slotStart = moment(start).startOf('hour');
+              var slotEnd = moment(slotStart).add(numSlots, 'hours').startOf('hour');
 
-        var slotTitle = title + ' - Slot ' + (i + 1) + ' of ' + numSlots;
-        var slotStartDate = $.fullCalendar.formatDate(slotStart, "Y-MM-DD HH:mm:ss");
-        var slotEndDate = $.fullCalendar.formatDate(slotEnd, "Y-MM-DD HH:mm:ss");
+              // check if any of the slots in between the selected start and end times are already booked
+              var eventOverlap = false;
+              calendar.fullCalendar('clientEvents', function(existingEvent) {
+                if (existingEvent.start < slotEnd && existingEvent.end > slotStart) {
+                  eventOverlap = true;
+                  return false;
+                }
+              });
 
-        $.ajax({
-          url:"slotsbadminton1insert.php",
-          type:"POST",
-          data:{title:slotTitle, start:slotStartDate, end:slotEndDate},
-          success:function() {
-            calendar.fullCalendar('refetchEvents');
-          }
-        });
-      }
+              if (eventOverlap) {
+                alert("Cannot book consecutive slots. A slot in between is already booked.");
+                return;
+              }
 
-      alert("Slots booked successfully.");
-    },
+              for (var i = 0; i < numSlots; i++) {
+                var slotTitle = title + ' - Slot ' + (i + 1) + ' of ' + numSlots;
+                var slotStartDate = $.fullCalendar.formatDate(slotStart, "Y-MM-DD HH:mm:ss");
+                var slotEndDate = $.fullCalendar.formatDate(moment(slotStart).add(1, 'hour'), "Y-MM-DD HH:mm:ss");
+
+                $.ajax({
+                  url:"slotsbadminton1insert.php",
+                  type:"POST",
+                  data:{title:slotTitle, start:slotStartDate, end:slotEndDate},
+                  success:function() {
+                    calendar.fullCalendar('refetchEvents');
+                  }
+                });
+
+                slotStart.add(1, 'hour');
+              }
+
+              alert("Slots booked successfully.");
+            },
+
             editable:true,
             eventResize:function(event)
             {
               if (event.email !== loggedInUserEmail) {
-                alert("You are not authorized to edit this event.");
+                alert("You are not authorized to edit this booking.");
                 calendar.fullCalendar('refetchEvents');
                 return;
               }
@@ -117,7 +134,7 @@
                 // check if the new start time is before the current time + 30 minutes
                 var threshold = moment().add(30, 'minutes');
                 if (event.start < threshold) {
-                  alert("Cannot update event for past or current time slots.");
+                  alert("Cannot update booking for past or current time slots.");
                   calendar.fullCalendar('refetchEvents');
                   return;
                 }
@@ -125,7 +142,7 @@
                 // check if the new start time is within the next 3 months
                 var maxDate = moment().add(3, 'months');
                 if (event.start > maxDate) {
-                  alert("Cannot update event more than 3 months in advance.");
+                  alert("Cannot update booking more than 3 months in advance.");
                   calendar.fullCalendar('refetchEvents');
                   return;
                 }
@@ -136,7 +153,7 @@
                   data:{title:title, start:start, end:end, id:id},
                   success:function(){
                       calendar.fullCalendar('refetchEvents');
-                      alert('Event Update');
+                      alert('Booking Update');
                   }
                 })
             },
@@ -144,7 +161,7 @@
             eventDrop:function(event, delta, revertFunc)
               {
                 if (event.email !== loggedInUserEmail) {
-                  alert("You are not authorized to edit this event.");
+                  alert("You are not authorized to edit this booking.");
                   revertFunc();
                   return;
                 }
@@ -156,7 +173,7 @@
                   // check if the new start time is before the current time + 30 minutes
                   var threshold = moment().add(30, 'minutes');
                   if (event.start < threshold) {
-                    alert("Cannot move event to past or current time slots.");
+                    alert("Cannot move bookings to past or current time slots.");
                     revertFunc();
                     return;
                   }
@@ -164,7 +181,7 @@
                   // check if the new start time is within the next 3 months
                   var maxDate = moment().add(3, 'months');
                   if (event.start > maxDate) {
-                    alert("Cannot move event more than 3 months in advance.");
+                    alert("Cannot move bookings more than 3 months in advance.");
                     revertFunc();
                     return;
                   }
@@ -191,7 +208,7 @@
                     data:{title:title, start:start, end:end, id:id},
                     success:function(){
                         calendar.fullCalendar('refetchEvents');
-                        alert('Event Moved');
+                        alert('Booking Updated!');
                     }
                   });
               },
@@ -199,13 +216,13 @@
             eventClick:function(event)
               {
                 if (event.email !== loggedInUserEmail) {
-                  alert("You are not authorized to delete this event.");
+                  alert("You are not authorized to delete this booking.");
                   return;
                 }
                   // check if the event start time is before the current time
                   var threshold = moment();
                   if (event.start < threshold) {
-                      alert("Cannot remove events from past time slots.");
+                      alert("Cannot remove bookings from past time slots.");
                       return;
                   }
 
@@ -219,7 +236,7 @@
                           success:function()
                           {
                               calendar.fullCalendar('refetchEvents');
-                              alert("Event Removed");
+                              alert("Booking Cancelled!");
                           }
                       })
                   }

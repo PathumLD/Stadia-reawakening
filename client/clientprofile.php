@@ -95,76 +95,73 @@
                   <h3>Profile Photo</h3>
 
                   <div class="profilepic">
-
                     
-                    <!-- HTML form to upload the image -->
-                    <form method="post" enctype="multipart/form-data">
-                      <label for="inputTag">
-                        <i class="fa fa-2x fa-camera"></i>
-                        <span>Select Image</span>
-                        <input type="file" id="inputTag" name="image" accept="image/*">
-                      </label>
-                      <span id="imageName"></span>
-                      <input type="submit" name="submit" value="Update">
-                    </form>
+                    <table>
+                      <tr>
+                        <td>
 
-                    <?php
-                          // Check if the form was submitted
-                          if(isset($_POST['submit'])) {
-                          
+                          <?php
                             // Check if a file was selected for upload
                             if(!empty($_FILES['image']['name'])) {
+                              // Upload the image to a temporary location
+                              $tempname = uniqid() . '_' . $_FILES['image']['name'];
+                              $folder = "../img/";
+                              $target_file = $folder . basename($tempname);
+                              move_uploaded_file($_FILES['image']['tmp_name'], $target_file);
+                              $email = $_SESSION['email'];
+                              
+                              // Store the image file name in the database
+                              $sql = "UPDATE users SET dp='$tempname' WHERE email= '".$var."'";
+                              $rs=mysqli_query($linkDB, $sql);
 
-                            // Upload the image to a temporary location
-                            $tempname = uniqid() . '_' . $_FILES['image']['name'];
-                            $folder = "../img/";
-                            $target_file = $folder . basename($tempname);
-                            move_uploaded_file($_FILES['image']['tmp_name'], $target_file);
-                            $email = $_SESSION['email'];
-                            
-                            // Store the generated image file name in the database
-                            $sql = "UPDATE users SET dp='$tempname' WHERE email= '".$var."'";
-                            $rs=mysqli_query($linkDB, $sql);
-
-                            if($rs){
-      
-                              echo "<script>window.location.href='clientprofile.php'; </script>";
-                            
-                            }
-                          } else{
-
-                              // Retrieve the image from the database using the generated name
+                              if($rs){
+                                echo "<img src='".$folder.$tempname."' alt='dp'>";
+                              }
+                            } else{
+                              // Retrieve the image from the database
                               $folder = "../img/";
                               $result = mysqli_query($linkDB, "SELECT * FROM users WHERE email = '".$var."'");
                               $row = mysqli_fetch_array($result);
                               $filename = $row['dp'];
-
+                              
+                              // Check if image exists in database, if not display message to upload profile photo
                               if($filename != null) {
-                                // Check if image exists in database, if not display message to upload profile photo
+                                // Display the image on the web page
                                 echo '<img src="' . $folder . $filename . '" alt ="dp">';
-                                } else {
+                              } else {
                                 echo "Upload a profile photo";
-                                }
-                          }
-                        }
-                        else{
-                        
-                          // Retrieve the image from the database using the generated name
-                          $folder = "../img/";
-                          $result = mysqli_query($linkDB, "SELECT * FROM users WHERE email = '".$var."'");
-                          $row = mysqli_fetch_array($result);
-                          $filename = $row['dp'];
-                          
-                          // Check if image exists in database, if not display message to upload profile photo
-                          if($filename != null) {
-                            // Display the image on the web page
-                            echo '<img src="' . $folder . $filename . '" alt ="dp">';
-                            } else {
-                            echo "Upload a profile photo";
+                              }
                             }
-  
-                        }
-                        ?>
+                          ?>
+
+                        </td>
+
+                        <td>
+                            <!-- HTML form to upload the image -->
+                            <form id="upload-form" method="post" enctype="multipart/form-data">
+                                <label for="inputTag">
+                                  <i class="fa fa-2x fa-camera"></i>
+                                  <input type="file" id="inputTag" name="image" accept="image/*">
+                                </label>
+                            </form>
+
+                        </td>
+                      </tr>
+                    </table>
+
+                            
+                        <!-- JavaScript to automatically submit the form when a file is selected -->
+                        <script>
+                          // Get the input element and the form
+                          const inputTag = document.getElementById("inputTag");
+                          const uploadForm = document.getElementById("upload-form");
+                          
+                          // Listen for changes to the input element
+                          inputTag.addEventListener("change", (event) => {
+                            // Submit the form when a file is selected
+                            uploadForm.submit();
+                          });
+                        </script>
                     
                   </div>
                       
@@ -172,7 +169,13 @@
 
                 <div class="bottom">
 
-                  
+                <div class="details"><h3>Update Your Details</h3></div><br>
+
+                <button class="btn" onclick="openPopup()">Change Password</button>
+                <button class="btn" onclick="openPopup1()">Change Phone Number</button>
+                <button class="btn" onclick="openPopup2()">Change Emergency Contact Number</button>
+                <button class="btn" onclick="openPopup3()">Change Emergency Contact Name</button>
+
                 </div>
 
               </div> 
@@ -226,14 +229,6 @@
                       ?>
                 </table>
 
-                <div class="details"><h3>Update Your Details</h3></div><br>
-
-                  <button class="btn" onclick="openPopup()">Change Password</button>
-                  <button class="btn" onclick="openPopup1()">Change Phone Number</button>
-                  <button class="btn" onclick="openPopup2()">Change Emergency Contact Number</button>
-                  <button class="btn" onclick="openPopup3()">Change Emergency Contact Name</button>
-
-          
               </div>
                 
           </div>

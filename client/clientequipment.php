@@ -63,76 +63,43 @@
                     </tr>
                 </table>
 
-                    <table class="table">
-
-                        <tr>
-                            <th>Item Name</th>
-                            <th>Price</th> 
-                            <th>Available</th>
-                            <th>Quantity Needed</th> 
-                            <th>Action</th> 
-                        </tr>
-
+                <form method="post" action="clientcart.php">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Date and Time</th>
+                                <th></th>
+                            </tr>
+                        </thead>
                         <?php
 
-                            if(isset($_POST['go'])){
-                            
-                                $search = $_POST['search'];
-
-                                $query = "SELECT * FROM equipment WHERE itemname LIKE '%$search%' ";
-                                $res = mysqli_query($linkDB, $query); 
-                                    if($res == TRUE) 
-                                    {
-                                        $count = mysqli_num_rows($res); //calculate number of rows
-                                        if($count>0)
-                                        {
-                                            while($rows=mysqli_fetch_assoc($res))
-                                            {
-                                                $id=$rows['itemid'];
-                                                echo "<tr>
-                                                        <td>" . $rows["itemname"]. "</td>
-                                                        <td>" . $rows["price"]. "</td>
-                                                        <td>" . $rows["quantity"]. "</td>
-                                                        <td><input type='number' name='quantity'></td>
-                                                        <td><button type='submit' name='add-to-cart'><i class='fa fa-cart-plus'></i></button></td>
-                                                    </tr>";
-                                            }
-                                        } else {
-                                            echo "0 results";
-                                        }
-                                    }
-                            }
-                            else{
-                            $query = "SELECT * FROM equipment ";
-                            $res = mysqli_query($linkDB, $query); 
-                                    if($res == TRUE) 
-                                    {
-                                        $count = mysqli_num_rows($res); //calculate number of rows
-                                        if($count>0)
-                                        {
-                                            while($rows=mysqli_fetch_assoc($res))
-                                            {
-                                                $id=$rows['itemid'];
-                                                echo "<tr>
-                                                        <td>" . $rows["itemname"]. "</td>
-                                                        <td>" . $rows["price"]. "</td>
-                                                        <td>" . $rows["quantity"]. "</td>
-                                                        <td><input type='number' name='quantity'></td>
-                                                        <td><button type='submit' name='add-to-cart'><i class='fa fa-cart-plus'></i></button></td>
-                                                    </tr>";
-                                            }
-                                        } else {
-                                            echo "0 results";
-                                        }
-                                    }    
-                                }      
+                            $query_equipment = "SELECT * FROM equipment";
+                            $result_equipment = mysqli_query($linkDB, $query_equipment);
+                            while ($row_equipment = mysqli_fetch_assoc($result_equipment)) {
+                                $productId = $row_equipment['itemid'];
+                        ?>
+                            <div>
+                                <input type="hidden" name="product_id_<?= $productId ?>" value="<?= $row_equipment['itemid'] ?>">
+                                <input type="hidden" name="product_name_<?= $productId ?>" value="<?= $row_equipment['itemname'] ?>">
+                                <input type="hidden" name="product_price_<?= $productId ?>" value="<?= $row_equipment['price'] ?>">
+                                <tr>
+                                    <td><label><?= $row_equipment['itemname'] ?></label></td>
+                                    <td><label><?= $row_equipment['price'] ?></label></td>
+                                    <td><input type="datetime-local" name="datetime_<?= $productId ?>" min="<?= date('Y-m-d\TH:i', strtotime('now')) ?>" max="<?= date('Y-m-d\TH:i', strtotime('+3 months')) ?>"></td>
+                                    <td><input type="number" name="quantity_<?= $productId ?>" value="1" min="1"></td>
+                                    <td><button type="submit" name="add_to_cart_<?= $productId ?>"><i class='fa fa-cart-plus'></i></button></td>
+                                </tr>
+                            </div>
+                            <?php
+                                }
                             ?>
+                    </table> 
 
-                    </table>
 
-            <!-- <div class="button">
-                <a href="clientmycart.php"> Add to Cart </a>
-            </div> -->
+         
 
           </div>
 
@@ -169,31 +136,3 @@
         }
 </script>
 
-<?php
-
-if(isset($_POST['add-to-cart'])){
-  
-include('linkDB.php');  
-$id = $_GET['id'];
-
-$item = $_POST['$rows["itemname"]'];
-$price = $_POST['$rows["price"]'];
-$quantity = $_POST['quantity'];
-$email = $_SESSION['email'];
-
-$sql = "INSERT INTO cart (email, item, amount)
-VALUES ('$email', '$item' , '$quantity' )";
-
-$rs= mysqli_query($linkDB,$sql);
-
-if($rs){
-  
-  echo "<script>window.location.href='clientmycart.php'; </script>";
-
-}
-else{
-  echo "Could not add to the cart - please try again.";
-}
- 
-}
-?>

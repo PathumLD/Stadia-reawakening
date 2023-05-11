@@ -6,7 +6,7 @@ $connect = new PDO('mysql:host=localhost;dbname=stadia-new', 'root', '');
 
 $data = array();
 
-$query = "SELECT * FROM slots_swimming ORDER BY id";
+$query = "SELECT * FROM slots_swimming WHERE status = 1 ORDER BY id";
 
 $statement = $connect->prepare($query);
 

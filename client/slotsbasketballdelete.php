@@ -6,7 +6,7 @@ if(isset($_POST["id"]))
 {
  $connect = new PDO('mysql:host=localhost;dbname=stadia-new', 'root', '');
  $query = "
- DELETE from slots_basketball WHERE id=:id
+ UPDATE slots_basketball SET status = 0 WHERE id=:id
  ";
  $statement = $connect->prepare($query);
  $statement->execute(
