@@ -98,7 +98,7 @@
                                           
                           $search = $_POST['search'];
 
-                          $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.date, coach_classes.time, client_classes.payment_details 
+                          $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.date, coach_classes.time
                                     FROM coach_classes INNER JOIN client_classes ON coach_classes.class_id = client_classes.class_id 
                                     WHERE date LIKE '%$search%' AND status=1 AND client_classes.email = '".$var."'";
                           $res = mysqli_query($linkDB, $query); 
@@ -129,7 +129,7 @@
                                             
                             $sport_search = $_POST['sport_search'];
 
-                            $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.date, coach_classes.time, client_classes.payment_details 
+                            $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.date, coach_classes.time 
                                       FROM coach_classes INNER JOIN client_classes ON coach_classes.class_id = client_classes.class_id 
                                       WHERE sport LIKE '%$sport_search%' AND status=1 AND client_classes.email = '".$var."'";
                             $res = mysqli_query($linkDB, $query); 
@@ -155,7 +155,7 @@
                             }
                         } 
                         else{
-                          $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.date, coach_classes.time, client_classes.payment_details 
+                          $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.date, coach_classes.time
                                     FROM coach_classes INNER JOIN client_classes ON coach_classes.class_id = client_classes.class_id 
                                     WHERE client_classes.status=1 AND client_classes.email = '".$var."'";
                           $res = mysqli_query($linkDB, $query); 
@@ -251,12 +251,11 @@ function confirmRowData(id) {
   var coach = row.cells[1].innerHTML;
   var date = row.cells[2].innerHTML;
   var time = row.cells[3].innerHTML;
-  var paymentDetails = row.cells[4].innerHTML;
 
   // Create a custom confirm box
   var confirmBox = document.createElement('div');
   confirmBox.classList.add('confirm-box');
-  confirmBox.innerHTML = '<h2>Confirm Cancellation?</h2></i><p>Class Details:</p><ul><li>Sport: ' + sport + '</li><li>Coach: ' + coach + '</li><li>Date: ' + date + '</li><li>Time: ' + time + '</li><li>Payment Details: ' + paymentDetails + '</li></ul><h4><p>NOTE: Class cancellation will be only possible if you have completed the payments.</p></h4><button id="confirm-button">Confirm</button><button id="cancel-button">Cancel</button>';
+  confirmBox.innerHTML = '<h2>Confirm Cancellation?</h2></i><p>Class Details:</p><ul><li>Sport: ' + sport + '</li><li>Coach: ' + coach + '</li><li>Date: ' + date + '</li><li>Time: ' + time + '</li></ul><h4><p>NOTE: Class cancellation will be only possible if you have completed the payments.</p></h4><button id="confirm-button">Confirm</button><button id="cancel-button">Cancel</button>';
 
   // Add the confirm box to the page
   document.body.appendChild(confirmBox);

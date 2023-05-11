@@ -60,7 +60,8 @@
                         <form method="post">
                                 <select name="court_search" class="search" id="disable">
                                     <option value="" disabled selected>Search by Court</option>
-                                    <option value="Badminton">Badminton</option>
+                                    <option value="Badminton 1">Badminton 1</option>
+                                    <option value="Badminton 2">Badminton 2</option>
                                     <option value="Basketball">Basketball</option>
                                     <option value="Volleyball">Volleyball</option>
                                     <option value="Tennis">Tennis</option>
@@ -77,96 +78,83 @@
 
                     <table class="table">
 
-                    <tr>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Court</th>    
-                        <th>Action</th>
-                    </tr>
+                        <tr>
+                            <th>Date</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Court</th>   
+                        </tr>
 
-                    <?php
+                        <?php
+                            if(isset($_POST['go']) || isset($_POST['go2'])){
+                                $date = isset($_POST['search']) ? $_POST['search'] : '';
+                                $court = isset($_POST['court_search']) ? $_POST['court_search'] : '';
 
-                        if(isset($_POST['go'])){
-                                            
-                            $search = $_POST['search'];
+                                $whereClause = "WHERE `start_event` >= CURRENT_DATE AND `email` = '".$var."' ";
 
-                            $query = "SELECT * FROM bookings WHERE date LIKE '%$search%' AND status=1 AND email = '".$var."'";
-                            $res = mysqli_query($linkDB, $query); 
-                            if($res == TRUE) 
-                            {
-                                $count = mysqli_num_rows($res); //calculate number of rows
-                                if($count>0)
-                                {
-                                    while($rows=mysqli_fetch_assoc($res))
-                                    {
-                                        $id=$rows['id'];
-                                        echo "<tr id='row_$id'>
-                                                <td>" . $rows["date"]. "</td>
-                                                <td>" . $rows["time"]. "</td>
-                                                <td>" .$rows["court"]. "</td>
-                                                <td><button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button></td>
+                                if (!empty($date)) {
+                                    $whereClause .= "AND DATE(`start_event`) = '".$date."' ";
+                                }
+
+                                if (!empty($court)) {
+                                    $whereClause .= "AND `sport` = '".$court."' ";
+                                }
+
+                                $query = "SELECT start_event, end_event, sport FROM (
+                                            SELECT slots_badminton1.*, 'Badminton 1' as sport FROM slots_badminton1
+                                            UNION SELECT slots_badminton2.*, 'Badminton 2' as sport FROM slots_badminton2
+                                            UNION SELECT slots_basketball.*, 'Basketball' as sport FROM slots_basketball
+                                            UNION SELECT slots_volleyball.*, 'Volleyball' as sport FROM slots_volleyball
+                                            UNION SELECT slots_tennis.*, 'Tennis' as sport FROM slots_tennis
+                                            UNION SELECT slots_swimming.*, 'Swimming' as sport FROM slots_swimming
+                                        ) as events ".$whereClause."ORDER BY start_event ASC";
+
+                                $result = mysqli_query($linkDB, $query);
+
+                                if($result && mysqli_num_rows($result) > 0) {
+                                    while($row = mysqli_fetch_assoc($result)) {
+                                        $start_time = date('h:i A', strtotime($row["start_event"]));
+                                        $end_time = date('h:i A', strtotime($row["end_event"]));
+                                        $date = date('Y-m-d', strtotime($row["start_event"]));
+                                        echo "<tr>
+                                                <td>" . $date . "</td>
+                                                <td>" . $start_time . "</td>
+                                                <td>" . $end_time . "</td>
+                                                <td>" . $row["sport"] . "</td>
                                             </tr>";
                                     }
-                                } else {
-                                    echo "0 results";
                                 }
                             }
-                        } 
-                        else{                  
+                            else {
+                                // No search buttons were clicked, so retrieve all data
+                                $query = "SELECT start_event, end_event, sport FROM (
+                                            SELECT slots_badminton1.*, 'Badminton 1' as sport FROM slots_badminton1
+                                            UNION SELECT slots_badminton2.*, 'Badminton 2' as sport FROM slots_badminton2
+                                            UNION SELECT slots_basketball.*, 'Basketball' as sport FROM slots_basketball
+                                            UNION SELECT slots_volleyball.*, 'Volleyball' as sport FROM slots_volleyball
+                                            UNION SELECT slots_tennis.*, 'Tennis' as sport FROM slots_tennis
+                                            UNION SELECT slots_swimming.*, 'Swimming' as sport FROM slots_swimming
+                                        ) as events WHERE `start_event` >= CURRENT_DATE AND `email` = '".$var."' ORDER BY start_event ASC";
 
-                            if(isset($_POST['go2'])){
-                                                
-                                $court_search = $_POST['court_search'];
-
-                                $query = "SELECT * FROM bookings WHERE court LIKE '%$court_search%' AND status=1 AND email = '".$var."'";
-                                $res = mysqli_query($linkDB, $query); 
-                                if($res == TRUE) 
-                                {
-                                    $count = mysqli_num_rows($res); //calculate number of rows
-                                    if($count>0)
-                                    {
-                                        while($rows=mysqli_fetch_assoc($res))
-                                        {
-                                            $id=$rows['id'];
-                                            echo "<tr id='row_$id'>
-                                                    <td>" . $rows["date"]. "</td>
-                                                    <td>" . $rows["time"]. "</td>
-                                                    <td>" .$rows["court"]. "</td>
-                                                    <td><button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button></td>
-                                                </tr>";
-                                        }
-                                    } else {
-                                        echo "0 results";
+                                $result = mysqli_query($linkDB, $query);
+                                if($result && mysqli_num_rows($result) > 0) {
+                                    while($row = mysqli_fetch_assoc($result)) {
+                                        $start_time = date('h:i A', strtotime($row["start_event"]));
+                                        $end_time = date('h:i A', strtotime($row["end_event"]));
+                                        $date = date('Y-m-d', strtotime($row["start_event"]));
+                                        echo "<tr>
+                                        <td>" . $date . "</td>
+                                        <td>" . $start_time . "</td>
+                                        <td>" . $end_time . "</td>
+                                        <td>" . $row["sport"] . "</td>
+                                        </tr>";
                                     }
                                 }
-                            } 
-                            else{
-                                $query = "SELECT * FROM bookings WHERE status=1 AND email = '".$var."'";
-                                $res = mysqli_query($linkDB, $query); 
-                                if($res == TRUE) 
-                                {
-                                    $count = mysqli_num_rows($res); //calculate number of rows
-                                    if($count>0)
-                                    {
-                                        while($rows=mysqli_fetch_assoc($res))
-                                        {
-                                            $id=$rows['id'];
-                                            echo "<tr id='row_$id'>
-                                                    <td>" . $rows["date"]. "</td>
-                                                    <td>" . $rows["time"]. "</td>
-                                                    <td>" .$rows["court"]. "</td>
-                                                    <td><button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button></td>
-                                                </tr>";
-                                        }
-                                    } else {
-                                        echo "0 results";
-                                    }
-                                }
-                            }  
-                        } 
-                    ?>
+                            }
+                            
+                            ?>
 
-                </table>
+                    </table>
 
                 </div>
 
