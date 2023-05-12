@@ -172,7 +172,7 @@
                         <br>
                         <!-- <label for="date">Date:</label> -->
                         <input type="date" name="date" id="date" class="input2"> <br><br>
-                        <input type="submit" name="submit2" value="Send" class="btn">
+                        <input type="submit" name="submit2" value="Send" class="btn1">
                       </form>
 
                       <?php
@@ -200,7 +200,12 @@
 
                   <h3> Delete </h3>
 
-                  <br><br>
+                  <p>
+                    The request will be accepted only at the 
+                    <span id="warn">END OF THE MONTH</span></p>
+                  </p>
+
+                  <br>
                       <form method="post">
                         <?php
                           // Get the classid from the database
@@ -212,28 +217,28 @@
                         ?>
 
                           <!-- Show t"he classid as a label in the form -->
-                          <span id ="classid"><?php echo " Class ID : $classid";?></span> <br><br>
+                          <span id ="classid"><?php echo " Class ID : $classid";?></span> <br>
 
                         <br>
-                        <input type="submit" name="submit2" value="Send" class="btn">
+                        <input type="submit" name="submit3" value="Send" class="btn1">
                       </form>
 
                       <?php
-                        if(isset($_POST['submit2'])){  
-                          // $id = $_POST["id"]; // Assuming the row id is passed through the form
-                          $date = $_POST['date'];
-
-                          // Retrieve the classid from the coach_classes table based on the row id
-                          $query = "SELECT class_id FROM coach_classes WHERE id = '$id'";
-                          $result = mysqli_query($linkDB, $query);
-                          $row = mysqli_fetch_assoc($result);
-                          $classid = $row['class_id'];
-
-                          // Insert the data into the request table
-                          $sql = "INSERT INTO request (classid, date) VALUES ('$classid', '$date')";
-                          $rs= mysqli_query($linkDB,$sql);
-
-                        }
+                      if(isset($_POST['submit3'])){  
+                        // $id = $_POST["id"]; // Assuming the row id is passed through the form
+                        // $date = $_POST['date'];
+                      
+                        // Retrieve the classid from the coach_classes table based on the row id
+                        $query = "SELECT class_id FROM coach_classes WHERE id = '$id'";
+                        $result = mysqli_query($linkDB, $query);
+                        $row = mysqli_fetch_assoc($result);
+                        $classid = $row['class_id'];
+                      
+                        // Update the status value from 1 to 2 for the relevant class_id in the request table
+                        $sql = "UPDATE coach_classes SET status = '2' WHERE class_id = '$classid' AND status = '1'";
+                        $rs = mysqli_query($linkDB, $sql);
+                    }
+                    
                       ?>
 
                 </div>

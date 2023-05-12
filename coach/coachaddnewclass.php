@@ -81,24 +81,43 @@
                           <option value="sunday">Sunday</option>
                       </select> <br><br>
 
-                      <select name="time" class="drop" required>
-                          <option value="" disabled selected>Time Slot</option>
-                          <option value="6.00 - 7.00">6.00 - 7.00</option>
-                          <option value="7.00 - 8.00">7.00 - 8.00</option>
-                          <option value="8.00 - 9.00">8.00 - 9.00</option>
-                          <option value="9.00 - 10.00">9.00 - 10.00</option>
-                          <option value="10.00 - 11.00">10.00 - 11.00</option>
-                          <option value="11.00 - 12.00">11.00 - 12.00</option>
-                          <option value="12.00 - 13.00">12.00 - 13.00</option>
-                          <option value="13.00 - 14.00">13.00 - 14.00</option>
-                          <option value="14.00 - 15.00">14.00 - 15.00</option>
-                          <option value="15.00 - 16.00">15.00 - 16.00</option>
-                          <option value="16.00 - 17.00">16.00 - 17.00</option>
-                          <option value="17.00 - 18.00">17.00 - 18.00</option>
-                          <option value="18.00 - 19.00">18.00 - 19.00</option>
-                          <option value="19.00 - 20.00">19.00 - 20.00</option>
-                          <option value="20.00 - 21.00">20.00 - 21.00</option>
-                          <option value="21.00 - 22.00">21.00 - 22.00</option>
+                      <select name="stime" class="drop" required>
+                          <option value="" disabled selected>Start Time</option>
+                          <option value="7.00">7.00</option>
+                          <option value="8.00">8.00</option>
+                          <option value="9.00">9.00</option>
+                          <option value="10.00">10.00</option>
+                          <option value="11.00">11.00</option>
+                          <option value="12.00">12.00</option>
+                          <option value="13.00">13.00</option>
+                          <option value="14.00">14.00</option>
+                          <option value="15.00">15.00</option>
+                          <option value="16.00">16.00</option>
+                          <option value="17.00">17.00</option>
+                          <option value="18.00">18.00</option>
+                          <option value="19.00">19.00</option>
+                          <option value="20.00">20.00</option>
+                          <option value="21.00">21.00</option>
+                      </select> <br><br>
+
+                      <select name="etime" class="drop" required>
+                          <option value="" disabled selected>End Time</option>
+                          
+                          <option value="8.00">8.00</option>
+                          <option value="9.00">9.00</option>
+                          <option value="10.00">10.00</option>
+                          <option value="11.00">11.00</option>
+                          <option value="12.00">12.00</option>
+                          <option value="13.00">13.00</option>
+                          <option value="14.00">14.00</option>
+                          <option value="15.00">15.00</option>
+                          <option value="16.00">16.00</option>
+                          <option value="17.00">17.00</option>
+                          <option value="18.00">18.00</option>
+                          <option value="19.00">19.00</option>
+                          <option value="20.00">20.00</option>
+                          <option value="21.00">21.00</option>
+                          <option value="22.00">22.00</option>
                       </select> <br><br>
 
                       <select name="age_group" class="drop" required>
@@ -140,7 +159,8 @@
         $level = $_POST['level'];
         $sport = $_POST['sport'];
         $day = $_POST['day'];
-        $time = $_POST['time'];
+        $stime = $_POST['stime'];
+        $etime = $_POST['etime'];
         $age_group = $_POST['age_group'];
         $months = $_POST['months'];
         $no_of_students = $_POST['no_of_students'];
@@ -151,6 +171,8 @@
         $result = mysqli_query($linkDB, $query);
         $row = mysqli_fetch_assoc($result);
         $coach = $row['coach_name'];
+
+        $time = $stime . ' - ' . $etime;
 
 
         // Validate the input for months

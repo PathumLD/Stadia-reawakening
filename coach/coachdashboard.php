@@ -46,7 +46,85 @@
 
             <h1>Dashboard</h1>
 
-           
+            <table class="table">
+
+<tr>
+    <th>Date</th>
+    <th>Start Time</th>
+    <th>End Time</th>
+    <th>Court</th>   
+</tr>
+
+<?php
+    if(isset($_POST['go']) || isset($_POST['go2'])){
+        $date = isset($_POST['search']) ? $_POST['search'] : '';
+        $court = isset($_POST['court_search']) ? $_POST['court_search'] : '';
+
+        $whereClause = "WHERE `start_event` >= CURRENT_DATE AND `start_event` < CURRENT_DATE`email` = '".$var."' ";
+
+        if (!empty($date)) {
+            $whereClause .= "AND DATE(`start_event`) = '".$date."' ";
+        }
+
+        if (!empty($court)) {
+            $whereClause .= "AND `sport` = '".$court."' ";
+        }
+
+        $query = "SELECT start_event, end_event, sport FROM (
+                    SELECT slots_badminton1.*, 'Badminton 1' as sport FROM slots_badminton1
+                    UNION SELECT slots_badminton2.*, 'Badminton 2' as sport FROM slots_badminton2
+                    UNION SELECT slots_basketball.*, 'Basketball' as sport FROM slots_basketball
+                    UNION SELECT slots_volleyball.*, 'Volleyball' as sport FROM slots_volleyball
+                    UNION SELECT slots_tennis.*, 'Tennis' as sport FROM slots_tennis
+                    UNION SELECT slots_swimming.*, 'Swimming' as sport FROM slots_swimming
+                ) as events ".$whereClause."ORDER BY start_event ASC";
+
+        $result = mysqli_query($linkDB, $query);
+
+        if($result && mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+                $start_time = date('h:i A', strtotime($row["start_event"]));
+                $end_time = date('h:i A', strtotime($row["end_event"]));
+                $date = date('Y-m-d', strtotime($row["start_event"]));
+                echo "<tr>
+                        <td>" . $date . "</td>
+                        <td>" . $start_time . "</td>
+                        <td>" . $end_time . "</td>
+                        <td>" . $row["sport"] . "</td>
+                    </tr>";
+            }
+        }
+    }
+    else {
+        // No search buttons were clicked, so retrieve all data
+        $query = "SELECT start_event, end_event, sport FROM (
+                    SELECT slots_badminton1.*, 'Badminton 1' as sport FROM slots_badminton1
+                    UNION SELECT slots_badminton2.*, 'Badminton 2' as sport FROM slots_badminton2
+                    UNION SELECT slots_basketball.*, 'Basketball' as sport FROM slots_basketball
+                    UNION SELECT slots_volleyball.*, 'Volleyball' as sport FROM slots_volleyball
+                    UNION SELECT slots_tennis.*, 'Tennis' as sport FROM slots_tennis
+                    UNION SELECT slots_swimming.*, 'Swimming' as sport FROM slots_swimming
+                ) as events WHERE `start_event` >= CURRENT_DATE AND `email` = '".$var."' ORDER BY start_event ASC";
+
+        $result = mysqli_query($linkDB, $query);
+        if($result && mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+                $start_time = date('h:i A', strtotime($row["start_event"]));
+                $end_time = date('h:i A', strtotime($row["end_event"]));
+                $date = date('Y-m-d', strtotime($row["start_event"]));
+                echo "<tr>
+                <td>" . $date . "</td>
+                <td>" . $start_time . "</td>
+                <td>" . $end_time . "</td>
+                <td>" . $row["sport"] . "</td>
+                </tr>";
+            }
+        }
+    }
+    
+    ?>
+
+</table>
 
           </div>
 
