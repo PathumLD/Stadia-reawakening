@@ -69,11 +69,38 @@
                     </form>
 
                     <?php
-                    if (isset($_POST['submit_date'])){
+                    if (isset($_POST['submit_date'])) {
                         // Retrieve selected date from form submission
                         $date = $_POST['date'];
                         echo "<script>document.getElementsByName('date')[0].value='$date'</script>";
                         $date = date('Y-m-d', strtotime($date));
+                
+                        // Retrieve orders from database for selected date
+                        $query_orders = "SELECT * FROM orders WHERE date = '$date'";
+                        $result_orders = mysqli_query($linkDB, $query_orders);
+                
+                        // Retrieve equipment from database
+                        $query_equipment = "SELECT * FROM equipment";
+                        $result_equipment = mysqli_query($linkDB, $query_equipment);
+                
+                        // Loop through equipment and calculate available quantity for each item
+                        while ($row_equipment = mysqli_fetch_assoc($result_equipment)) {
+                            $available_quantity = $row_equipment['quantity'];
+                            $productId = $row_equipment['itemid'];
+                
+                            // Loop through orders and subtract quantities from available quantity for matching itemids
+                            while ($row_orders = mysqli_fetch_assoc($result_orders)) {
+                                if ($row_orders['product_id'] == $productId) {
+                                    $available_quantity -= $row_orders['quantity'];
+                                }
+                            }
+                
+                            // Reset order result pointer
+                            mysqli_data_seek($result_orders, 0);
+                
+                            // Set available quantity for item
+                            $equipment[$productId] = $available_quantity;
+                        }
                     }
                     ?>
 
@@ -91,32 +118,26 @@
                                 </tr>
                             </thead>
                             <?php
-                            if (isset($_POST['search'])) {
-                                $search_input = $_POST['search'];
-                                $query_equipment = "SELECT * FROM equipment WHERE itemname LIKE '%$search_input%'";
-                            } else {
-                                $query_equipment = "SELECT * FROM equipment";
-                            }
+                            $query_equipment = "SELECT * FROM equipment";
                             $result_equipment = mysqli_query($linkDB, $query_equipment);
                             while ($row_equipment = mysqli_fetch_assoc($result_equipment)) {
                                 $productId = $row_equipment['itemid'];
-                                $available_quantity = $row_equipment['quantity'];
+                                $available_quantity = isset($equipment[$productId]) ? $equipment[$productId] : $row_equipment['quantity'];
                                 ?>
                                 <tr>
-                                    <div>
-                                        <input type="hidden" name="product_id_<?= $productId ?>" value="<?= $row_equipment['itemid'] ?>">
-                                        <input type="hidden" name="product_name_<?= $productId ?>" value="<?= $row_equipment['itemname'] ?>">
-                                        <input type="hidden" name="product_price_<?= $productId ?>" value="<?= $row_equipment['price'] ?>">
-                                        <input type="hidden" name="date_<?= $productId ?>" value="<?= $date ?>">
-                                        <td><label><?= $row_equipment['itemname'] ?></label></td>
-                                        <td><label><?= $row_equipment['price'] ?></label></td>
-                                        <td><input type="time" name="time_<?= $productId ?>" value="12:00" step="900" min="07:00" max="22:00"></td>
-                                        <td><input type="number" name="quantity_<?= $productId ?>" value="1" min="1" max="<?= $available_quantity ?>"></td>
-                                        <td><label><?= $available_quantity ?></label></td>
-                                        <td><button type="submit" name="add_to_cart_<?= $productId ?>"><i class='fa fa-cart-plus'></i></button></td>
-                                    </div>
+                                    <input type="hidden" name="product_id_<?= $productId ?>" value="<?= $row_equipment['itemid'] ?>">
+                                    <input type="hidden" name="product_name_<?= $productId ?>" value="<?= $row_equipment['itemname'] ?>">
+                                    <input type="hidden" name="product_price_<?= $productId ?>" value="<?= $row_equipment['price'] ?>">
+                                    <input type="hidden" name="date_<?= $productId ?>" value="<?= $date ?>">
+                                    <input type="hidden" name="product_type_<?= $productId ?>" value="equipment">
+                                    <td><label><?= $row_equipment['itemname'] ?></label></td>
+                                    <td><label><?= $row_equipment['price'] ?></label></td>
+                                    <td><input type="time" name="time_<?= $productId ?>" value="12:00" step="900" min="07:00" max="22:00"></td>
+                                    <td><input type="number" name="quantity_<?= $productId ?>" value="1" min="1" max="<?= $available_quantity ?>"></td>
+                                    <td><label><?= $available_quantity ?></label></td>
+                                    <td><button type="submit" name="add_to_cart_<?= $productId ?>"><i class='fa fa-cart-plus'></i></button></td>
                                 </tr>
-                            <?php
+                                <?php
                             }
                             ?>
                         </table>

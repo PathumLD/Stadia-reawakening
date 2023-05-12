@@ -25,7 +25,7 @@
          $insert_result = mysqli_query($linkDB, $insert_query);
          
          if ($insert_result) {
-            header('location: clientcoachbadminton.php?msg=unsuccess');
+            header('location: clientcoachbadminton.php?msg=success');
          } else {
              // If there was an error inserting the class, show an error message
              header('location: clientcoachbadminton.php?msg=unsuccess');

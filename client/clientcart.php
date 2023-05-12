@@ -56,6 +56,7 @@
                   $date = $_POST['date_'.$productId];
                   $time = $_POST['time_'.$productId];
                   $quantity = $_POST['quantity_'.$productId];
+                  $type = $_POST['product_type_'.$productId];
 
                   // Combine date and time into a datetime format
                   $datetime = $date . ' ' . $time;
@@ -77,7 +78,8 @@
                     'price' => $product_price,
                     'date' => $date,
                     'time' => $time,
-                    'quantity' => $quantity
+                    'quantity' => $quantity,
+                    'type' => $type
                   );
 
                   if(!isset($_SESSION['cart'])) {
@@ -115,6 +117,7 @@
                         $date = $cart_item['date'];
                         $time = $cart_item['time'];
                         $quantity = $cart_item['quantity'];
+                        $type = $cart_item['type'];
                         $product_total = $product_price * $quantity;
                         $total += $product_total;
                   ?>
@@ -163,8 +166,9 @@
                       $quantity = $cart_item['quantity'];
                       $date = $cart_item['date'];
                       $time = $cart_item['time'];
+                      $type = $cart_item['type'];
 
-                      $query = "INSERT INTO orders (email, product_id, quantity, date, time) VALUES ('$email', '$product_id', '$quantity', '$date', '$time')";
+                      $query = "INSERT INTO orders (email, product_id, quantity, date, time, type) VALUES ('$email', '$product_id', '$quantity', '$date', '$time', '$type')";
                       $result = mysqli_query($linkDB, $query);
                       if(!$result) {
                         echo "Error inserting product to database: " . mysqli_error($linkDB);

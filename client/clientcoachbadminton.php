@@ -51,7 +51,7 @@
                   echo "<div id='success-message' class='success-message'>Class registration successfull.</div>";
               }
               if(isset($_GET['msg']) && $_GET['msg'] == 'unsuccess') {
-                echo "<div id='unsuccess-message' class='notsuccess-message'>You are already registered for this class.</div>";
+                echo "<div id='unsuccess-message' class='notsuccess-message'>Couldn't register for the class - Try again </div>";
             }
             if(isset($_GET['msg']) && $_GET['msg'] == 'notsuccess') {
                 echo "<div id='notsuccess-message' class='notsuccess-message'>You are already registered for this class.</div>";
@@ -128,52 +128,52 @@
 
             <table class="table">
 
-            <tr>
+                <tr>
 
-                <th>Date</th>
-                <th>Age Group</th>
-                <th>Level</th>
-                <th>Time</th>
-                <th>Coach</th>
-                <th>Class Fee</th>
-                <th>Action</th>
+                    <th>Date</th>
+                    <th>Age Group</th>
+                    <th>Level</th>
+                    <th>Time</th>
+                    <th>Coach</th>
+                    <th>Class Fee</th>
+                    <th>Action</th>
 
-            </tr>
+                </tr>
 
 
-            <?php
-                if(isset($_POST['go'])){
+                <?php
+                    if(isset($_POST['go'])){
 
-                    $email = $_POST['coach_email'];
+                        $email = $_POST['coach_email'];
 
-                    $query = "SELECT * FROM coach_classes WHERE sport='badminton'AND email = '$email' ";
+                        $query = "SELECT * FROM coach_classes WHERE sport='badminton'AND email = '$email' ";
 
-                } else{
+                    } else{
 
-                    $query = "SELECT * FROM coach_classes WHERE sport='badminton'";
-                }
-                $res = mysqli_query($linkDB, $query); 
-                if($res == TRUE) {
-                    $count = mysqli_num_rows($res); //calculate number of rows
-                    if($count>0) {
-                        while($rows=mysqli_fetch_assoc($res)) 
-                        {
-                            $id=$rows['id'];
-                            echo "<tr id='row_$id'>
-                                    <td>" . $rows["date"]. "</td>
-                                    <td>" . $rows["age_group"]. "</td>
-                                    <td>" . $rows["level"]. "</td>
-                                    <td>" . $rows["time"]. "</td>
-                                    <td>" . $rows["coach"]. "</td>
-                                    <td>" . $rows["fee"]. "</td>
-                                    <td><button type='button' onclick='registerConfirmation($id)'>Register</button></td>
-                                    </tr>";
-                        }
-                    } else {
-                        echo "0 results";
+                        $query = "SELECT * FROM coach_classes WHERE sport='badminton'";
                     }
-                }
-            ?>
+                    $res = mysqli_query($linkDB, $query); 
+                    if($res == TRUE) {
+                        $count = mysqli_num_rows($res); //calculate number of rows
+                        if($count>0) {
+                            while($rows=mysqli_fetch_assoc($res)) 
+                            {
+                                $id=$rows['id'];
+                                echo "<tr id='row_$id'>
+                                        <td>" . $rows["date"]. "</td>
+                                        <td>" . $rows["age_group"]. "</td>
+                                        <td>" . $rows["level"]. "</td>
+                                        <td>" . $rows["time"]. "</td>
+                                        <td>" . $rows["coach"]. "</td>
+                                        <td>" . $rows["fee"]. "</td>
+                                        <td><button type='button' onclick='registerConfirmation($id)'>Register</button></td>
+                                        </tr>";
+                            }
+                        } else {
+                            echo "0 results";
+                        }
+                    }
+                ?>
 
             </table>
 
@@ -256,6 +256,23 @@ function registerConfirmation(id) {
 }
 </script>
 
+<script>
+// Remove the success message after 3 seconds
+setTimeout(function() {
+    var successMessage = document.getElementById('success-message');
+    var notsuccessMessage = document.getElementById('notsuccess-message');
+    var unsuccessMessage = document.getElementById('unsuccess-message');
 
+    if (successMessage) {
+        successMessage.style.display = 'none';
+    }
+    if (notsuccessMessage) {
+        notsuccessMessage.style.display = 'none';
+    }
+    if (unsuccessMessage) {
+        unsuccessMessage.style.display = 'none';
+    }
+}, 3000);
+</script>
 
 
