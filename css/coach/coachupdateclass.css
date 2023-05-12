@@ -125,13 +125,32 @@
     font-weight: bold;
 }
 
+.btn1{
+    background: #6d9976;
+    color: #000;
+    border: 1px solid #6d9976;
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-left: 10.5rem;
+    transition: all 0.3s ease;
+}
+
+.btn1:hover{
+    background: #264838;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+}
+
 
 .request{
   background-color: #ffffff;
   width: 25rem;
   height: 25rem;
   border-radius: 20px;
-  margin-left: 41rem;
+  margin-left: 40rem;
   margin-top: -29rem;
   box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2);
 }
@@ -142,13 +161,13 @@
   height: 25rem;
   float: right;
   border-radius: 20px;
-  margin-right: 10rem;
+  margin-right: 12rem;
   margin-top: -25rem;
   box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2);
 }
 
 #classid{
-    margin-left: 8rem;
+    margin-left: 8.3rem;
     margin-top: 1rem;
     font-size: 1.3rem;
     font-weight: 600;
@@ -156,6 +175,22 @@
     border: 2px solid #6d9976;
     padding: 0.5rem;
     border-radius: 1.3rem;
+}
+
+.delete p{
+    margin: 2rem;
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #000000;
+}
+
+#warn{
+    margin-left: 4.5rem;
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ff0000;
 }
 
 .update h3, .delete h3, .request h3{
