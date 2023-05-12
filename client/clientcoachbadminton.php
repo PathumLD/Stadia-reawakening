@@ -45,6 +45,19 @@
             
             <div class="content">
 
+            <?php
+              // Check if a success message is present in the URL
+              if(isset($_GET['msg']) && $_GET['msg'] == 'success') {
+                  echo "<div id='success-message' class='success-message'>Class registration successfull.</div>";
+              }
+              if(isset($_GET['msg']) && $_GET['msg'] == 'unsuccess') {
+                echo "<div id='unsuccess-message' class='notsuccess-message'>You are already registered for this class.</div>";
+            }
+            if(isset($_GET['msg']) && $_GET['msg'] == 'notsuccess') {
+                echo "<div id='notsuccess-message' class='notsuccess-message'>You are already registered for this class.</div>";
+            }
+            ?>
+
                         <h3><b>Enroll with the classes we provide!</b><br><br>
                         Whether you're looking to learn a new skill, develop a new hobby, or advance your career, taking classes can help you achieve your goals.</h3>
 
@@ -121,6 +134,7 @@
                 <th>Age Group</th>
                 <th>Level</th>
                 <th>Time</th>
+                <th>Coach</th>
                 <th>Class Fee</th>
                 <th>Action</th>
 
@@ -128,60 +142,38 @@
 
 
             <?php
-
                 if(isset($_POST['go'])){
 
                     $email = $_POST['coach_email'];
 
                     $query = "SELECT * FROM coach_classes WHERE sport='badminton'AND email = '$email' ";
-                    $res = mysqli_query($linkDB, $query); 
-                        if($res == TRUE) 
-                        {
-                            $count = mysqli_num_rows($res); //calculate number of rows
-                            if($count>0)
-                            {
-                                while($rows=mysqli_fetch_assoc($res))
-                                {
-                                    echo "<tr>
-                                            <td>" . $rows["date"]. "</td>
-                                            <td>" . $rows["age_group"]. "</td>
-                                            <td>" . $rows["level"]. "</td>
-                                            <td>" . $rows["time"]. "</td>
-                                            <td>" . $rows["fee"]. "</td>
-                                            <td><a href='clientmycart.php'>Register</a></td>
-                                        </tr>";                                
-                                    }
-                            } else {
-                                echo "0 results";
-                            }
-                        }
-                }
-                else{
+
+                } else{
 
                     $query = "SELECT * FROM coach_classes WHERE sport='badminton'";
-                    $res = mysqli_query($linkDB, $query); 
-                            if($res == TRUE) 
-                            {
-                                $count = mysqli_num_rows($res); //calculate number of rows
-                                if($count>0)
-                                {
-                                    while($rows=mysqli_fetch_assoc($res))
-                                    {
-                                        echo "<tr>
-                                                <td>" . $rows["age_group"]. "</td>
-                                                <td>" . $rows["level"]. "</td>
-                                                <td>" . $rows["date"]. "</td>
-                                                <td>" . $rows["time"]. "</td>
-                                                <td>" . $rows["fee"]. "</td>
-                                                <td><a href='clientmycart.php'>Register</a></td>
-                                            </tr>";
-                                    }
-                                } else {
-                                    echo "0 results";
-                                }
-                            }    
-                        }      
-                    ?>
+                }
+                $res = mysqli_query($linkDB, $query); 
+                if($res == TRUE) {
+                    $count = mysqli_num_rows($res); //calculate number of rows
+                    if($count>0) {
+                        while($rows=mysqli_fetch_assoc($res)) 
+                        {
+                            $id=$rows['id'];
+                            echo "<tr id='row_$id'>
+                                    <td>" . $rows["date"]. "</td>
+                                    <td>" . $rows["age_group"]. "</td>
+                                    <td>" . $rows["level"]. "</td>
+                                    <td>" . $rows["time"]. "</td>
+                                    <td>" . $rows["coach"]. "</td>
+                                    <td>" . $rows["fee"]. "</td>
+                                    <td><button type='button' onclick='registerConfirmation($id)'>Register</button></td>
+                                    </tr>";
+                        }
+                    } else {
+                        echo "0 results";
+                    }
+                }
+            ?>
 
             </table>
 
@@ -221,23 +213,6 @@
 </script>
 
 <script>
-      const section = document.querySelector(".section"),
-        overlay = document.querySelector(".overlay"),
-        showBtn = document.querySelector(".show-modal"),
-        closeBtn = document.querySelector(".close-btn");
-
-      showBtn.addEventListener("click", () => section.classList.add("active"));
-
-      overlay.addEventListener("click", () =>
-        section.classList.remove("active")
-      );
-
-      closeBtn.addEventListener("click", () =>
-        section.classList.remove("active")
-      );
-    </script>
-
-<script>
     const viewCvBtn = document.getElementById('view-cv-btn');
     
     viewCvBtn.addEventListener('click', () => {
@@ -245,3 +220,42 @@
         window.open(url, '_blank');
     });
 </script>
+
+<script>
+function registerConfirmation(id) {
+    // Get the row with the class data
+    var row = document.getElementById('row_' + id);
+
+    // Get the class data from the row
+    var date = row.cells[0].innerHTML;
+    var age_group = row.cells[1].innerHTML;
+    var level = row.cells[2].innerHTML;  
+    var time = row.cells[3].innerHTML;
+    var coach = row.cells[4].innerHTML;
+    var fee = row.cells[5].innerHTML;
+
+    // Create a custom confirm box
+    var confirmBox = document.createElement('div');
+    confirmBox.classList.add('confirm-box');
+    confirmBox.innerHTML = '<h2>Confirm Registration?</h2></i><p>Class Details:</p><ul><li>Date: ' + date + '</li><li>Age Group: ' + age_group + '</li><li>Level: ' + level + '</li><li>Time: ' + time + '</li><li>Coach: ' + coach + '</li><li>Fee: ' + fee + '</li></ul><button id="confirm-button">Confirm</button><button id="cancel-button">Cancel</button>';
+
+    // Add the confirm box to the page
+    document.body.appendChild(confirmBox);
+
+    // Add event listeners to the confirm and cancel buttons
+    var confirmButton = document.getElementById('confirm-button');
+    var cancelButton = document.getElementById('cancel-button');
+    confirmButton.addEventListener('click', function() {
+        // Redirect to the clientregisterclass.php page
+        window.location.href = 'clientregisterclass.php?id=' + id;
+    });
+    cancelButton.addEventListener('click', function() {
+        // Remove the confirm box from the page
+        document.body.removeChild(confirmBox);
+    });
+}
+</script>
+
+
+
+

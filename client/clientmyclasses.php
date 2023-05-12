@@ -89,6 +89,9 @@
                     <th>Coach</th>
                     <th>Date</th>
                     <th>Time</th>
+                    <th>Age Group</th>
+                    <th>Level</th>
+                    <th>Fee</th>
                     <th>Action</th>
                   </tr>
 
@@ -98,9 +101,25 @@
                                           
                           $search = $_POST['search'];
 
-                          $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.date, coach_classes.time
+                          $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.date, coach_classes.time, coach_classes.age_group, coach_classes.level, coach_classes.fee
                                     FROM coach_classes INNER JOIN client_classes ON coach_classes.class_id = client_classes.class_id 
-                                    WHERE date LIKE '%$search%' AND status=1 AND client_classes.email = '".$var."'";
+                                    WHERE date LIKE '%$search%' AND client_classes.status=1 AND client_classes.email = '".$var."'";
+                      
+                      } else if(isset($_POST['go2'])){
+
+                          $sport_search = $_POST['sport_search'];
+
+                          $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.date, coach_classes.time, coach_classes.age_group, coach_classes.level, coach_classes.fee
+                          FROM coach_classes INNER JOIN client_classes ON coach_classes.class_id = client_classes.class_id 
+                          WHERE sport LIKE '%$sport_search%' AND client_classes.status=1 AND client_classes.email = '".$var."'";
+
+                      } else {
+                        
+                          $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.date, coach_classes.time, coach_classes.age_group, coach_classes.level, coach_classes.fee
+                                    FROM coach_classes INNER JOIN client_classes ON coach_classes.class_id = client_classes.class_id 
+                                    WHERE client_classes.status=1 AND client_classes.email = '".$var."'";
+                      }
+
                           $res = mysqli_query($linkDB, $query); 
                           if($res == TRUE) 
                           {
@@ -115,6 +134,9 @@
                                               <td>" . $rows["coach"]. "</td>
                                               <td>" . $rows["date"]. "</td>
                                               <td>" . $rows["time"]. "</td> 
+                                              <td>" . $rows["age_group"]. "</td>
+                                              <td>" . $rows["level"]. "</td>
+                                              <td>" . $rows["fee"]. "</td>
                                               <td><button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button></td>
                                             </tr>";
                                   }
@@ -122,65 +144,7 @@
                                   echo "0 results";
                               }
                           }
-                      } 
-                      else{                  
-
-                        if(isset($_POST['go2'])){
-                                            
-                            $sport_search = $_POST['sport_search'];
-
-                            $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.date, coach_classes.time 
-                                      FROM coach_classes INNER JOIN client_classes ON coach_classes.class_id = client_classes.class_id 
-                                      WHERE sport LIKE '%$sport_search%' AND status=1 AND client_classes.email = '".$var."'";
-                            $res = mysqli_query($linkDB, $query); 
-                            if($res == TRUE) 
-                            {
-                                $count = mysqli_num_rows($res); //calculate number of rows
-                                if($count>0)
-                                {
-                                    while($rows=mysqli_fetch_assoc($res))
-                                    {
-                                        $id=$rows['id'];
-                                        echo "<tr id='row_$id'>
-                                                <td>" . $rows["sport"]. "</td>
-                                                <td>" . $rows["coach"]. "</td>
-                                                <td>" . $rows["date"]. "</td>
-                                                <td>" . $rows["time"]. "</td>
-                                                <td><button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button></td>
-                                              </tr>";
-                                    }
-                                } else {
-                                    echo "0 results";
-                                }
-                            }
-                        } 
-                        else{
-                          $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.date, coach_classes.time
-                                    FROM coach_classes INNER JOIN client_classes ON coach_classes.class_id = client_classes.class_id 
-                                    WHERE client_classes.status=1 AND client_classes.email = '".$var."'";
-                          $res = mysqli_query($linkDB, $query); 
-                            if($res == TRUE) 
-                            {
-                                $count = mysqli_num_rows($res); //calculate number of rows
-                                if($count>0)
-                                {
-                                    while($rows=mysqli_fetch_assoc($res))
-                                    {
-                                        $id=$rows['id'];
-                                        echo "<tr id='row_$id'>
-                                                <td>" . $rows["sport"]. "</td>
-                                                <td>" . $rows["coach"]. "</td>
-                                                <td>" . $rows["date"]. "</td>
-                                                <td>" . $rows["time"]. "</td>
-                                                <td><button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button></td>
-                                              </tr>";
-                                    }
-                                } else {
-                                    echo "0 results";
-                                }
-                            }
-                        }  
-                      } 
+                      
                   ?>
 
             </table>
