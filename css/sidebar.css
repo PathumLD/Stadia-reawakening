@@ -85,10 +85,14 @@
 
 .sidebar .nav-links button.active{
     background: #264838;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
 }
 
   .sidebar .nav-links button:hover{
     background: #264838;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
 }
 
 .sidebar .nav-links button .links_name{
@@ -127,11 +131,13 @@
 
 .sidebar .nav-links  .dropdown-container a:hover{
     background: #264838;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
 }
 
 .sidebar .nav-links .log-out{
     position: absolute;
-    bottom: 3.5rem;
+    bottom: 1rem;
     width: 100%;
     background-color: #3B6E51;
 }

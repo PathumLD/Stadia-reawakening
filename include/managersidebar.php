@@ -2,8 +2,9 @@
         <span class="logo-img"><img src="../images/logo.png" alt="logo"></span>
     </div>
     <div class="nav-links">
+
         <a href="managerdashboard.php"><i class="fa fa-th-large" ></i><span class="links_name">Dashboard</span></a>
-        <button class="dropdown-btn"><i class="fa fa-credit-card" aria-hidden="true"></i><span class="links_name">Payments</span>
+        <!-- <button class="dropdown-btn"><i class="fa fa-credit-card" aria-hidden="true"></i><span class="links_name">Payments</span>
             <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-container">
@@ -11,7 +12,7 @@
             <a href="managerpaymentcoaches.php">Coaches</a>
             <a href="managerpaymentsuppliers.php">Suppliers</a>
           
-        </div>
+        </div> -->
         <button class="dropdown-btn"><i class="fa fa-calendar" ></i><span class="links_name">Bookings</span>
             <i class="fa fa-caret-down"></i>
         </button>
@@ -38,6 +39,7 @@
           <a href="managercoachesswimming.php">Swimming</a> 
           
         </div>
+        <a href="managerclassverification.php"><i class="fa fa-check-square" aria-hidden="true"></i><span class="links_name">Class Verification</span></a>
         <a href="managerclientdetails.php"><i class="fa fa-list-ul" ></i><span class="links_name">Clients</span></a>
         <a href="managercomplaints.php"><i class="fa fa-comments" ></i><span class="links_name">Complaints</span></a>
         <button class="dropdown-btn"><i class="fa fa-stack-exchange" ></i><span class="links_name">View Orders</span>
@@ -51,6 +53,7 @@
         </div>
         <a href="managerequipmentrecords.php"><i class="fa fa-futbol-o" aria-hidden="true"></i><span class="links_name">Equipment</span></a>
         <a href="managerfirstaidrecords.php"><i class="fa fa-medkit" aria-hidden="true"></i><span class="links_name">First Aid Records</span></a>
+        <a href="managerchangepassword.php"><i class="fa fa-key" ></i><span class="links_name">Privacy</span></a>
         <div class="log-out">
             <a href="../logout.php"><i class="fa fa-sign-out" ></i><span class="links_name">Log out</span></a>
         </div>

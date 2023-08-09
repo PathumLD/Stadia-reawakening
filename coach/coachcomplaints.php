@@ -107,7 +107,7 @@
 
                     <th>Subject</th>
                     <th>Details</th>
-                    <th>Date Time</th>
+                    <th>Date</th>
                     <th>Action</th>
 
                 </tr>
@@ -128,7 +128,7 @@
                                         echo "<tr id='row_$id'>
                                                 <td>" . $rows["subject"]. "</td>
                                                 <td>" . $rows["details"]. "</td>
-                                                <td>" . $rows["datetime"]. "</td>
+                                                <td>" . date('Y-m-d', strtotime($rows["datetime"])). "</td>
                                                 <td> <button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'> /</i></button> 
                                                 <button class='update-button' onclick=\"openPopup($id, '" . $rows["subject"] . "', '" . $rows["details"] . "')\"><i class='fa fa-pencil-square-o'></i></button>                                              
                                             </tr>";

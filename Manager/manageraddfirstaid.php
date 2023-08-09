@@ -52,7 +52,7 @@
                     <input type="id" name="item_id" placeholder="Item Id" > <br><br>
                     <input type="name" name="item_name" placeholder="Item Name" > <br><br>
                     <input type="quant" name="quantity" placeholder="Quantity" > <br><br>
-                    <input type="submit" name="submit" value="Add" class="btn" >
+                    <input type="submit" name="submit" value="Add" class="addbtn" >
                 
                 </form>
                 
@@ -114,7 +114,7 @@ if (isset($_POST['submit'])) {
   if ($rs) {
     
     //header("location : viewequipment.php");
-    echo "<script>window.location.href='http://localhost/Stadia-reawakening-main/Manager/managerfirstaidrecords.php'; </script>";
+    echo "<script>window.location.href='managerfirstaidrecords.php'; </script>";
 
   }
 }

@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/coach/coachnotifications.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.28.0/dist/apexcharts.min.js"></script>
  
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -46,7 +48,46 @@
 
             <h1>Notification</h1>
 
-           
+            <div class="content">
+
+                    <table class='table'>
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Message</th>
+                                <th>Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>     
+
+                        <?php 
+                            // Get the email of the logged in user
+                            $email = $_SESSION["email"];
+
+                            // Query the notifications table for the specified email address
+                            $query = "SELECT * FROM notifications WHERE email = '$email' AND is_read = 0";
+                            $result = mysqli_query($linkDB, $query);
+
+                            // Check if there are any notifications for the current user
+                            if (mysqli_num_rows($result) > 0) {
+                                // Loop through the query result and display the notifications in a table
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                    $id = $row['id'];
+                                    echo "<tr id='row_$id'>";
+                                    echo "<td>" . $row["id"] . "</td>";
+                                    echo "<td>" . $row["message"] . "</td>";
+                                    echo "<td>" . $row["created_at"] . "</td>";
+                                    echo "<td><button class='update-button' onclick=\"openPopup($id)\"><i class='fa fa-trash'></i></button></td>";
+                                    echo "</tr>";
+                                }
+                                echo "</tbody></table>";
+                            } else {
+                                echo "<i class='fa fa-bell-slash'></i>";
+                            }
+                        
+                        ?>
+
+                </div>
 
           </div>
 
@@ -81,4 +122,32 @@
             }
           });
         }
+</script>
+
+<!-- Popup to delete notification -->
+<div id="notification-popup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <h2>Confirm Deletion</h2>
+        <form action="deletenotifications.php" method="post">
+            <input type="hidden" id="notification-id" name="notification_id">
+
+            <input type="submit" value="Delete notification" class="btn">
+        </form>
+    </div>
+</div>
+
+<script>
+    function openPopup(id) {
+        // Set the notification ID in the hidden input field
+        document.getElementById('notification-id').value = id;
+
+        // Show the popup
+        document.getElementById('notification-popup').style.display = 'block';
+    }
+
+    function closePopup() {
+        // Hide the popup
+        document.getElementById('notification-popup').style.display = 'none';
+    }
 </script>

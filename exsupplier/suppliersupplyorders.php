@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <?php include("../linkDB.php"); //database connection function ?>
 
 
@@ -12,6 +13,8 @@
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/supplier.css">
+
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -37,56 +40,55 @@
         </nav>
 
         <div class="home-content">
-            
+
 
             <div class="main-content">
-            <h1>Supply Orders</h1>
+                <div class="class">
+                    <h1>Supply Orders</h1>
+                    <table class="table" id="supplyorders">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Quantity</th>
+                                <th>Supplied</th> <!-- Add new column for checkbox -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            // execute the MySQL query to fetch the data
+                            $query = "SELECT product_id,type, quantity, date 
+                            FROM orders 
+                            WHERE (type = 'drink' OR type = 'snack') AND status = 1 AND s_r = 0";
 
-                
+                            $result = mysqli_query($linkDB, $query);
 
-                <table class="table">
-
-                    <tr>
-
-                        <th>Date</th>
-                        <th>Order Id</th>
-                        <th>Supplied</th>
-                        
-                    </tr>
-
-                    <?php
-                    $query = "SELECT * FROM suppliermyorders";
-                    $res = mysqli_query($linkDB, $query);
-                    if ($res == TRUE) {
-                        $count = mysqli_num_rows($res); //calculate number of rows
-                        if ($count > 0) {
-                            while ($rows = mysqli_fetch_assoc($res)) {
-                                $Date= $rows['Date'];
-                                $OrderId = $rows['OrderId'];
-                               
-                                ?>
-                                <tr>
-                                    <td>
-                                        <?php echo $Date; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $OrderId; ?>
-                                    </td>
-                                    <td><input type="checkbox" id="checkItem" class="chckbox" name="check[]" value="1"></td>
-                                </tr>
-                                <?php
+                            // loop through your orders and display them in the table
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo '<tr>';
+                                echo '<td>' . $row['product_id'] . '</td>';
+                                echo '<td>' . $row['date'] . '</td>';
+                                echo '<td>' . $row['type'] . '</td>';
+                                echo '<td>' . $row['quantity'] . '</td>';
+                                echo '<td>';
+                                echo '<form method="post" action="updatestatus.php">'; // Use POST method to submit the form
+                                echo '<input type="checkbox" name="orders[]" value="' . $row['product_id'] . ',' . $row['date'] . ',' . $row['quantity'] . '" style="transform: scale(1.5);">';
+                                echo '</td>';
+                                echo '</tr>';
                             }
-                        }
 
-                    }
-                    ?>
+                            ?>
+                        </tbody>
 
-                </table>
+                    </table>
+                    <button class="btn-new" type="submit" name="update_status"
+                        style="margin-left: 1130px;margin-top: 11px;">Update Supplied Orders</button>
+
+                </div>
 
             </div>
-
         </div>
-
         <footer>
             <div class="foot">
                 <span>Created By <a href="#">Stadia.</a> | &#169; 2023 All Rights Reserved</span>

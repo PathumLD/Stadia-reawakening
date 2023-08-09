@@ -70,60 +70,53 @@
                 </tr>
 
                 <?php
-                    $query = "SELECT fname, lname, NIC, phone, dob, emphone, emname, email
-                    FROM users WHERE type = 'client' ";
+    $query = "SELECT fname, lname, NIC, phone, dob, emphone, emname, email FROM users WHERE type = 'client'";
 
-                    if (!$linkDB) {
-                            die('Connection failed: ' . mysqli_connect_error());
-                        }
+    if (!$linkDB) {
+        die('Connection failed: ' . mysqli_connect_error());
+    }
 
-                        if (isset($_POST['go'])) {
-                            $search = $_POST['search'];
-                        } else {
-                            $search = null;
-                        }
+    if (isset($_POST['go'])) {
+        $search = $_POST['search'];
+    } else {
+        $search = null;
+    }
 
-                        if ($search) {
-                            $query = "SELECT * FROM users WHERE fname LIKE '%$search%'";
-                        } elseif ($search) {
-                            $query = "SELECT * FROM users WHERE NIC LIKE '%$search%'";
-                        } else {
-                            $query = "SELECT * FROM users";
-                        }
-                    $res = mysqli_query($linkDB, $query); 
-                            if($res == TRUE) 
-                            {
-                                $count = mysqli_num_rows($res); //calculate number of rows
-                                if($count>0)
-                                {
-                                    while($rows=mysqli_fetch_assoc($res))
-                                    {
-                                        $nic=$rows['NIC'];
-                                        $name=$rows['fname'] . ' ' . $rows['lname'];
-                                        $phone=$rows['phone'];
-                                        $email=$rows['email'];
-                                        $dob=$rows['dob'];
-                                        $ephone=$rows['emphone'];
-                                        $ename=$rows['emname'];
-                                        
-                                    ?>
-                                    <tr>
-                                                <td><?php echo $nic; ?> </td>
-                                                <td><?php echo $name; ?> </td>
-                                                <td><?php echo $phone; ?></td>
-                                                <td><?php echo $email; ?></td>
-                                                <td><?php echo $dob; ?></td>
-                                                <td><?php echo $ephone; ?></td>
-                                                <td><?php echo $ename; ?></td>
-                                                
-                                                
-                                            </tr>
-                                            <?php
-                                    }
-                                }    
+    if ($search) {
+        $query .= " AND fname LIKE '%$search%'";
+    }
 
-                            }  
-                    ?>
+    $res = mysqli_query($linkDB, $query);
+
+    if ($res == TRUE) {
+        $count = mysqli_num_rows($res);
+
+        if ($count > 0) {
+            while ($rows = mysqli_fetch_assoc($res)) {
+                $nic = $rows['NIC'];
+                $name = $rows['fname'] . ' ' . $rows['lname'];
+                $phone = $rows['phone'];
+                $email = $rows['email'];
+                $dob = $rows['dob'];
+                $ephone = $rows['emphone'];
+                $ename = $rows['emname'];
+                
+                // Output the table rows
+                ?>
+                <tr>
+                    <td><?php echo $nic; ?></td>
+                    <td><?php echo $name; ?></td>
+                    <td><?php echo $phone; ?></td>
+                    <td><?php echo $email; ?></td>
+                    <td><?php echo $dob; ?></td>
+                    <td><?php echo $ephone; ?></td>
+                    <td><?php echo $ename; ?></td>
+                </tr>
+                <?php
+            }
+        }
+    }
+?>
 
 
             </table>

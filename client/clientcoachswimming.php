@@ -64,7 +64,7 @@
             <table id="searchtable">
               <tr>
                 <td>
-                    <form method="post">
+                    <form method="post" id="search-form">
 
                         <select name="coach_email" class="search" id="disable">
                         <option value="" disabled selected>Search by Coach</option>
@@ -87,6 +87,7 @@
                                 }
                             }
                         ?>
+                        </select>
 
                         <input type="submit" name="go" value="Search" id="searchbtn">
 
@@ -146,11 +147,11 @@
 
                         $email = $_POST['coach_email'];
 
-                        $query = "SELECT * FROM coach_classes WHERE sport='swimming'AND email = '$email' ";
+                        $query = "SELECT * FROM coach_classes WHERE sport='swimming'AND email = '$email'  AND status = 1 ";
 
                     } else{
 
-                        $query = "SELECT * FROM coach_classes WHERE sport='swimming'";
+                        $query = "SELECT * FROM coach_classes WHERE sport='swimming'  AND status = 1 ";
                     }
                     $res = mysqli_query($linkDB, $query); 
                     if($res == TRUE) {
@@ -194,6 +195,7 @@
 </body>
 </html>
 
+
 <script>
         /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
         var dropdown = document.getElementsByClassName("dropdown-btn");
@@ -211,6 +213,7 @@
           });
         }
 </script>
+
 
 <script>
     const viewCvBtn = document.getElementById('view-cv-btn');

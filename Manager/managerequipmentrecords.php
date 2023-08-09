@@ -49,7 +49,7 @@
 
             <div class="first-aid-search">
               <div class="add-first-aid">
-                <div><a href="manageraddfirstaid.php"><i class="fa fa-plus-circle" id="plus" style="font-size:36px;"></i></a></div>
+                
               </div>
               <div>
                 <input type="text" name="search" class ="search" placeholder="Item name...">
@@ -72,7 +72,7 @@
                 <th>Item Name</th>
                 <th>Quantity</th>
                 <th>Price</th>
-                <th>Action</th>
+            
 
                 </tr>
                 <?php
@@ -94,9 +94,7 @@ if($res == TRUE)
                             <td>" . $rows["itemname"]. "</td>
                             <td>" . $rows["quantity"]. "</td>
                             <td>" . $rows["price"]. "</td>
-                            <td> <button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button> 
-                            <button class='update-button' onclick=\"openPopup('" . $rows["itemid"] . "', '" . $rows["itemname"] . "', '" . $rows["quantity"] . "', '" . $rows["price"] . "')\">
-                            <i class='fa fa-pencil-square-o'></i></button>
+                            
                             
                             
                 </tr>";
@@ -190,14 +188,14 @@ function confirmRowData(id) {
         <span class="close_u" onclick="closePopup()">&times;</span>
         <h2>Update Equipment Records</h2>
         <form action="updateequipment.php" method="post">
-               <label for="itemid">Item Id:</label>
-               <textbox type="text" id="itemid" name="itemid"></textbox>
+               
+               <input type="hidden" id="itemid" name="itemid">
                <label for="itemname">Item Name:</label>
-               <textbox type="text" id="itemname" name="itemname"></textbox>
+               <input type="text" id="itemname" name="itemname" class="input-field">
                <label for="quantity">Quantity:</label>
-               <textbox type="text" id="quantity" name="quantity"></textbox>
+               <input type="text" id="quantity" name="quantity" class="input-field">
                <label for="price">Price:</label>
-               <textbox type="text" id="price" name="price"></textbox>
+               <input type="text" id="price" name="price" class="input-field">
                <input type="submit" value="Update Equipment Records" class="btn">
         </form>
 

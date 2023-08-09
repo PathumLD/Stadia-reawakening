@@ -7,7 +7,6 @@
         <a href="coachprofile.php"><i class="fa fa-user" ></i><span class="links_name">My Profile</span></a>
         <a href="coachclasses.php"><i class="fa fa-list-ul" ></i><span class="links_name">My Classes</span></a>
         <a href="coachmystudents.php"><i class="fa fa-users" ></i><span class="links_name">My Students</span></a>
-        <a href="coachequipments.php"><i class="fa fa-stack-exchange" ></i><span class="links_name">Equipment</span></a>
         <a href="coachcomplaints.php"><i class="fa fa-comment" ></i><span class="links_name">Complaints</span></a>
         <button class="dropdown-btn"><i class="fa fa-calendar" ></i><span class="links_name">Time Slots</span>
             <i class="fa fa-caret-down"></i>
@@ -28,13 +27,3 @@
         
     </div>
 
-<script>
-    function toggleSidebar() {
-  var sidebar = document.querySelector(".sidebar");
-  if (sidebar.style.width === "240px") {
-    sidebar.style.width = "0";
-  } else {
-    sidebar.style.width = "240px";
-  }
-}
-</script>

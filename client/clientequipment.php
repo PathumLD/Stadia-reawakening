@@ -49,18 +49,6 @@
                     Don't worry we have got you covered! <br>
                     Rent any equipment you need for the cheapest price.</h3>
 
-                    <table id="searchtable">
-                        <tr>
-                            <td>
-                                <form method="post">
-                                    <input type="text" name="search" placeholder="Item Name..." class="search">
-                                    <input type="submit" name="go" value="Search" id="searchbtn">
-                                    <a href="clientbookings.php"><input type="submit" value="reset" id="resetbtn"></a>
-                                </form>
-                            </td>
-                        </tr>
-                    </table>
-
 
                     <form method="post">
                         <input type="date" name="date" min="<?= date('Y-m-d') ?>" max="<?= date('Y-m-d', strtotime('+3 months')) ?>"
@@ -118,7 +106,7 @@
                                 </tr>
                             </thead>
                             <?php
-                            $query_equipment = "SELECT * FROM equipment";
+                            $query_equipment = "SELECT * FROM equipment WHERE status = 1";
                             $result_equipment = mysqli_query($linkDB, $query_equipment);
                             while ($row_equipment = mysqli_fetch_assoc($result_equipment)) {
                                 $productId = $row_equipment['itemid'];

@@ -53,7 +53,7 @@
                     <input type="name" name="item_name" placeholder="Item Name" > <br><br>
                     <input type="quant" name="quantity" placeholder="Quantity" > <br><br>
                     <input type="pri" name="price" placeholder="Price" > <br><br>
-                    <input type="submit" name="submit" value="Add" class="btn" >
+                    <input type="submit" name="submit" value="Add" class="addbtn" >
                 
                 </form>
                 

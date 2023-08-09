@@ -1,27 +1,35 @@
-<!--<div class="sidebar-button">
+<div class="sidebar-button">
 
-        <i class="fa fa-bars sidebarBtn" ></i>
+<i class="fa fa-bars sidebarBtn" ></i>
         <span class="hello">
-            <?php 
+<?php
 
-                session_start();
+    $var = $_SESSION['email'];
 
-                $var = $_SESSION['email'];
+    // Execute the query to retrieve the first name of the user with the specified email address
+    
+    $sql = "SELECT username FROM adminuser WHERE email = '".$var."'";
+    $result = mysqli_query($linkDB, $sql);
 
-                $sql = "SELECT fname FROM users WHERE email = '".$var."'";
-                $result = $linkDB->query($sql);
+    // Check if the query was successful
+    if ($result) {
+        // Fetch the results and store the first name in a variable
+        if (mysqli_num_rows($result) > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+                $username = $row["username"];
+            }
+        }
+    } else {
+        // Display an error message if the query failed
+        echo "Error: " . mysqli_error($linkDB);
+    }
 
-                            if ($result-> num_rows>0){
-                                while($row = $result->fetch_assoc()){
-                                $name=$row["fname"];
-                                }
-                            }
-            ?>
+?>
 
-            <?php echo "Hello $name "; ?>
+            <?php echo "Hello $username "; ?>
+</span>
+</div>
 
-        </span>
-    </div>-->
 
     <div class="date-time">
 
@@ -46,8 +54,7 @@
         
     <div class="profile-details">
 
-        <a href='clientmycart.php'><i style='color:white;' class='fa fa-shopping-cart' ></i></a>
-        <a href='clientnotifications.php'><i style='color:white;' class='fa fa-bell'></i></a>
-        <img src="../images/profile.jpg" alt="">
+        <a href='managernotifications.php'><i style='color:white;' class='fa fa-bell'></i></a>
+       
         
       </div>

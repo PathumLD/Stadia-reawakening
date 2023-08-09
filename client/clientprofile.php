@@ -103,6 +103,17 @@
                           <?php
                             // Check if a file was selected for upload
                             if(!empty($_FILES['image']['name'])) {
+
+                                // Delete the old photo from the server
+                                $result = mysqli_query($linkDB, "SELECT dp FROM users WHERE email = '".$var."'");
+                                $row = mysqli_fetch_array($result);
+                                $oldfile = $row['dp'];
+                                if($oldfile != null) {
+                                  $folder = "../img/";
+                                  $target_file = $folder . basename($oldfile);
+                                  unlink($target_file);
+                                }
+                              
                               // Upload the image to a temporary location
                               $tempname = uniqid() . '_' . $_FILES['image']['name'];
                               $folder = "../img/";
@@ -118,6 +129,7 @@
                                 echo "<img src='".$folder.$tempname."' alt='dp'>";
                               }
                             } else{
+                              
                               // Retrieve the image from the database
                               $folder = "../img/";
                               $result = mysqli_query($linkDB, "SELECT * FROM users WHERE email = '".$var."'");
@@ -129,7 +141,7 @@
                                 // Display the image on the web page
                                 echo '<img src="' . $folder . $filename . '" alt ="dp">';
                               } else {
-                                echo "Upload a profile photo";
+                                echo '<img src="../img/noprofile.jpg"> ' ;
                               }
                             }
                           ?>
@@ -160,6 +172,7 @@
                           inputTag.addEventListener("change", (event) => {
                             // Submit the form when a file is selected
                             uploadForm.submit();
+                            
                           });
                         </script>
                     
@@ -181,6 +194,8 @@
               </div> 
               
               <div class="right">
+
+                <h3>Profile Photo</h3>
 
                 <table id="tableprofile">   
 
@@ -284,8 +299,7 @@ function closePopup1() {
     <span class="close" onclick="closePopup1()">&times;</span>
     <h3>Change Phone Number</h3>
     <form method="post" action="update_profile.php" >
-    
-      <label for='phone'>Update Phone</label>
+
       <input type='tel' placeholder='Enter phone' name='phone' pattern='[0-9]{10}'required>
                                     
       <input type='submit' class='btn' id='update-btn' name='update1' value='Update'>
@@ -312,7 +326,6 @@ function closePopup2() {
     <h3>Change Emergency Contact Number</h3>
     <form method="post" action="update_profile.php" >
     
-      <label for='emphone'>Update Contact Number</label>
       <input type='tel' placeholder='Enter number' name='emphone' pattern='[0-9]{10}'required>
                                     
       <input type='submit' class='btn' id='update-btn' name='update2' value='Update'>
@@ -339,7 +352,6 @@ function closePopup3() {
     <h3>Change Emergency Contact Number</h3>
     <form method="post" action="update_profile.php" >
 
-      <label for='emname'>Update Contact Name</label>
       <input type='text' placeholder='Enter name' name='emname' required>
                                     
       <input type='submit' class='btn' id='update-btn' name='update3' value='Update'>

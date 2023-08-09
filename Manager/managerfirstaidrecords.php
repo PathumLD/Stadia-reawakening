@@ -1,5 +1,5 @@
 <?php session_start(); ?>
-<!-- <?php include("../linkDB.php"); //database connection function ?> -->
+<?php include("../linkDB.php"); //database connection function ?> 
 
 
 <!DOCTYPE html>
@@ -89,7 +89,25 @@
                 </tr>
  <?php
 
-    $query = "SELECT * FROM first_aid ";
+if (!$linkDB) {
+  die('Connection failed: ' . mysqli_connect_error());
+}
+
+if (isset($_POST['go'])) {
+  $search = $_POST['search'];
+} else {
+  $search = null;
+}
+
+if ($search) {
+  $query = "SELECT * FROM first_aid WHERE item_name LIKE '%$search%'";
+} elseif ($search) {
+  $query = "SELECT * FROM first_aid WHERE item_id LIKE '%$search%'";
+} else {
+  $query = "SELECT * FROM first_aid";
+}
+
+    $query = "SELECT * FROM first_aid WHERE status = 1 ";
     $res = mysqli_query($linkDB, $query); 
     if($res == TRUE) 
              {
@@ -176,7 +194,7 @@ function confirmRowData(id) {
   // Create a custom confirm box
   var confirmBox = document.createElement('div');
   confirmBox.classList.add('confirm-box');
-  confirmBox.innerHTML = '<h2>Confirm Cancellation?</h2><p>Order Details:</p><ul><li>Date: ' + item_id + '</li><li>Item: ' + item_name + '</li><li>Ordered Quantity: ' + quantity + '</li></ul><h4><p>NOTE: We will be only refunding 75% of your payment per each cancellation</p></h4><button id="confirm-button">Confirm</button><button id="cancel-button">Cancel</button>';
+  confirmBox.innerHTML = '<h2>Confirm Deletion of the First Aid Item?</h2><p>Order Details:</p><ul><li>Item ID: ' + item_id + '</li><li>Item Name: ' + item_name + '</li><li>Quantity: ' + quantity + '</li></ul><button id="confirm-button">Confirm</button><button id="cancel-button">Cancel</button>';
 
   // Add the confirm box to the page
   document.body.appendChild(confirmBox);
@@ -201,12 +219,12 @@ function confirmRowData(id) {
         <span class="close_u" onclick="closePopup()">&times;</span>
         <h2>Update First-Aid Records</h2>
         <form action="updatefirstaid.php" method="post">
-               <label for="item_id">Item Id:</label>
-               <textbox type="text" id="item_id" name="item_id"></textbox>
+               
+               <input type="hidden" id="item_id" name="item_id">
                <label for="item_name">Item Name:</label>
-               <textbox type="text" id="item_name" name="item_name"></textbox>
+               <input type="text" id="item_name" name="item_name" class="input-field">
                <label for="quantity">Quantity:</label>
-               <textbox type="text" id="quantity" name="quantity"></textbox>
+               <input type="text" id="quantity" name="quantity" class="input-field">
                <input type="submit" value="Update First-Aid Records" class="btn">
         </form>
 

@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <?php include("../linkDB.php"); //database connection function ?>
 
 
@@ -12,6 +13,8 @@
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/supplier.css">
+
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -37,62 +40,58 @@
         </nav>
 
         <div class="home-content">
-            
+
 
             <div class="main-content">
-            <div class="title"> My Orders</div>
 
-               <table class="table">
-               
-                    <tr>
-                        <th>Order Id </th>
-                        <th>Date</th>
-                        <th>Quantity </th>
-                        <th> Amount </th>
-                        <th> </th>
-                    </tr>
-                    <?php
-                    $query = "SELECT * FROM  suppliermyorders";
-                    $res = mysqli_query($linkDB, $query);
-                    if ($res == TRUE) {
-                        $count = mysqli_num_rows($res); //calculate number of rows
-                        if ($count > 0) {
-                            while ($rows = mysqli_fetch_assoc($res)) {
-                                $OrderId = $rows['OrderId'];
-                                $Date = $rows['Date'];
-                                $Quantity = $rows['Quantity'];
-                                $Amount = $rows['Amount'];
-                                ?>
-                                <tr>
-                                    <td>
-                                        <?php echo $OrderId; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $Date; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $Quantity; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $Amount; ?>
-                                    </td>
-                                    <td><a href="suppliersupplyorders.php?id=<?php echo $id; ?>">Accept</a> </td>
+                <div class="class">
+                    <h1> Orders</h1>
 
-                                </tr>
-                                <?php
+                    <table class="table" id="orders">
+
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Quantity</th>
+                                
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            // execute the MySQL query to fetch the data
+                            $query = "SELECT product_id,type, quantity, date 
+                            FROM orders 
+                            WHERE (type = 'drink' OR type = 'snack') AND status = 1 AND s_r = 0";
+                            
+                            $result = mysqli_query($linkDB, $query);
+
+                            // loop through your orders and display them in the table
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                echo '<tr>';
+                                echo '<td>' . $row['product_id'] . '</td>';
+                                echo '<td>' . $row['date'] . '</td>';
+                                echo '<td>' . $row['type'] . '</td>';
+                                echo '<td>' . $row['quantity'] . '</td>';
+                                echo '</form>';
+                                echo '</td>';
+                                echo '</tr>';
                             }
-                        }
+                            ?>
+                        </tbody>
+                    </table>
 
-                    }
-                    ?>
 
-                </table>
+                   
+
+                </div>
             </div>
-        </div>
 
         </div>
 
-
+        </div>
 
         <footer>
             <div class="foot">

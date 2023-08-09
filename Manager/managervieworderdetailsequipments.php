@@ -59,7 +59,7 @@
                 </tr>
                 <?php
                      $id = $_GET['id'];
-                     $query = "SELECT * FROM ordered_equipment WHERE id = $id ";
+                     $query = "SELECT * FROM orders WHERE id = $id ";
                      $res = mysqli_query($linkDB, $query); 
 
                             if($res == TRUE) 
@@ -75,8 +75,8 @@
                                                 <td>" . $rows["id"]. "</td>
                                                 <td>" . $rows["date"]. "</td>
                                                 <td>" . $rows["email"]. "</td>
-                                                <td>" . $rows["itemname"]. "</td>
-                                                <td>" . $rows["orderedquantity"]. "</td>
+                                                <td>" . $rows["product_id"]. "</td>
+                                                <td>" . $rows["quantity"]. "</td>
                                                 
                                             </tr>";
                                     }

@@ -46,47 +46,92 @@
 
             <h1>View Orders - Equipments</h1>
 
-            
+            <table class="ps">
+                <tr><td>    </td></tr>
+               <tr><td> <form method="post">
+                    <input type="text" name="search" class ="search" placeholder="Product Id...">
+                    <input type="submit" name="go" value="search" id = "searchbtn">
+                    <input type="submit" name="reset" value="reset" id = "resetbtn">
+                </form></td></tr>
+            </table>
 
             <table class="table">
 
                 <tr>
 
-                <th>Client/Coach Email</th>
+
                 <th>Date</th>
-                <th>Order ID</th>
+                <th>Product</th>
+                <th>Name</th>
+                <th>Email</th>
                 <th>Show Details</th>
 
                 </tr>
 
                 <?php
-                    $query = "SELECT id, email, date FROM ordered_equipment ";
-                    $res = mysqli_query($linkDB, $query); 
-                            if($res == TRUE) 
-                            {
-                                $count = mysqli_num_rows($res); //calculate number of rows
-                                if($count>0)
-                                {
-                                    while($rows=mysqli_fetch_assoc($res))
-                                    {
-                                        $clientcoach_email=$rows['email'];
-                                        $date=$rows['date'];
-                                        $id=$rows['id'];
-                                    
-                                    echo "<tr>
+if (isset($_POST['go'])) {
+    $search = $_POST['search'];
 
-                                              <td>" . $rows["email"]. "</td>
-                                              <td>" . $rows["date"]. "</td>
-                                              <td>" . $rows["id"]. "</td>
-                                              <td><a href='managervieworderdetailsequipments.php?id=$id; '>View</a> </td>
-                                
-                                            </tr>";
-                                            
-                                    }
-                                }    
+    $query = "SELECT o.product_id, o.id, o.date, CONCAT(u.fname, ' ', u.lname) AS name, u.email
+    FROM orders o
+    INNER JOIN users u ON o.email = u.email
+    WHERE o.type = 'equipment' AND o.status = 1 AND o.product_id LIKE '%$search%'";
+    $res = mysqli_query($linkDB, $query);
 
-                            }  
-                    ?>
+    if ($res === FALSE) {
+        echo "Error executing query: " . mysqli_error($linkDB);
+    } else {
+        $count = mysqli_num_rows($res);
+        if ($count > 0) {
+            while ($rows = mysqli_fetch_assoc($res)) {
+                $id = $rows["id"];
+                echo "<tr>
+                    <td>" . $rows["date"] . "</td>
+                    <td>" . $rows["product_id"] . "</td>
+                    <td>" . $rows["name"] . "</td>
+                    <td>" . $rows["email"] . "</td>
+                    <td><a href='managervieworderdetailsequipments.php?id=$id'>View</a></td>
+                </tr>";
+            }
+        } else {
+            echo "0 results";
+        }
+    }
+} else {
+    $query = "SELECT o.product_id, o.id, o.date, CONCAT(u.fname, ' ', u.lname) AS name, u.email
+              FROM orders o
+              INNER JOIN users u ON o.email = u.email
+              WHERE o.type = 'equipment' AND o.status = 1";
+    $res = mysqli_query($linkDB, $query);
+
+    if ($res === FALSE) {
+        echo "Error executing query: " . mysqli_error($linkDB);
+    } else {
+        $count = mysqli_num_rows($res);
+        if ($count > 0) {
+            while ($rows = mysqli_fetch_assoc($res)) {
+                $id = $rows["id"];
+                echo "<tr>
+                    <td>" . $rows["date"] . "</td>
+                    <td>" . $rows["product_id"] . "</td>
+                    <td>" . $rows["name"] . "</td>
+                    <td>" . $rows["email"] . "</td>
+                    <td><a href='managervieworderdetailsequipments.php?id=$id'>View</a></td>
+                </tr>";
+            }
+        } else {
+            echo "0 results";
+        }
+    }
+}
+?>
+
+
+
+                
+
+                
+
 
             </table>
 

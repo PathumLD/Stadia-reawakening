@@ -47,7 +47,7 @@
     text-decoration: underline;
 }
 
-                                /* checkout */  
+                                /* boxes */
 
 .update{
   background-color: #ffffff;
@@ -67,6 +67,7 @@
     font-size: 1rem;
     max-width: 20rem;
     font-weight: 400;
+    margin-top: 4rem;
     margin-left: 6.5rem;
     border: 2px solid #6d9976;
     border-radius: 1.3rem;
@@ -83,25 +84,9 @@
     border-radius: 1rem;
 }
 
-.request p{
-    margin-left: 0.7rem;
-    margin-top: 1rem;
-    font-size: 1rem;
+#error-msg{
+    color :#ff0000;
     font-weight: 600;
-    color: #000000;
-}
-
-                            /* Dropdown */
-
-.drop{
-    width: 50%;
-    padding: 0.5rem;
-    font-size: 1rem;
-    max-width: 20rem;
-    font-weight: 400;
-    margin-left: 6.5rem;
-    border: 2px solid #6d9976;
-    border-radius: 1.3rem;
 }
 
                             /* Submit Button */      
@@ -155,6 +140,14 @@
   box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, 0.2), 2px 6px 3px 3px rgba(0, 0, 0, 0.2);
 }
 
+.request p{
+    margin-left: 0.7rem;
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #000000;
+}
+
 .delete{
   background-color: #ffffff;
   width: 25rem;
@@ -167,7 +160,7 @@
 }
 
 #classid{
-    margin-left: 8.3rem;
+    margin-left: 6.5rem;
     margin-top: 1rem;
     font-size: 1.3rem;
     font-weight: 600;

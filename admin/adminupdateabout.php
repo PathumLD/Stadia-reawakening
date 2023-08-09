@@ -12,6 +12,7 @@
     <!-- Fontawesome CDN Link -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/admin.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -44,7 +45,7 @@
                 <div class="form">
                     <h1>Update About Page</h1>
                     <form action="" method="POST">
-                        <textarea id="details" name="about" rows="10" cols="100"
+                        <textarea id="update" name="details" rows="10" cols="100"
                             required>Enter the details you want to update... </textarea><br><br>
                         <input type="submit" name="submit" class="btn" value="Confirm Update">
                     </form>
@@ -64,22 +65,25 @@
     </section>
 
 </body>
+</html>
+
 <?php
-  $details = $_POST['about'];
+
+
 if (isset($_POST['submit'])) {
-    //update query to update the details in the database
-     $update_query = "UPDATE adminabout SET details='$details'";
-    
-     $result = mysqli_query($linkDB, $update_query) ;
-     if ($result) {
-         echo "<script type='text/javascript'>alert('Details updated successfully');</script>";
-     }
+    $update = $_POST['details'];
+
+    $sql = "UPDATE adminabout SET details = '$update'"; //assuming there is only one row in the table
+
+    if (mysqli_query($linkDB, $sql)) {
+        echo "<script type='text/javascript'>alert('Details updated successfully');</script>";
+    } else {
+        echo "<script type='text/javascript'>alert('Error updating about page');</script>" . mysqli_error($linkDB);
+    }
 }
 ?>
 
-</html>
-
-<!-- <script>
+<script>
     /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
     var dropdown = document.getElementsByClassName("dropdown-btn");
     var i;
@@ -95,5 +99,4 @@ if (isset($_POST['submit'])) {
             }
         });
     }
-</script> -->
-
+</script>

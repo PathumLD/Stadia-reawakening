@@ -55,14 +55,14 @@
             }
             ?>
 
-<?php
+            <?php
               // Check if a success message is present in the URL
               if(isset($_GET['mesg']) && $_GET['mesg'] == 'success') {
                   echo "<div id='success-mesg' class='success-message'>Complaint submitted successfully.</div>";
               }
               if(isset($_GET['mesg']) && $_GET['mesg'] == 'notsuccess') {
                 echo "<div id='notsuccess-mesg' class='notsuccess-message'>Could not submit complaint - Please try again.</div>";
-            }
+              }
             ?>
 
             <div class="left">
@@ -80,7 +80,7 @@
 
                 <?php
 
-                    $query = "SELECT * FROM complaints WHERE status = 1 AND email = '".$var."'" ;
+                    $query = "SELECT * FROM complaints WHERE status = 1 AND handled = 3 AND email = '".$var."'" ;
                     $res = mysqli_query($linkDB, $query); 
                             if($res == TRUE) 
                             {
@@ -94,9 +94,9 @@
                                         echo "<tr id='row_$id'>
                                                 <td>" . $rows["subject"]. "</td>
                                                 <td>" . $rows["details"]. "</td>
-                                                <td>" . $rows["datetime"]. "</td>
+                                                <td>" . date('Y-m-d', strtotime($rows['datetime'])). "</td>
                                                 <td> <button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button> 
-                                                <button class='update-button' onclick=\"openPopup($id, '" . $rows["subject"] . "', '" . $rows["details"] . "')\"><i class='fa fa-pencil-square-o'></i></button>                                              
+                                                <button class='update-button' onclick=\"openPopup($id, '" . $rows["subject"] . "', '" . $rows["details"] . "')\"><i class='fa fa-pencil-square-o'></i></button></td>                                              
                                             </tr>";
                             }
                         } else {
@@ -129,12 +129,6 @@
 
                     </div>
                 
-                </div>
-
-                <div class="bottom">
-
-                  <img src="../images/complaint.jpg" alt="Girl in a jacket">
-
                 </div>
 
             </div> 

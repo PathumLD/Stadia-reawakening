@@ -1,0 +1,51 @@
+Complaints
+	status dflt 1 -> 0 when client deletes
+	handled dflt 3 -> 4 when manager handles -> 5 manager deletes 
+
+Coach_classes
+	status dflt 0 when coach add new class
+		-> 1 when manager verifies
+		-> 2 coach delete request
+		-> 3 manager approves delete
+Request
+	status dflt 0 -> 1 when approved by manager 
+		-> 2 when coach rejected
+
+Orders
+	status dflt 1 -> 0 if client cancels order
+	s_r dflt 0 -> 1 if supplied -> 2 if returned
+
+Client_classes
+	status dflt 1 -> 0 if client deregister from class
+
+Equipment 
+	status dflt 1 -> 0 if eqmanager deletes 
+
+Refreshment_drinks
+	status dflt 1 -> 0 if supplier deletes 
+
+Refreshment_snacks
+	status dflt 1 -> 0 if supplier deletes 
+
+first_aid
+	status dflt 1 -> 0 if manager deletes 
+
+slots_badminton1, slots_badminton2, slots_basketball, slots_swimming, slots_tennis, slots_volleyball
+	status dflt 1 -> 0 if client deletes
+
+notifications
+	is_read dflt 0 -> 1 if the message is deleted
+
+Equipment IDs
+			Badminton - Ebdm
+			Basketball - Ebsk
+			Volleyball - Evlb
+			Tennis - Etns
+			Swimming - Eswm
+
+Class IDs
+			Badminton - Cbdm
+			Basketball - Cbsk
+			Swimming - Cswm
+			Tennis - Ctns
+			Volleyball - Cvlb

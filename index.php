@@ -27,7 +27,6 @@
           <li><a href="#services">Services</a></li>
           <li><a href="#contact">Contact</a></li>
           <li><a href="login.php">Login</a></li>
-          <li><a href="adminlogin.php">Admin</a></li>
       </ul>
       <div class="media-icons">
         <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
@@ -79,27 +78,28 @@
 </section>
 
 
+<!-- Gallery section start -->
 <section class="gallery" id="gallery">
+  <div class="content">
+    <div class="title"><span>Gallery</span></div>
+    <div class="boxes">
 
- <div class="content">
+      <table>
+        <tr>
+          <td><img src="images/1.jpg" alt="about image"></td>
+          <td><img src="images/2.jpeg" alt="about image"></td>
+          <td><img src="images/3.jpg" alt="about image"></td>
+        </tr>
+        <tr>
+          <td><img src="images/4.jpg" alt="about image"></td>
+          <td><img src="images/5.jpg" alt="about image"></td>
+        </tr>
+      </table>
 
-   <div class="title"><span>Gallery</span></div>
-
-  <div class="boxes">
-    <table>
-      <tr>
-        <td><img src="images/1.jpg" alt="about image"></td>
-        <td><img src="images/2.jpeg" alt="about image"></td>
-        <td><img src="images/3.jpg" alt="about image"></td>
-        <td><img src="images/4.jpg" alt="about image"></td>
-        <td><img src="images/5.jpg" alt="about image"></td>
-      </tr>
-    </table>
+    </div>
   </div>
-
-</div>
-
 </section>
+
 
 <!-- My Services Section Start -->
  <section class="services" id="services">
@@ -116,19 +116,19 @@
       </div>
 
       <div class="box">
-        <div class="icon">
-          <i class="fas fa-user-secret"></i>
-        </div>
-        <div class="topic">Find Coaches</div>
-        <p>Clients can find and book coaches if they prefer to do practices in a professional manner</p>
-      </div>
+         <div class="icon">
+           <i class="fas fa-boxes"></i>
+       </div>
+       <div class="topic">Enroll in classes</div>
+       <p>Clients can register for classes based on their age and level of experience.</p>
+     </div>
 
        <div class="box">
          <div class="icon">
            <i class="fas fa-shopping-cart"></i>
        </div>
        <div class="topic">Rent Equipment</div>
-       <p>Clients can borrow and rent out equipment they need for an affordable rate on an hourly or daily basis.</p>
+       <p>Clients can borrow and rent out equipment they need for an affordable rate on a daily basis.</p>
      </div>
 
        <div class="box">
@@ -136,7 +136,7 @@
           <i class="fas fa-coffee"></i>
        </div>
        <div class="topic">Order Refreshments</div>
-       <p>Clients can place retail or bulk orders for refreshments such as snacks and drinks based on their preferences.</p>
+       <p>Clients can place retail or bulk orders for refreshments such as snacks and drinks.</p>
      </div>
 
        <div class="box">
@@ -147,13 +147,13 @@
        <p>Consists of a student information management system where records of students are kept and student information can be viewed.</p>
      </div>
 
-       <div class="box">
-         <div class="icon">
-           <i class="fas fa-boxes"></i>
-       </div>
-       <div class="topic">Flexible Package Plans</div>
-       <p>Clients can select a flexible package based on their age and level of experience.</p>
-     </div>
+     <div class="box">
+        <div class="icon">
+          <i class="fas fa-user-secret"></i>
+        </div>
+        <div class="topic">Find Coaches</div>
+        <p>Clients can find coaches if they prefer to do practices in a professional manner</p>
+      </div>       
 
    </div>
    </div>
@@ -168,7 +168,7 @@
         <li> <i class="fas fa-map-marker"></i> 35/A , Stadia , Park Street , Col-07</li>
         <li> <i class="fas fa-phone"></i> 011 - 2606888</li>
         <li> <i class="fas fa-mobile"></i> 071 123 4567</li>
-        <li> <i class="fas fa-building"></i> 6.00AM - 11.00PM  Monday - Sunday</li>
+        <li> <i class="fas fa-building"></i> 7.00AM - 10.00PM  Monday - Sunday</li>
       </ul>
     </div>
     <div class="map">

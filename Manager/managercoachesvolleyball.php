@@ -48,7 +48,7 @@
             <table class="ps">
                 <tr><td>    </td></tr>
                <tr><td> <form method="post">
-                    <input type="text" name="search" class ="search" placeholder="Complaint...">
+                    <input type="text" name="search" class ="search" placeholder="Name...">
                     <input type="submit" name="go" value="search" id = "searchbtn">
                     <input type="submit" name="reset" value="reset" id = "resetbtn">
                 </form></td></tr>
@@ -65,59 +65,60 @@
                 <th>No. of Students</th>
 
                 </tr>
-
                 <?php
-                    $query = "SELECT coach, date, time, age_group, no_of_students
-                    FROM coach_classes WHERE sport = 'tennis' ";
+    if(isset($_POST['go'])) {
+        $search = $_POST['search'];
+    } else {
+        $search = null;
+    }
 
-                    
-                    $res = mysqli_query($linkDB, $query); 
-                            if($res == TRUE) 
-                            {
-                                $count = mysqli_num_rows($res); //calculate number of rows
-                                if($count>0)
-                                {
-                                    while($rows=mysqli_fetch_assoc($res))
-                                    {
-                                        $coach=$rows['coach'];
-                                        $date=$rows['date'];
-                                        $time=$rows['time'];
-                                        $age_group=$rows['age_group'];
-                                        $no_of_students=$rows['no_of_students'];
-                                        
-                                        
-                                    ?>
-                                    <tr>
-                                                <td><?php echo $coach; ?> </td>
-                                                <td><?php echo $date; ?> </td>
-                                                <td><?php echo $time; ?></td>
-                                                <td><?php echo $age_group; ?></td>
-                                                <td><?php echo $no_of_students; ?></td>
-                                                
-                                                
-                                                
-                                            </tr>
-                                            <?php
-                                    }
-                                }    
+    // Check if the user is logged in
+    if(isset($_SESSION['email'])) {
+        // Retrieve the logged-in email address
+        $email = $_SESSION['email'];
+        
+        if($search == 'all') {
+            $query = "SELECT * FROM coach_classes WHERE sport='volleyball' AND (status = '1' OR status = '2')";
+        } else {
+            $query = "SELECT * FROM coach_classes WHERE coach LIKE '%$search%' AND sport='volleyball' AND (status = '1' OR status = '2')";
+        }
 
-                            }  
-                    ?>
-                
+        $res = mysqli_query($linkDB, $query);
 
-            </table>
+        if($res == TRUE) {
+            $count = mysqli_num_rows($res);
 
-          </div>
+            if($count > 0) {
+                while($rows = mysqli_fetch_assoc($res)) {
+                    $id = $rows['id'];
 
-        </div>
+                    echo "<tr id='row_$id'>  
+                        <td>" . $rows["coach"]. "</td>
+                        <td>" . $rows["day"]. "</td>
+                        <td>" . $rows["time"]. "</td>
+                        <td>" . $rows["age_group"]. "</td>
+                        <td>" . $rows["no_of_students"]. "</td>
+                        
+                    </tr>";
+                }
+            } else {
+                echo "0 results";
+            }
+        }
+    }
+?>
 
+</table>
+
+</div>
+</div>
+</div>
+
+<footer>
+    <div class="foot">
+      <?php include("../include/footer.php"); ?>
     </div>
-
-    <footer>
-        <div class="foot">
-          <?php include("../include/footer.php"); ?>
-        </div>
-    </footer> 
+</footer> 
 
 </section>
 
@@ -125,19 +126,19 @@
 </html>
 
 <script>
-        /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-        var dropdown = document.getElementsByClassName("dropdown-btn");
-        var i;
-        
-        for (i = 0; i < dropdown.length; i++) {
-          dropdown[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var dropdownContent = this.nextElementSibling;
-            if (dropdownContent.style.display === "block") {
-              dropdownContent.style.display = "none";
-            } else {
-              dropdownContent.style.display = "block";
-            }
-          });
+/* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+var dropdown = document.getElementsByClassName("dropdown-btn");
+var i;
+
+for (i = 0; i < dropdown.length; i++) {
+    dropdown[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var dropdownContent = this.nextElementSibling;
+        if (dropdownContent.style.display === "block") {
+            dropdownContent.style.display = "none";
+        } else {
+            dropdownContent.style.display = "block";
         }
+    });
+}
 </script>

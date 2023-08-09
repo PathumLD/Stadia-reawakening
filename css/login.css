@@ -238,3 +238,27 @@ body{
     display: none;
   }
 }
+
+/* error message */
+
+.error {
+  background-color: #D6EFC7;
+  color: red;
+  padding: 10px;
+  border-radius: 10px;
+  width: 45%;
+  font-size: small;
+  margin-left: 0.5rem;
+  text-align: center;
+}
+
+#reset {
+  height: 318px;
+  margin-left: 95px;
+  width: auto;
+}
+#rst {
+  height: 439px;
+  margin-left: 34px;
+  width: auto;
+}

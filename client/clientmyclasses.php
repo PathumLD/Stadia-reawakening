@@ -47,6 +47,22 @@
 
             <div class="content">
 
+              <?php
+                // Check if a success message is present in the URL
+                if(isset($_GET['msg']) && $_GET['msg'] == 'success') {
+                    echo "<div id='success-message' class='success-message'>Class registration successfull.</div>";
+                }
+                if(isset($_GET['msg']) && $_GET['msg'] == 'unsuccess') {
+                  echo "<div id='unsuccess-message' class='notsuccess-message'>Couldn't register for the class - Try again </div>";
+                }
+                if(isset($_GET['msg']) && $_GET['msg'] == 'notsuccess') {
+                    echo "<div id='notsuccess-message' class='notsuccess-message'>You are already registered for this class.</div>";
+                }
+                if(isset($_GET['msg']) && $_GET['msg'] == 'maxstudents') {
+                  echo "<div id='notsuccess-message' class='notsuccess-message'>The class is already full.</div>";
+              }
+              ?>
+
               <table id="searchtable">
                 <tr>
                   <td>
@@ -67,7 +83,7 @@
                   <td>
                     <form method="post">
                       <select name="sport_search" class="search" id="disable">
-                        <option value="" disabled selected>Search by Court</option>
+                        <option value="" disabled selected>Search by Sport</option>
                         <option value="Badminton">Badminton</option>
                         <option value="Basketball">Basketball</option>
                         <option value="Volleyball">Volleyball</option>
@@ -82,72 +98,72 @@
               </table>
 
               <div class="left">
-              <table class="table">
+                <table class="table">
 
-                  <tr>
-                    <th>Sport</th>
-                    <th>Coach</th>
-                    <th>Day</th>
-                    <th>Time</th>
-                    <th>Age Group</th>
-                    <th>Level</th>
-                    <th>Fee</th>
-                    <th>Action</th>
-                  </tr>
+                    <tr>
+                      <th>Sport</th>
+                      <th>Coach</th>
+                      <th>Day</th>
+                      <th>Time</th>
+                      <th>Age Group</th>
+                      <th>Level</th>
+                      <th>Fee</th>
+                      <th>Action</th>
+                    </tr>
 
-                  <?php
+                    <?php
 
-                      if(isset($_POST['go'])){
-                                          
-                          $search = $_POST['search'];
+                        if(isset($_POST['go'])){
+                                            
+                            $search = $_POST['search'];
 
-                          $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.day, coach_classes.time, coach_classes.age_group, coach_classes.level, coach_classes.fee
-                                    FROM coach_classes INNER JOIN client_classes ON coach_classes.class_id = client_classes.class_id 
-                                    WHERE day LIKE '%$search%' AND client_classes.status=1 AND client_classes.email = '".$var."'";
-                      
-                      } else if(isset($_POST['go2'])){
-
-                          $sport_search = $_POST['sport_search'];
-
-                          $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.day, coach_classes.time, coach_classes.age_group, coach_classes.level, coach_classes.fee
-                          FROM coach_classes INNER JOIN client_classes ON coach_classes.class_id = client_classes.class_id 
-                          WHERE sport LIKE '%$sport_search%' AND client_classes.status=1 AND client_classes.email = '".$var."'";
-
-                      } else {
+                            $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.day, coach_classes.time, coach_classes.age_group, coach_classes.level, coach_classes.fee
+                                      FROM coach_classes INNER JOIN client_classes ON coach_classes.class_id = client_classes.class_id 
+                                      WHERE day LIKE '%$search%' AND client_classes.status=1 AND (coach_classes.status=1 OR coach_classes.status=2) AND client_classes.email = '".$var."'";
                         
-                          $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.day, coach_classes.time, coach_classes.age_group, coach_classes.level, coach_classes.fee
-                                    FROM coach_classes INNER JOIN client_classes ON coach_classes.class_id = client_classes.class_id 
-                                    WHERE client_classes.status=1 AND client_classes.email = '".$var."'";
-                      }
+                        } else if(isset($_POST['go2'])){
 
-                          $res = mysqli_query($linkDB, $query); 
-                          if($res == TRUE) 
-                          {
-                              $count = mysqli_num_rows($res); //calculate number of rows
-                              if($count>0)
-                              {
-                                  while($rows=mysqli_fetch_assoc($res))
-                                  {
-                                      $id=$rows['id'];
-                                      echo "<tr id='row_$id'>
-                                              <td>" . $rows["sport"]. "</td>
-                                              <td>" . $rows["coach"]. "</td>
-                                              <td>" . $rows["day"]. "</td>
-                                              <td>" . $rows["time"]. "</td> 
-                                              <td>" . $rows["age_group"]. "</td>
-                                              <td>" . $rows["level"]. "</td>
-                                              <td>" . $rows["fee"]. "</td>
-                                              <td><button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button></td>
-                                            </tr>";
-                                  }
-                              } else {
-                                  echo "0 results";
-                              }
-                          }
-                      
-                  ?>
+                            $sport_search = $_POST['sport_search'];
 
-            </table>
+                            $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.day, coach_classes.time, coach_classes.age_group, coach_classes.level, coach_classes.fee
+                            FROM coach_classes INNER JOIN client_classes ON coach_classes.class_id = client_classes.class_id 
+                            WHERE sport LIKE '%$sport_search%' AND client_classes.status=1 AND (coach_classes.status=1 OR coach_classes.status=2) AND client_classes.email = '".$var."'";
+
+                        } else {
+                          
+                            $query = "SELECT client_classes.id, client_classes.class_id, coach_classes.sport, coach_classes.coach, coach_classes.day, coach_classes.time, coach_classes.age_group, coach_classes.level, coach_classes.fee
+                                      FROM coach_classes INNER JOIN client_classes ON coach_classes.class_id = client_classes.class_id 
+                                      WHERE client_classes.status=1 AND (coach_classes.status=1 OR coach_classes.status=2) AND client_classes.email = '".$var."'";
+                        }
+
+                            $res = mysqli_query($linkDB, $query); 
+                            if($res == TRUE) 
+                            {
+                                $count = mysqli_num_rows($res); //calculate number of rows
+                                if($count>0)
+                                {
+                                    while($rows=mysqli_fetch_assoc($res))
+                                    {
+                                        $id=$rows['id'];
+                                        echo "<tr id='row_$id'>
+                                                <td>" . $rows["sport"]. "</td>
+                                                <td>" . $rows["coach"]. "</td>
+                                                <td>" . $rows["day"]. "</td>
+                                                <td>" . $rows["time"]. "</td> 
+                                                <td>" . $rows["age_group"]. "</td>
+                                                <td>" . $rows["level"]. "</td>
+                                                <td>" . $rows["fee"]. "</td>
+                                                <td><button class='submit-button' onclick='confirmRowData($id)'><i class='fa fa-trash'></i></button></td>
+                                              </tr>";
+                                    }
+                                } else {
+                                    echo "0 results";
+                                }
+                            }
+                        
+                    ?>
+
+              </table>
 
             </div>
 
@@ -236,4 +252,27 @@ function confirmRowData(id) {
     document.body.removeChild(confirmBox);
   });
 }
+</script>
+
+<script>
+// Remove the success message after 3 seconds
+setTimeout(function() {
+    var successMessage = document.getElementById('success-message');
+    var notsuccessMessage = document.getElementById('notsuccess-message');
+    var unsuccessMessage = document.getElementById('unsuccess-message');
+    var nosuccessMessage = document.getElementById('maxstudents');
+
+    if (successMessage) {
+        successMessage.style.display = 'none';
+    }
+    if (notsuccessMessage) {
+        notsuccessMessage.style.display = 'none';
+    }
+    if (unsuccessMessage) {
+        unsuccessMessage.style.display = 'none';
+    }
+    if (nosuccessMessage) {
+        nosuccessMessage.style.display = 'none';
+    }
+}, 3000);
 </script>

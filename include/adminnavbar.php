@@ -32,7 +32,12 @@
         
     <div class="profile-details">
 
-        <a href='adminnotifications.php'><i style='color:white;' class='fa fa-bell'></i></a>
-        <img src="../images/profile.jpg" alt="">
+       
+
+            <i style='color:white;' class='fa fa-bell'><a href='adminnotifications.php'>
+            </i>
+        </a>
         
-      </div>
+        </div>
+
+    

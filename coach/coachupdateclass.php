@@ -83,40 +83,10 @@
 
                 <div class="update">
 
-                  <h3> Update </h3>
+                  <h3> Update Class </h3>
 
                   <form method="post">
                     <div><br><br>
-                      <select name="day" class="drop" required>
-                        <option value="" disabled selected>Day</option>
-                        <option value="Monday">Monday</option>
-                        <option value="Tuesday">Tuesday</option>
-                        <option value="Wednesday">Wednesday</option>
-                        <option value="Thursday">Thursday</option>
-                        <option value="Friday">Friday</option>
-                        <option value="Saturday">Saturday</option>
-                        <option value="Sunday">Sunday</option>
-                      </select> <br><br>
-
-                      <select name="time" class="drop" required>
-                        <option value="" disabled selected>Time Slot</option>
-                        <option value="6.00 - 7.00">6.00 - 7.00</option>
-                        <option value="7.00 - 8.00">7.00 - 8.00</option>
-                        <option value="8.00 - 9.00">8.00 - 9.00</option>
-                        <option value="9.00 - 10.00">9.00 - 10.00</option>
-                        <option value="10.00 - 11.00">10.00 - 11.00</option>
-                        <option value="11.00 - 12.00">11.00 - 12.00</option>
-                        <option value="12.00 - 13.00">12.00 - 13.00</option>
-                        <option value="13.00 - 14.00">13.00 - 14.00</option>
-                        <option value="14.00 - 15.00">14.00 - 15.00</option>
-                        <option value="15.00 - 16.00">15.00 - 16.00</option>
-                        <option value="16.00 - 17.00">16.00 - 17.00</option>
-                        <option value="17.00 - 18.00">17.00 - 18.00</option>
-                        <option value="18.00 - 19.00">18.00 - 19.00</option>
-                        <option value="19.00 - 20.00">19.00 - 20.00</option>
-                        <option value="20.00 - 21.00">20.00 - 21.00</option>
-                        <option value="21.00 - 22.00">21.00 - 22.00</option>
-                      </select> <br><br>
 
                       <input type="text" class = "input" name="no_of_students" placeholder="No of Students" required> <br><br>
 
@@ -127,33 +97,41 @@
                   </div>
 
 
-                  <?php
-                      // Check if form is submitted
-                      if(isset($_POST['submit'])){
-
-                          // Get form data
-                          $day = $_POST['day'];
-                          $time = $_POST['time'];
-                          $no_of_students = $_POST['no_of_students'];
-
-                          // Prepare SQL statement to update the table
-                          $sql = "UPDATE coach_classes SET day = '$day', time = '$time', no_of_students = '$no_of_students' WHERE id = '$id'";
-
-                          // Execute SQL statement
-                          if (mysqli_query($linkDB, $sql)) {
-                              echo "Record updated successfully";
-                          } else {
-                              echo "Error updating record: " . mysqli_error($linkDB);
-                          }
-                      }
+                  <?php 
+                    // Check if form is submitted
+                    if(isset($_POST['submit'])){
+                        // Get form data
+                        $no_of_students = $_POST['no_of_students'];
+                        // Check if no_of_students is less than or equal to 25
+                        if($no_of_students <= 25) {
+                            // Prepare SQL statement to update the table
+                            $sql = "UPDATE coach_classes SET no_of_students = '$no_of_students' WHERE id = '$id'";
+                            // Execute SQL statement
+                            if (mysqli_query($linkDB, $sql)) {
+                                echo "<script>window.location.href='coachclasses.php'; </script>";
+                            } else {
+                                echo "<div id='error-msg'>Error updating record: " . mysqli_error($linkDB) . "</div>";
+                            }
+                        } else {
+                            echo "<div id='error-msg'>Maximum number of students is 25</div>";
+                        }
+                    }
                   ?>
+
+                    <script>
+                    // Hide error message after 3 seconds
+                    setTimeout(function() {
+                        document.getElementById('error-msg').style.display = 'none';
+                    }, 3000);
+                    </script>
+
 
 
                 </div>
 
                 <div class="request">
 
-                  <h3> Leave Request </h3>
+                  <h3> Leaving Request </h3>
 
                   <p>Enter the date that you are going to take leave</p>
 
@@ -170,26 +148,28 @@
                           // echo "<label for='classid'>Class ID: </label><input type='text' name='classid' id='classid' value='$classid' readonly>";
                         ?>
                         <br>
+                        <!-- Add a hidden input field for the class_id value -->
+                        <input type="hidden" name="class_id" value ="<?php echo $classid; ?>">
                         <!-- <label for="date">Date:</label> -->
-                        <input type="date" name="date" id="date" class="input2"> <br><br>
+                        <input type="date" name="date" id="date" class="input2" min="<?= date('Y-m-d', strtotime('now'))?>" max="<?= date('Y-m-d', strtotime('+3 months'))?>"> <br><br>
                         <input type="submit" name="submit2" value="Send" class="btn1">
                       </form>
 
                       <?php
                         if(isset($_POST['submit2'])){  
-                          // $id = $_POST["id"]; // Assuming the row id is passed through the form
+                          $classid = $_POST["class_id"]; // Assuming the row id is passed through the form
                           $date = $_POST['date'];
 
-                          // Retrieve the classid from the coach_classes table based on the row id
-                          $query = "SELECT class_id FROM coach_classes WHERE id = '$id'";
-                          $result = mysqli_query($linkDB, $query);
-                          $row = mysqli_fetch_assoc($result);
-                          $classid = $row['class_id'];
-
                           // Insert the data into the request table
-                          $sql = "INSERT INTO request (classid, date) VALUES ('$classid', '$date')";
+                          $sql = "INSERT INTO request (classid, date, email) VALUES ('$classid', '$date', '$var')";
                           $rs= mysqli_query($linkDB,$sql);
+                          if($rs){
+                            echo "<script>window.location.href='coachdashboard.php'; </script>";
+                          } else {
+                            echo "<div id='error-msg'>Error: " . $sql . "<br>" . mysqli_error($linkDB) . "</div>";
+                          } 
 
+                          
                         }
                       ?>
 
@@ -198,7 +178,7 @@
 
                 <div class="delete">
 
-                  <h3> Delete </h3>
+                  <h3> Delete Class </h3>
 
                   <p>
                     The request will be accepted only at the 
@@ -229,14 +209,26 @@
                         // $date = $_POST['date'];
                       
                         // Retrieve the classid from the coach_classes table based on the row id
-                        $query = "SELECT class_id FROM coach_classes WHERE id = '$id'";
+                        $query = "SELECT * FROM coach_classes WHERE id = '$id'";
                         $result = mysqli_query($linkDB, $query);
                         $row = mysqli_fetch_assoc($result);
                         $classid = $row['class_id'];
-                      
-                        // Update the status value from 1 to 2 for the relevant class_id in the request table
+                        $status = $row['status'];
+
+                        // Check if the status is 2
+                        if($status == 2){
+                          echo "<div id='error-msg'>You have already sent a request to delete this class</div>";
+                        } else {
+                           // Update the status value from 1 to 2 for the relevant class_id in the request table
                         $sql = "UPDATE coach_classes SET status = '2' WHERE class_id = '$classid' AND status = '1'";
                         $rs = mysqli_query($linkDB, $sql);
+                        if($rs){
+                          echo "<script>window.location.href='coachclasses.php'; </script>";
+                        } else {
+                          echo "<div id='error-msg'>Error: " . $sql . "<br>" . mysqli_error($linkDB) . "</div>";
+                        }
+                        }
+                      
                     }
                     
                       ?>

@@ -41,11 +41,31 @@
 
             <h1>Dashboard</h1>
 
+            <?php
+                // Check if a success message is present in the URL
+                if(isset($_GET['msg']) && $_GET['msg'] == 'success') {
+                    echo "<div id='success-message' class='success-message'>Password updated successfully.</div>";
+                }
+                if(isset($_GET['msg']) && $_GET['msg'] == 'notsuccess') {
+                  echo "<div id='notsuccess-message' class='notsuccess-message'>Could not update password - Please try again.</div>";
+                }
+                if(isset($_GET['msg']) && $_GET['msg'] == 'unsuccess') {
+                  echo "<div id='unsuccess-message' class='notsuccess-message'>Your Passwords do not match - Please try again.</div>";
+                }
+              ?>
+
             <div class="content">
 
-            
+            <div>
+              Equipment IDs
+                Badminton - Ebdm
+                Basketball - Ebsk
+                Volleyball - Evlb
+                Tennis - Etns
+                Swimming - Eswm
+            </div>
 
-          </div>
+            </div>
 
         </div>
 
@@ -78,4 +98,23 @@
             }
           });
         }
+</script>
+
+<script>
+// Remove the success message after 3 seconds
+setTimeout(function() {
+    var successMessage = document.getElementById('success-message');
+    var notsuccessMessage = document.getElementById('notsuccess-message');
+    var unsuccessMessage = document.getElementById('unsuccess-message');
+
+    if (successMessage) {
+        successMessage.style.display = 'none';
+    }
+    if (notsuccessMessage) {
+        notsuccessMessage.style.display = 'none';
+    }
+    if (unsuccessMessage) {
+        unsuccessMessage.style.display = 'none';
+    }
+}, 3000);
 </script>

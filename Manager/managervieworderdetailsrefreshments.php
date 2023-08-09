@@ -52,14 +52,14 @@
 
                     <th>Date</th>
                     <th>Time</th>
-                    <th>Client/Coach ID</th>
                     <th>Email</th>
+                    <th>Item</th>
                     <th>Requests</th>
 
                 </tr>
                 <?php
                      $id = $_GET['id'];
-                     $query = "SELECT * FROM client_refreshments WHERE id = $id ";
+                     $query = "SELECT * FROM orders WHERE id = $id ";
                      $res = mysqli_query($linkDB, $query); 
 
                             if($res == TRUE) 
@@ -73,10 +73,10 @@
                                         echo "<tr>
                                                 
                                                 <td>" . $rows["date"]. "</td>
-                                                <td>" . $rows["time"]. "</td>
-                                                <td>" . $rows["id"]. "</td>
+                                                <td>" . date('H:i', strtotime($row['datetime'])) . "</td>
                                                 <td>" . $rows["email"]. "</td>
-                                                <td>" . $rows["orderedquantity"]. "</td>
+                                                <td>" . $rows["product_id"]. "</td>
+                                                <td>" . $rows["quantity"]. "</td>
                                                 
                                             </tr>";
                                     }

@@ -216,19 +216,32 @@ section .button button:hover{
 }
 
  /* My gallery CSS */
- .gallery{
-   background: #c4d4cc;
- }
- .gallery .content{
-   padding: 10px 0;
- }
+.gallery{
+  background: #c4d4cc;
+}
+
 .gallery .content .boxes img{
   height: 250px;
   width: 250px;
   object-fit: cover;
   border-radius: 12px;
   margin-bottom: 50px;
-  object-fit: cover;
+}
+
+.gallery .boxes table {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.gallery .boxes table tr {
+  display: inline-block;
+  margin-left: 7%;
+}
+
+.gallery .boxes table td {
+  padding-right: 150px;
+  vertical-align: top;
 }
 
 /* My Services CSS */
@@ -444,5 +457,11 @@ footer .text span a:hover{
   .skills-details .boxes .per{
     font-size: 50px;
     color: #3B6E51;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .gallery .boxes table td {
+    width: 50%;
   }
 }

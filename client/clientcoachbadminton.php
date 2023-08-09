@@ -45,19 +45,6 @@
             
             <div class="content">
 
-            <?php
-              // Check if a success message is present in the URL
-              if(isset($_GET['msg']) && $_GET['msg'] == 'success') {
-                  echo "<div id='success-message' class='success-message'>Class registration successfull.</div>";
-              }
-              if(isset($_GET['msg']) && $_GET['msg'] == 'unsuccess') {
-                echo "<div id='unsuccess-message' class='notsuccess-message'>Couldn't register for the class - Try again </div>";
-            }
-            if(isset($_GET['msg']) && $_GET['msg'] == 'notsuccess') {
-                echo "<div id='notsuccess-message' class='notsuccess-message'>You are already registered for this class.</div>";
-            }
-            ?>
-
                         <h3><b>Enroll with the classes we provide!</b><br><br>
                         Whether you're looking to learn a new skill, develop a new hobby, or advance your career, taking classes can help you achieve your goals.</h3>
 
@@ -95,33 +82,36 @@
                     </td>
 
                     <td>
-                    <button id="view-cv-btn">View CV</button>
+                    <!-- <button id="view-cv-btn">View CV</button> -->
 
-                        <?php
+                    <?php
+                        if (isset($_POST['go'])) {
 
-                            if(isset($_POST['go'])){
+                            $email = $_POST['coach_email'];
 
-                                $email = $_POST['coach_email'];
+                            //retrieve the pdf
+                            $folder = "../pdf/";
+                            $sql = "SELECT * FROM pdf_data WHERE email = '$email' ";
+                            $result = mysqli_query($linkDB, $sql);
+                            $row = mysqli_fetch_array($result);
 
-                                // Retrieve the pdf from the database
-                                $folder = "../pdf/";
-                                $sql = "SELECT * FROM pdf_data WHERE email = '$email' ";
-                                $result = mysqli_query($linkDB, $sql);
-                                $row = mysqli_fetch_array($result);
-                                if($row){
-                                    $filename = $row['filename'];
-                                    // code to display the pdf
-                                    } else {
-                                    echo "CV not found for the given email.";
-                                    }
+                            if ($row) {
+                                $file_id = $row['file_id'];
+                                $filename = $row['filename'];
+                                $cv_path = $folder . $file_id . $filename;
+                                
+                                // Create a button to open the CV in a new window/tab
+                                echo "<button onclick=\"window.open('$cv_path', '_blank')\">Open CV</button>";
+                            } else {
+                                echo "CV not found for the given email.";
                             }
-                            
-                            else {
-                                echo "Please select a coach to view his/her CV";
-                            }
-        
-                        ?>
+                        } else {
+                            echo "Please select a coach to view his/her CV";
+                        }
+                        ?> 
                     </td>
+
+                    
 
             </tr>
             </table>
@@ -146,11 +136,11 @@
 
                         $email = $_POST['coach_email'];
 
-                        $query = "SELECT * FROM coach_classes WHERE sport='badminton'AND email = '$email' ";
+                        $query = "SELECT * FROM coach_classes WHERE sport='badminton' AND email = '$email'  AND status = 1";
 
                     } else{
 
-                        $query = "SELECT * FROM coach_classes WHERE sport='badminton'";
+                        $query = "SELECT * FROM coach_classes WHERE sport='badminton' AND status = 1";
                     }
                     $res = mysqli_query($linkDB, $query); 
                     if($res == TRUE) {
@@ -255,24 +245,4 @@ function registerConfirmation(id) {
     });
 }
 </script>
-
-<script>
-// Remove the success message after 3 seconds
-setTimeout(function() {
-    var successMessage = document.getElementById('success-message');
-    var notsuccessMessage = document.getElementById('notsuccess-message');
-    var unsuccessMessage = document.getElementById('unsuccess-message');
-
-    if (successMessage) {
-        successMessage.style.display = 'none';
-    }
-    if (notsuccessMessage) {
-        notsuccessMessage.style.display = 'none';
-    }
-    if (unsuccessMessage) {
-        unsuccessMessage.style.display = 'none';
-    }
-}, 3000);
-</script>
-
 

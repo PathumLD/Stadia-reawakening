@@ -48,7 +48,7 @@
             <table class="ps">
                 <tr><td>    </td></tr>
                <tr><td> <form method="post">
-                    <input type="text" name="search" class ="search" placeholder="Complaint...">
+                    <input type="text" name="search" class ="search" placeholder="Name...">
                     <input type="submit" name="go" value="search" id = "searchbtn">
                     <input type="submit" name="reset" value="reset" id = "resetbtn">
                 </form></td></tr>
@@ -58,7 +58,7 @@
 
                 <tr>
 
-                <th>Coach Id</th>
+                <th>Name</th>
                 <th>Date</th>
                 <th>Time</th>
                 <th>Age Group</th>
@@ -67,42 +67,47 @@
                 </tr>
 
                 <?php
-                    $query = "SELECT coach, date, time, age_group, no_of_students
-                    FROM coach_classes WHERE sport = 'swimming' ";
+    if(isset($_POST['go'])) {
+        $search = $_POST['search'];
+    } else {
+        $search = null;
+    }
 
-                    
-                    $res = mysqli_query($linkDB, $query); 
-                            if($res == TRUE) 
-                            {
-                                $count = mysqli_num_rows($res); //calculate number of rows
-                                if($count>0)
-                                {
-                                    while($rows=mysqli_fetch_assoc($res))
-                                    {
-                                        $coach=$rows['coach'];
-                                        $date=$rows['date'];
-                                        $time=$rows['time'];
-                                        $age_group=$rows['age_group'];
-                                        $no_of_students=$rows['no_of_students'];
-                                        
-                                        
-                                    ?>
-                                    <tr>
-                                                <td><?php echo $coach; ?> </td>
-                                                <td><?php echo $date; ?> </td>
-                                                <td><?php echo $time; ?></td>
-                                                <td><?php echo $age_group; ?></td>
-                                                <td><?php echo $no_of_students; ?></td>
-                                                
-                                                
-                                                
-                                            </tr>
-                                            <?php
-                                    }
-                                }    
+    // Check if the user is logged in
+    if(isset($_SESSION['email'])) {
+        // Retrieve the logged-in email address
+        $email = $_SESSION['email'];
+        
+        if($search == 'all') {
+            $query = "SELECT * FROM coach_classes WHERE sport='swimming' AND (status = '1' OR status = '2')";
+        } else {
+            $query = "SELECT * FROM coach_classes WHERE coach LIKE '%$search%' AND sport='swimming' AND (status = '1' OR status = '2')";
+        }
 
-                            }  
-                    ?>
+        $res = mysqli_query($linkDB, $query);
+
+        if($res == TRUE) {
+            $count = mysqli_num_rows($res);
+
+            if($count > 0) {
+                while($rows = mysqli_fetch_assoc($res)) {
+                    $id = $rows['id'];
+
+                    echo "<tr id='row_$id'>  
+                        <td>" . $rows["coach"]. "</td>
+                        <td>" . $rows["day"]. "</td>
+                        <td>" . $rows["time"]. "</td>
+                        <td>" . $rows["age_group"]. "</td>
+                        <td>" . $rows["no_of_students"]. "</td>
+                        
+                    </tr>";
+                }
+            } else {
+                echo "0 results";
+            }
+        }
+    }
+?>
 
                 
 

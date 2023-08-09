@@ -1,26 +1,8 @@
-<?php include("../linkDB.php"); //database connection function 
-// Check if the form was submitted
-if (isset($_POST['generate_report'])) {
-
-    // Get the user inputs from the form
-    $report_type = $_POST['report_type'];
-    $month = $_POST['month'];
+<?php
+include("../linkDB.php"); //database connection function 
 
 
-if ($report_type == 'equipment_rental') {
-    $sql = "SELECT itemname, SUM(rental) AS total_rental FROM equipment_rental WHERE MONTH(date) = $month ";
-    $result = mysqli_query($linkDB, $sql);
 
-    
-    $data = array();
-    while ($row = mysqli_fetch_assoc($result)) {
-        $data[$row['itemname']] = $row['total_rental'];
-    }
-// } else {
-//     // Set the code for the other report types here
-// }
-}
-}
 
 ?>
 
@@ -40,13 +22,31 @@ if ($report_type == 'equipment_rental') {
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <link rel="stylesheet" href="../css/admin.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <?php include('../include/javascript.php'); ?>
     <?php include('../include/styles.php'); ?>
+    <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      text-align: left;
+      padding: 8px;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
 
-</head>
+  
+  </head>
+  
+
 
 <body onload="initClock()">
 
@@ -65,72 +65,28 @@ if ($report_type == 'equipment_rental') {
         </nav>
 
         <div class="home-content">
-            <div class="main-content">
-            
-                <div class="report-generator">
+            <div class="main-content" id="report-content">     
+  
+    <div class="report-generator">
                 <h1>Generate Reports</h1>
-                    <form  method="post" >
+                    <form  method="post" action="report_generator.php" target="_blank">
                         <label for="report-type">Select report type:</label>
                         <select id="report-type" name="report_type">
-                            <option value="monthly_revenue">Monthly Revenue Report</option>
-                            <option value="equipment_rental">Equipment Rental Report</option>
-                            <option value="refreshment_sales">Refreshment Sales Report</option>
-                            <option value="payment">Salary Payment Report</option>
+                            <option value="listcoaches">List of Coaches</option>
+                            <option value="listmembers">List of Members</option>
+                            <option value="refreshmentorders">Refreshment Orders</option>
+                            <option value="equipmentorders">Equipment Orders</option>
+                            <option value="complainstatus">Complaint Status</option>
                         </select>
-                        <label for="month">Select month:</label>
-                        <select id="month" name="month">
-                            <option value="1">January</option>
-                            <option value="2">February</option>
-                            <option value="3">March</option>
-                            <option value="4">April</option>
-                            <option value="5">May</option>
-                            <option value="6">June</option>
-                            <option value="7">July</option>
-                            <option value="8">August</option>
-                            <option value="9">September</option>
-                            <option value="10">October</option>
-                            <option value="11">November</option>
-                            <option value="12">December</option>
-                        </select>
-                        <button class="btn-new" type="submit" name="generate_report">Generate Report</button>
+                        <button class="btn-new" type="submit" name="generate_report" style="margin-left: 111px;margin-top: 24px;">Generate Report</button>
                     </form>
                 </div>
 
             </div>
         </div>
-        <canvas id="myChart"></canvas>
-        <script>
-        // Retrieve the data from PHP
-        var data = <?php echo json_encode($data); ?>;
+            </div>
+        </div>
 
-        // Create the chart
-        var ctx = document.createElement('canvas');
-        ctx.id = 'myChart';
-        document.body.appendChild(ctx);
-
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: Object.keys(data),
-                datasets: [{
-                    label: 'Equipment Rental',
-                    data: Object.values(data),
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
-    </script>
         <footer>
             <div class="foot">
                 <span>Created By <a href="#">Stadia.</a> | &#169; 2023 All Rights Reserved</span>
@@ -138,7 +94,7 @@ if ($report_type == 'equipment_rental') {
         </footer>
 
     </section>
-    
+
 
 </body>
 
@@ -162,9 +118,41 @@ if ($report_type == 'equipment_rental') {
     }
 </script>
 
+<?php
+// Get the selected report type from the form submission
+if(isset($_POST['generate_report'])) {
+    $report_type = $_POST['report_type'];
 
-  
+    // Execute the appropriate SQL query based on the selected report type
+    if ($report_type == 'listcoaches') {
+        $query = "SELECT sport, GROUP_CONCAT(coach) as coaches FROM coach_classes GROUP BY sport";
+        $result = $linkDB->query($query);
 
+        // Display the results as a table
+        echo '<table>';
+        echo '<thead><tr><th>Sport</th><th>Coaches</th></tr></thead>';
+        echo '<tbody>';
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                echo '<tr>';
+                echo '<td>' . $row['sport'] . '</td>';
+                echo '<td>' . $row['coaches'] . '</td>';
+                echo '</tr>';
+            }
+        } else {
+            echo '<tr><td colspan="2">No results found.</td></tr>';
+        }
+        echo '</tbody></table>';
+    } else if ($report_type == 'listmembers') {
+        // Add code to generate the "List of Members" report
+    } else if ($report_type == 'refreshmentorders') {
+        // Add code to generate the "Refreshment Orders" report
+    } else if ($report_type == 'equipmentorders') {
+        // Add code to generate the "Equipment Orders" report
+    } else if ($report_type == 'complainstatus') {
+        // Add code to generate the "Complaint Status" report
+    }
 
-
-
+   
+}
+?>
